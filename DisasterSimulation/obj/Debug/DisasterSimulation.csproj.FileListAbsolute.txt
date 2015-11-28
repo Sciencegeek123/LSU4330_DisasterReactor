@@ -1,0 +1,10 @@
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\DisasterSimulation.exe.config
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\DisasterSimulation.exe
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\DisasterSimulation.pdb
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\sfmlnet-audio-2.dll
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\sfmlnet-graphics-2.dll
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\sfmlnet-system-2.dll
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\Debug\sfmlnet-window-2.dll
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\obj\Debug\DisasterSimulation.csprojResolveAssemblyReference.cache
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\obj\Debug\DisasterSimulation.exe
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\obj\Debug\DisasterSimulation.pdb
