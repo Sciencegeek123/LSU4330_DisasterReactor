@@ -6,8 +6,8 @@ partial class InputStage : Stage
 {
     void EnterInfastructureState()
     {
-        data.ModesTextList.RemoveAt(1);
-        data.ModesTextList.Insert(1, new System.Tuple<string, bool>("Infastructure Input", true));
+        data.ModesTextList.RemoveAt(5);
+        data.ModesTextList.Insert(5, new System.Tuple<string, bool>("Infastructure Input", true));
 
         CurrentInputState = InputStates.Infastructure;
     }
@@ -26,8 +26,8 @@ partial class InputStage : Stage
         //Cleanup
 
         //Transition
-        data.ModesTextList.RemoveAt(1);
-        data.ModesTextList.Insert(1, new System.Tuple<string, bool>("Infastructure Input", false));
-        EnterDamageState();
+        data.ModesTextList.RemoveAt(5);
+        data.ModesTextList.Insert(5, new System.Tuple<string, bool>("Infastructure Input", false));
+        EnterInspectState();
     }
 }

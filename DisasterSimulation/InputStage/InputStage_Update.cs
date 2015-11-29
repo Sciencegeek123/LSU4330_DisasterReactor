@@ -10,14 +10,9 @@ partial class InputStage : Stage
     {
         switch(CurrentInputState)
         {
-            case InputStates.Geographic:
+            case InputStates.Difficulty:
                 {
-                    ProcessGeographicState();
-                    break;
-                }
-            case InputStates.Infastructure:
-                {
-                    ProcessInfastructureState();
+                    ProcessDifficultyState();
                     break;
                 }
             case InputStates.Damage:
@@ -28,6 +23,21 @@ partial class InputStage : Stage
             case InputStates.Value:
                 {
                     ProcessValueState();
+                    break;
+                }
+            case InputStates.Geographic:
+                {
+                    ProcessGeographicState();
+                    break;
+                }
+            case InputStates.Infastructure:
+                {
+                    ProcessInfastructureState();
+                    break;
+                }
+            case InputStates.Inspect:
+                {
+                    ProcessInspectState();
                     break;
                 }
             case InputStates.Finalize:

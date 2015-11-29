@@ -9,7 +9,7 @@ partial class GraphicsHolder
     Font RegularFont, BoldFont;
     Text HeaderText, ModesHeaderText, InfoHeaderText, ControlsHeaderText, TextTemplate;
 
-    public void RenderInfo(Data data)
+    public void RenderInfo()
     {
         HeaderText.DisplayedString = "Disaster Simulation - CS3380 Project \nWilliam Jones & Sam Shrestha\nFrame " + data.Time.frame + "\n\nPress ESC to exit";
 

@@ -6,8 +6,8 @@ partial class InputStage : Stage
 {
     void EnterGeographicState()
     {
-        data.ModesTextList.RemoveAt(0);
-        data.ModesTextList.Insert(0, new System.Tuple<string, bool>("Geographic Input", true));
+        data.ModesTextList.RemoveAt(4);
+        data.ModesTextList.Insert(4, new System.Tuple<string, bool>("Geographic Input", true));
 
         CurrentInputState = InputStates.Geographic;
     }
@@ -27,8 +27,8 @@ partial class InputStage : Stage
         //Cleanup
 
         //Transition
-        data.ModesTextList.RemoveAt(0);
-        data.ModesTextList.Insert(0, new System.Tuple<string, bool>("Geographic Input", false));
+        data.ModesTextList.RemoveAt(4);
+        data.ModesTextList.Insert(4, new System.Tuple<string, bool>("Geographic Input", false));
         EnterInfastructureState();
     }
 }

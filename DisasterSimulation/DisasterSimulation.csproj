@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Data.cs" />
+    <Compile Include="Data\GraphicsHolder\GraphicsHolder_OnClose.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_RenderInfoDisplay.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder.cs" />
     <Compile Include="Data\InputHolder.cs" />
@@ -96,6 +97,8 @@
     <Compile Include="InputStage\InputStage_Update.cs" />
     <Compile Include="InputStage\InputStage_Initialize.cs" />
     <Compile Include="InputStage\InputStage.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Difficulty.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Inspect.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Finalize.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Value.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Damage.cs" />

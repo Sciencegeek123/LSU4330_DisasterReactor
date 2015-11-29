@@ -10,11 +10,17 @@ partial class GraphicsHolder
     public RenderTexture ProgramDisplayTexture, ProgramInfoTexture;
     public RenderWindow ProgramWindow;
 
-    public void Initialize(Data data)
+    Data data;
+
+    public void Initialize(Data d)
     {
+        data = d;
+
         ProgramDisplayTexture = new RenderTexture(data.Settings.SimulationResolution.X, data.Settings.SimulationResolution.Y);
         ProgramInfoTexture = new RenderTexture(data.Settings.InformationResolution.X, data.Settings.InformationResolution.Y);
-        ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Recovery Simulation - CS3380 Project - wjone48 & sshre18");
+        ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Recovery Simulation - CS3380 Project - wjone48 & sshre18",Styles.Close);
+
+        ProgramWindow.Closed += onWindowClose;
 
         ProgramWindow.Clear(Color.White);
         ProgramWindow.Display();
@@ -54,7 +60,7 @@ partial class GraphicsHolder
         ProgramWindow.Clear(Color.Magenta);
     }
 
-    public void RenderWindow(Data data)
+    public void RenderWindow()
     {
         ProgramDisplayTexture.Display();
         ProgramInfoTexture.Display();

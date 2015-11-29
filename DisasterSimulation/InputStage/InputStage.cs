@@ -10,12 +10,14 @@ partial class InputStage : Stage
 
     enum InputStates
     {
-        Geographic,
-        Infastructure,
+        Difficulty,
         Damage,
         Value,
+        Geographic,
+        Infastructure,
+        Inspect,
         Finalize
     }
 
-    InputStates CurrentInputState = InputStates.Geographic;
+    InputStates CurrentInputState;
 }

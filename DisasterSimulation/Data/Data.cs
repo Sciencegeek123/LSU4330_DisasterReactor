@@ -39,8 +39,8 @@ class Data
 
     public void PostUpdate()
     {
-        Graphics.RenderInfo(this);
-        Graphics.RenderWindow(this);
+        Graphics.RenderInfo();
+        Graphics.RenderWindow();
     }
 }
 

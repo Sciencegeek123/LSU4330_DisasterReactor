@@ -7,8 +7,8 @@ partial class InputStage : Stage
 
     void EnterFinalizeState()
     {
-        data.ModesTextList.RemoveAt(4);
-        data.ModesTextList.Insert(4, new System.Tuple<string, bool>("Finalize", true));
+        data.ModesTextList.RemoveAt(8);
+        data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", true));
 
         CurrentInputState = InputStates.Finalize;
     }
@@ -28,8 +28,8 @@ partial class InputStage : Stage
         //Cleanup
 
         //Transition
-        data.ModesTextList.RemoveAt(4);
-        data.ModesTextList.Insert(4, new System.Tuple<string, bool>("Finalize", false));
-        EnterGeographicState();
+        data.ModesTextList.RemoveAt(8);
+        data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", false));
+        EnterDifficultyState();
     }
 }

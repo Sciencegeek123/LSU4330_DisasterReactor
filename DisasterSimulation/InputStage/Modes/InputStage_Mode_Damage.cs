@@ -6,8 +6,8 @@ partial class InputStage : Stage
 {
     void EnterDamageState()
     {
-        data.ModesTextList.RemoveAt(2);
-        data.ModesTextList.Insert(2, new System.Tuple<string, bool>("Paint Damage", true));
+        data.ModesTextList.RemoveAt(1);
+        data.ModesTextList.Insert(1, new System.Tuple<string, bool>("Paint Damage", true));
 
         CurrentInputState = InputStates.Damage;
     }
@@ -27,8 +27,8 @@ partial class InputStage : Stage
         //Finalize
 
         //Transition
-        data.ModesTextList.RemoveAt(2);
-        data.ModesTextList.Insert(2, new System.Tuple<string, bool>("Paint Damage", false));
+        data.ModesTextList.RemoveAt(1);
+        data.ModesTextList.Insert(1, new System.Tuple<string, bool>("Paint Damage", false));
         EnterValueState();
     }
 }

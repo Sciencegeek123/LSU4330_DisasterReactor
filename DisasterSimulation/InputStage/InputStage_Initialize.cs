@@ -9,13 +9,17 @@ partial class InputStage : Stage
         data = d;
 
         //Initial State
-        CurrentInputState = InputStates.Geographic;
+        CurrentInputState = InputStates.Difficulty;
 
         //Modes
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Geographic Input", true));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Infastructure Input", false));
+        data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Difficulty", true));
         data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Damage", false));
         data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Value", false));
+        data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
+        data.ModesTextList.Add(new System.Tuple<string, bool>("Geographic Input", false));
+        data.ModesTextList.Add(new System.Tuple<string, bool>("Infastructure Input", false));
+        data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
+        data.ModesTextList.Add(new System.Tuple<string, bool>("Inspect", false));
         data.ModesTextList.Add(new System.Tuple<string, bool>("Finalize", false));
 
         //Controls
