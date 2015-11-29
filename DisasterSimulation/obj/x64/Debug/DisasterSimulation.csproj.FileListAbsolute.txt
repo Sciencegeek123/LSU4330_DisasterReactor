@@ -7,6 +7,7 @@ C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\sfmlnet-syst
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\sfmlnet-window-2.dll
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\obj\x64\Debug\DisasterSimulation.exe
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\obj\x64\Debug\DisasterSimulation.pdb
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\obj\x64\Debug\DisasterSimulation.csprojResolveAssemblyReference.cache
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\csfml-audio-2.dll
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\csfml-graphics-2.dll
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\csfml-system-2.dll
