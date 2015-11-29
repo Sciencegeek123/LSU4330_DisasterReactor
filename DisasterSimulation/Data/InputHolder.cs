@@ -4,6 +4,13 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
+class MonitorKey
+{
+    public bool Pressed = false;
+    public bool Held = false;
+    public bool Delay = false;
+    public float Read = -1;
+}
 
 class InputHolder
 {
@@ -11,17 +18,17 @@ class InputHolder
 
     public bool EscapeKeyPressed = false;
 
-    private Dictionary<Keyboard.Key, Tuple<bool,float>> RegisteredKeys;
+    private Dictionary<Keyboard.Key, MonitorKey> RegisteredKeys;
 
     public void Initialize(Data d)
     {
         data = d;
-        RegisteredKeys = new Dictionary<Keyboard.Key, Tuple<bool, float>>();
+        RegisteredKeys = new Dictionary<Keyboard.Key, MonitorKey>();
     }
 
     public void TrackKey(Keyboard.Key k)
     {
-        RegisteredKeys.Add(k, new Tuple<bool, float>(false, -1));
+        RegisteredKeys.Add(k, new MonitorKey());
     }
 
     public void UntrackKey(Keyboard.Key k)
@@ -29,16 +36,32 @@ class InputHolder
         RegisteredKeys.Remove(k);
     }
 
-    public void ClearTrackedKeys(Keyboard.Key k)
+    public void ClearTrackedKeys()
     {
         RegisteredKeys.Clear();
     }
 
-    public bool CheckKey(Keyboard.Key k)
+    public bool CheckKeyHeld(Keyboard.Key k)
     {
-        bool ReturnValue = RegisteredKeys[k].Item1;
-        RegisteredKeys[k] = new Tuple<bool, float>(false, RegisteredKeys[k].Item2);
-        return ReturnValue;
+        if (!RegisteredKeys.ContainsKey(k))
+            return false;
+
+        return RegisteredKeys[k].Held;
+    }
+
+    public bool CheckKeyPressed(Keyboard.Key k)
+    {
+        if (!RegisteredKeys.ContainsKey(k))
+            return false;
+
+        if(RegisteredKeys[k].Pressed)
+        {
+            RegisteredKeys[k].Pressed = false;
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     public void Update()
@@ -54,17 +77,25 @@ class InputHolder
             return;
         }
 
+        
+
         List<Keyboard.Key> KeyList = new List<Keyboard.Key>(RegisteredKeys.Keys);
         foreach (Keyboard.Key key in KeyList)
         {
             if(Keyboard.IsKeyPressed(key))
             {
-                Tuple<bool, float> Value = RegisteredKeys[key];
-                if (!Value.Item1 && (data.Time.runTime - Value.Item2) > data.Settings.KeyPressDelay)
+                RegisteredKeys[key].Held = true;
+                if (!RegisteredKeys[key].Delay && (data.Time.runTime - RegisteredKeys[key].Read) > data.Settings.KeyPressDelay)
                 {
-                    RegisteredKeys[key] = new Tuple<bool, float>(true, data.Time.runTime);
+                    RegisteredKeys[key].Pressed = true;
+                    RegisteredKeys[key].Delay = true;
+                    RegisteredKeys[key].Read = data.Time.runTime;
                 }
 
+            } else
+            {
+                RegisteredKeys[key].Held = false;
+                RegisteredKeys[key].Delay = false;
             }
         }
     }

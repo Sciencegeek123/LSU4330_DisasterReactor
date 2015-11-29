@@ -6,18 +6,35 @@ using System.Windows.Forms;
 
 partial class InputStage : Stage
 { 
-    public override void Update(Data data)
+    public override void Update()
     {
-        if (data.Input.CheckKey(Keyboard.Key.F))
+        switch(CurrentInputState)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                System.IO.StreamReader sr = new
-                   System.IO.StreamReader(openFileDialog1.FileName);
-                MessageBox.Show(sr.ReadToEnd());
-                sr.Close();
-            }
+            case InputStates.Geographic:
+                {
+                    ProcessGeographicState();
+                    break;
+                }
+            case InputStates.Infastructure:
+                {
+                    ProcessInfastructureState();
+                    break;
+                }
+            case InputStates.Damage:
+                {
+                    ProcessDamageState();
+                    break;
+                }
+            case InputStates.Value:
+                {
+                    ProcessValueState();
+                    break;
+                }
+            case InputStates.Finalize:
+                {
+                    ProcessFinalizeState();
+                    break;
+                }
         }
     }
 }

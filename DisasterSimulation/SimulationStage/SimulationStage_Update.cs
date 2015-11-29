@@ -4,7 +4,7 @@ using SFML.Window;
 
 partial class SimulationStage : Stage
 {
-    public override void Update(Data data)
+    public override void Update()
     {
 
     }

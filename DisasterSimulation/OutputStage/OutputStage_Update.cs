@@ -5,7 +5,7 @@ using SFML.Window;
 
 partial class OutputStage : Stage
 {
-    public override void Update(Data data)
+    public override void Update()
     {
 
     }

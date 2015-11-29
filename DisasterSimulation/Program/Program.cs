@@ -27,7 +27,7 @@ class Program
             if (data.Input.EscapeKeyPressed)
                 return;
             inputControl.PreUpdate(data);
-            inputControl.Update(data);
+            inputControl.Update();
             data.PostUpdate();
         } while (!inputControl.transitionToNextStage());
         inputControl.Finalize(data);
@@ -40,7 +40,7 @@ class Program
             if (data.Input.EscapeKeyPressed)
                 return;
             simControl.PreUpdate(data);
-            simControl.Update(data);
+            simControl.Update();
             data.PostUpdate();
         } while (!simControl.transitionToNextStage());
         simControl.Finalize(data);
@@ -53,7 +53,7 @@ class Program
             if (data.Input.EscapeKeyPressed)
                 return;
             outputControl.PreUpdate(data);
-            outputControl.Update(data);
+            outputControl.Update();
             data.PostUpdate();
         } while (!simControl.transitionToNextStage());
         outputControl.Finalize(data);

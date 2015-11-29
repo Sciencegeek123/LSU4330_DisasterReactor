@@ -31,6 +31,7 @@ class Data
 
     public void PreUpdate()
     {
+        Graphics.ProgramWindow.DispatchEvents();
         Time.Update();
         Graphics.ClearWindow();
         Input.Update();

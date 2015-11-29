@@ -26,7 +26,7 @@ partial class Stage
     }
 
     public virtual void Initialize(Data d) { }
-    public virtual void Update(Data d) { }
+    public virtual void Update() { }
     public virtual void Finalize(Data d) { }
 
 }

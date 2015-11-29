@@ -96,6 +96,11 @@
     <Compile Include="InputStage\InputStage_Update.cs" />
     <Compile Include="InputStage\InputStage_Initialize.cs" />
     <Compile Include="InputStage\InputStage.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Finalize.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Value.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Damage.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Infastructure.cs" />
+    <Compile Include="InputStage\Modes\InputStage_Mode_Geographic.cs" />
     <Compile Include="OutputStage\OutputStage_Update.cs" />
     <Compile Include="OutputStage\OutputStage_Initialize.cs" />
     <Compile Include="OutputStage\OutputStage.cs" />

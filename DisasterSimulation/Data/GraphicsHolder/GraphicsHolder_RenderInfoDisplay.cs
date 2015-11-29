@@ -11,12 +11,12 @@ partial class GraphicsHolder
 
     public void RenderInfo(Data data)
     {
-        HeaderText.DisplayedString = "Disaster Simulation - CS3380 Project \nWilliam Jones & Sam Shrestha\nFrame " + data.Time.frame;
+        HeaderText.DisplayedString = "Disaster Simulation - CS3380 Project \nWilliam Jones & Sam Shrestha\nFrame " + data.Time.frame + "\n\nPress ESC to exit";
 
         ProgramInfoTexture.Draw(HeaderText);
 
         float lineSize = RegularFont.GetLineSpacing(data.Settings.InformationFontSize) * 1.1f;
-        float offset = lineSize * 6f;
+        float offset = lineSize * 7f;
 
         ModesHeaderText.Position = new Vector2f(5, offset);
         ProgramInfoTexture.Draw(ModesHeaderText);
@@ -40,8 +40,8 @@ partial class GraphicsHolder
         }
         offset += lineSize;
 
-        InfoHeaderText.Position = new Vector2f(5, offset);
-        ProgramInfoTexture.Draw(InfoHeaderText);
+        ControlsHeaderText.Position = new Vector2f(5, offset);
+        ProgramInfoTexture.Draw(ControlsHeaderText);
         offset += lineSize * 1.5f;
 
         foreach (Tuple<string, bool> str in data.ControlsTextList)
@@ -60,8 +60,8 @@ partial class GraphicsHolder
         }
         offset += lineSize;
 
-        ControlsHeaderText.Position = new Vector2f(5, offset);
-        ProgramInfoTexture.Draw(ControlsHeaderText);
+        InfoHeaderText.Position = new Vector2f(5, offset);
+        ProgramInfoTexture.Draw(InfoHeaderText);
         offset += lineSize * 1.5f;
 
         foreach (Tuple<string, bool> str in data.InfoTextList)

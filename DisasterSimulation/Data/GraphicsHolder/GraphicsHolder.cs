@@ -16,6 +16,10 @@ partial class GraphicsHolder
         ProgramInfoTexture = new RenderTexture(data.Settings.InformationResolution.X, data.Settings.InformationResolution.Y);
         ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Recovery Simulation - CS3380 Project - wjone48 & sshre18");
 
+        ProgramWindow.Clear(Color.White);
+        ProgramWindow.Display();
+        ProgramWindow.RequestFocus();
+
         RegularFont = new Font("Anonymous_Pro.ttf");
         BoldFont = new Font("Anonymous_Pro_B.ttf");
 
@@ -37,9 +41,9 @@ partial class GraphicsHolder
         ControlsHeaderText.Color = Color.Black;
         ControlsHeaderText.CharacterSize = data.Settings.InformationFontSize + 4;
 
-        TextTemplate = new Text("Controls: ", RegularFont);
+        TextTemplate = new Text("VOID", RegularFont);
         TextTemplate.Color = Color.Black;
-        TextTemplate.CharacterSize = data.Settings.InformationFontSize + 4;
+        TextTemplate.CharacterSize = data.Settings.InformationFontSize;
 
     }
 
@@ -48,7 +52,6 @@ partial class GraphicsHolder
         ProgramDisplayTexture.Clear(Color.Black);
         ProgramInfoTexture.Clear(Color.White);
         ProgramWindow.Clear(Color.Magenta);
-
     }
 
     public void RenderWindow(Data data)
