@@ -22,4 +22,6 @@ class SettingHolder
     public readonly uint InformationFontSize = 20;
 
     public readonly uint Sim_N_Workers = 12;
+
+    public readonly float KeyPressDelay = 0.1f;
 }

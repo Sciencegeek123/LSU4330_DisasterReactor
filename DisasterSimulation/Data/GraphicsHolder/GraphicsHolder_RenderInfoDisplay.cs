@@ -22,6 +22,8 @@ partial class GraphicsHolder
         ProgramInfoTexture.Draw(ModesHeaderText);
         offset += lineSize * 1.5f;
 
+        //I should make this a function, but I'm not. :P
+
         foreach (Tuple<string, bool> str in data.ModesTextList)
         {
             TextTemplate.DisplayedString = str.Item1;

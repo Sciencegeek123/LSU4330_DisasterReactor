@@ -9,6 +9,7 @@ class Data
     public SettingHolder Settings;
     public GraphicsHolder Graphics;
     public TimeHolder Time;
+    public InputHolder Input;
 
     public List<Tuple<string, bool>> ModesTextList = new List<Tuple<string, bool>>();
     public List<Tuple<string, bool>> InfoTextList = new List<Tuple<string, bool>>();
@@ -21,7 +22,9 @@ class Data
         Time = new TimeHolder();
         Graphics = new GraphicsHolder();
         Settings = new SettingHolder();
+        Input = new InputHolder();
 
+        Input.Initialize(this);
         Time.Initialize();
         Graphics.Initialize(this);
     }
@@ -30,6 +33,7 @@ class Data
     {
         Time.Update();
         Graphics.ClearWindow();
+        Input.Update();
     }
 
     public void PostUpdate()

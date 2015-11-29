@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class Stage
+partial class Stage
 {
     private float lastTime = 0f;
     private float deltaTime = 0f;

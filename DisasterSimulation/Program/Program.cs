@@ -1,9 +1,13 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
+using System.Windows;
+using System.Windows.Forms;
 
 class Program
 {
+    [STAThread]
     static void Main(string[] args)
     {
         //Create everything
@@ -16,8 +20,6 @@ class Program
         data.Initialize();
 
         //Input Program
-        data.ControlsTextList.Add(new System.Tuple<string, bool>("TEST", false));
-        data.ControlsTextList.Add(new System.Tuple<string, bool>("TEST - Bold", true));
         inputControl.Initialize(data);
         do
         {
