@@ -8,7 +8,7 @@ partial class GraphicsHolder
 {
     const float GraphicsInterval = 0.03333f;
     public RenderTexture ProgramDisplayTexture, ProgramInfoTexture;
-    RenderWindow ProgramWindow;
+    public RenderWindow ProgramWindow;
 
     public void Initialize(Data data)
     {

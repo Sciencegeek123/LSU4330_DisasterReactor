@@ -9,6 +9,8 @@ class InputHolder
 {
     Data data;
 
+    public bool EscapeKeyPressed = false;
+
     private Dictionary<Keyboard.Key, Tuple<bool,float>> RegisteredKeys;
 
     public void Initialize(Data d)
@@ -41,6 +43,17 @@ class InputHolder
 
     public void Update()
     {
+        if(!data.Graphics.ProgramWindow.HasFocus())
+        {
+            return;
+        }
+
+        if(Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+        {
+            EscapeKeyPressed = true;
+            return;
+        }
+
         List<Keyboard.Key> KeyList = new List<Keyboard.Key>(RegisteredKeys.Keys);
         foreach (Keyboard.Key key in KeyList)
         {

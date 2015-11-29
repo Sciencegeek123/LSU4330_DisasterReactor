@@ -8,7 +8,7 @@ partial class InputStage : Stage
     {
         data.ControlsTextList.Add(new System.Tuple<string, bool>("M - Switch Modes", false));
         data.ControlsTextList.Add(new System.Tuple<string, bool>("F - File Browser", false));
-
+        
         data.Input.TrackKey(Keyboard.Key.F);
     }
 }

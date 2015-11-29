@@ -24,6 +24,8 @@ class Program
         do
         {
             data.PreUpdate();
+            if (data.Input.EscapeKeyPressed)
+                return;
             inputControl.PreUpdate(data);
             inputControl.Update(data);
             data.PostUpdate();
@@ -35,6 +37,8 @@ class Program
         do
         {
             data.PreUpdate();
+            if (data.Input.EscapeKeyPressed)
+                return;
             simControl.PreUpdate(data);
             simControl.Update(data);
             data.PostUpdate();
@@ -46,6 +50,8 @@ class Program
         do
         {
             data.PreUpdate();
+            if (data.Input.EscapeKeyPressed)
+                return;
             outputControl.PreUpdate(data);
             outputControl.Update(data);
             data.PostUpdate();
