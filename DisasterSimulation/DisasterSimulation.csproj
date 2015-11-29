@@ -80,18 +80,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Data.cs" />
-    <Compile Include="Data\GraphicsHolder.cs" />
+    <Compile Include="Data\GraphicsHolder\GraphicsHolder_RenderInfoDisplay.cs" />
+    <Compile Include="Data\GraphicsHolder\GraphicsHolder.cs" />
     <Compile Include="Data\SettingHolder.cs" />
     <Compile Include="Data\TimeHolder.cs" />
     <Compile Include="Generic\Stage.cs" />
+    <Compile Include="InputStage\InputStage_Update.cs" />
+    <Compile Include="InputStage\InputStage_Initialize.cs" />
     <Compile Include="InputStage\InputStage.cs" />
+    <Compile Include="OutputStage\OutputStage_Update.cs" />
+    <Compile Include="OutputStage\OutputStage_Initialize.cs" />
     <Compile Include="OutputStage\OutputStage.cs" />
     <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulationStage\SimulationStage_Update.cs" />
+    <Compile Include="SimulationStage\SimulationStage_Initialize.cs" />
     <Compile Include="SimulationStage\SimulationStage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Anonymous_Pro.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Anonymous_Pro_B.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="csfml-audio-2.dll">

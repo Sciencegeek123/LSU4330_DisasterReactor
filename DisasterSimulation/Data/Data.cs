@@ -1,6 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
+using System.Collections.Generic;
 
 class Data
 {
@@ -8,7 +10,11 @@ class Data
     public GraphicsHolder Graphics;
     public TimeHolder Time;
 
-   public Image Environment;
+    public List<Tuple<string, bool>> ModesTextList = new List<Tuple<string, bool>>();
+    public List<Tuple<string, bool>> InfoTextList = new List<Tuple<string, bool>>();
+    public List<Tuple<string, bool>> ControlsTextList = new List<Tuple<string, bool>>();
+
+    public Image Environment;
 
     public void Initialize()
     {
@@ -16,16 +22,19 @@ class Data
         Graphics = new GraphicsHolder();
         Settings = new SettingHolder();
 
-        Graphics.Initialize(Settings);
+        Time.Initialize();
+        Graphics.Initialize(this);
     }
 
     public void PreUpdate()
     {
+        Time.Update();
         Graphics.ClearWindow();
     }
 
     public void PostUpdate()
     {
+        Graphics.RenderInfo(this);
         Graphics.RenderWindow(this);
     }
 }

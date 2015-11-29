@@ -16,3 +16,5 @@ C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\libsndfile-1
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\openal32.dll
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\OpenTK.Compatibility.dll
 C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\OpenTK.dll
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\Anonymous_Pro.ttf
+C:\Projects\LSU\DisasterSimulation\DisasterSimulation\bin\x64\Debug\Anonymous_Pro_B.ttf

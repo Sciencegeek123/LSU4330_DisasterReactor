@@ -18,4 +18,8 @@ class SettingHolder
     public readonly Vector2u InformationResolution = new Vector2u(512, 1024);
     public readonly Vector2f InformationPosition = new Vector2f(1024, 0);
     public readonly Vector2f InformationScale = new Vector2f(1, 1);
+
+    public readonly uint InformationFontSize = 20;
+
+    public readonly uint Sim_N_Workers = 12;
 }

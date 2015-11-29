@@ -16,6 +16,8 @@ class Program
         data.Initialize();
 
         //Input Program
+        data.ControlsTextList.Add(new System.Tuple<string, bool>("TEST", false));
+        data.ControlsTextList.Add(new System.Tuple<string, bool>("TEST - Bold", true));
         inputControl.Initialize(data);
         do
         {
