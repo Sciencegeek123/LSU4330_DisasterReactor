@@ -104,6 +104,7 @@
     <Compile Include="InputStage\Modes\InputStage_Mode_Damage.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Infastructure.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Geographic.cs" />
+    <Compile Include="InputStage\PaintMechanisms\InputStage_Paint_DrawCursor.cs" />
     <Compile Include="OutputStage\OutputStage_Update.cs" />
     <Compile Include="OutputStage\OutputStage_Initialize.cs" />
     <Compile Include="OutputStage\OutputStage.cs" />

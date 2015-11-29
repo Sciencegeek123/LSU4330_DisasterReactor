@@ -25,6 +25,7 @@ partial class GraphicsHolder
         ProgramWindow.Clear(Color.White);
         ProgramWindow.Display();
         ProgramWindow.RequestFocus();
+        ProgramWindow.SetMouseCursorVisible(false);
 
         RegularFont = new Font("Anonymous_Pro.ttf");
         BoldFont = new Font("Anonymous_Pro_B.ttf");

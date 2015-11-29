@@ -24,4 +24,10 @@ class SettingHolder
     public readonly uint Sim_N_Workers = 12;
 
     public readonly float KeyPressDelay = 0.1f;
+
+    public readonly float RenderTimeDelay = 0f;
+
+    public readonly float RadiusStep = 128f;
+    public readonly float CursorPaintStep = 0.03125f;
+    public readonly float CursorPaintDelay = 0.033f;
 }

@@ -10,6 +10,8 @@ class TimeHolder
     public ulong frame = 0;
     public float runTime;
 
+    public float deltaTime;
+
     public void Initialize()
     {
         StartTime = DateTime.Now;
@@ -18,6 +20,7 @@ class TimeHolder
     public void Update()
     {
         frame++;
+        deltaTime = (float)(DateTime.Now - CurrentTime).TotalSeconds;
         CurrentTime = DateTime.Now;
         runTime = (float)(CurrentTime - StartTime).TotalSeconds;
     }

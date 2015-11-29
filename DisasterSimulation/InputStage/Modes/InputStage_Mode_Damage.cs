@@ -9,12 +9,15 @@ partial class InputStage : Stage
         data.ModesTextList.RemoveAt(1);
         data.ModesTextList.Insert(1, new System.Tuple<string, bool>("Paint Damage", true));
 
+        CursorColor = Color.Red;
+
         CurrentInputState = InputStates.Damage;
     }
 
     void ProcessDamageState()
     {
         //Update
+        DrawCursor();
 
         //Check Transition
         if (data.Input.CheckKeyPressed(Keyboard.Key.M))

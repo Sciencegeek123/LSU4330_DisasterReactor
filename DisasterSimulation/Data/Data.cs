@@ -17,6 +17,8 @@ class Data
 
     public Image Environment;
 
+    private float LastRenderTime = -1;
+
     public void Initialize()
     {
         Time = new TimeHolder();
@@ -39,8 +41,12 @@ class Data
 
     public void PostUpdate()
     {
-        Graphics.RenderInfo();
-        Graphics.RenderWindow();
+        if (Time.runTime - LastRenderTime > Settings.RenderTimeDelay)
+        {
+            Graphics.RenderInfo();
+            Graphics.RenderWindow();
+            LastRenderTime = Time.runTime;
+        }
     }
 }
 

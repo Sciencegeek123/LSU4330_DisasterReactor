@@ -8,20 +8,25 @@ partial class InputStage : Stage
 { 
     public override void Update()
     {
+        CursorProduction.Clear(Color.Black);
+
         switch(CurrentInputState)
         {
             case InputStates.Difficulty:
                 {
+                    InteractCursor();
                     ProcessDifficultyState();
                     break;
                 }
             case InputStates.Damage:
                 {
+                    InteractCursor();
                     ProcessDamageState();
                     break;
                 }
             case InputStates.Value:
                 {
+                    InteractCursor();
                     ProcessValueState();
                     break;
                 }
@@ -46,5 +51,14 @@ partial class InputStage : Stage
                     break;
                 }
         }
+
+        EnvironmentProduction.Display();
+        CursorProduction.Display();
+
+        Sprite EnvironmentSprite = new Sprite(EnvironmentProduction.Texture);
+        Sprite CursorSprite = new Sprite(CursorProduction.Texture);
+
+        data.Graphics.ProgramDisplayTexture.Draw(EnvironmentSprite,new RenderStates(BlendMode.Add));
+        data.Graphics.ProgramDisplayTexture.Draw(CursorSprite, new RenderStates(BlendMode.Add));
     }
 }

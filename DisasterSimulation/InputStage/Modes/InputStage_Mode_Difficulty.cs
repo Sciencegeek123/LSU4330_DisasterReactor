@@ -9,12 +9,15 @@ partial class InputStage : Stage
         data.ModesTextList.RemoveAt(0);
         data.ModesTextList.Insert(0, new System.Tuple<string, bool>("Paint Difficulty", true));
 
+        CursorColor = Color.Blue;
+
         CurrentInputState = InputStates.Difficulty;
     }
 
     void ProcessDifficultyState()
     {
         //Update
+        DrawCursor();
 
         //Check Transition
         if (data.Input.CheckKeyPressed(Keyboard.Key.M))
