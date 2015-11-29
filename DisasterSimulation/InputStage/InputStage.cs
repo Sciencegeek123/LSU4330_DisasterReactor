@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System.Collections.Generic;
 
 partial class InputStage : Stage
 {
@@ -11,6 +12,9 @@ partial class InputStage : Stage
     bool CursorAdditive = true;
     Color CursorColor = Color.Black;
     float CursorRadius = 256f;
+
+    List<InfastructureHolder> InfastructureList;
+    List<ElevationHolder> ElevationList;
 
     enum InputStates
     {
