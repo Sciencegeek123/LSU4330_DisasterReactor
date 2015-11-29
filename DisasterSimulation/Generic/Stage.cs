@@ -25,8 +25,8 @@ class Stage
 
     }
 
-    public void Initialize(Data d) { }
-    public void Update(Data d) { }
-    public void Finalize(Data d) { }
+    public virtual void Initialize(Data d) { }
+    public virtual void Update(Data d) { }
+    public virtual void Finalize(Data d) { }
 
 }

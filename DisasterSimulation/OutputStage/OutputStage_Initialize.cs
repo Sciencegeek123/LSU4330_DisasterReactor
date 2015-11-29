@@ -4,5 +4,8 @@ using SFML.Window;
 
 partial class OutputStage : Stage
 {
-    //Put all variables here. Each function should be in a different file.
+    public override void Initialize(Data data)
+    {
+
+    }
 }
