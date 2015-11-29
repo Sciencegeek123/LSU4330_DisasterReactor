@@ -46,4 +46,9 @@ class InfastructureHolder
 
     }
 
+    public bool isValid()
+    {
+
+    }
+
 }

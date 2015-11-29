@@ -11,6 +11,8 @@ partial class InputStage : Stage
         data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", true));
 
         CurrentInputState = InputStates.Finalize;
+
+        data.Input.ClearTrackedKeys();
     }
 
     void ProcessFinalizeState()

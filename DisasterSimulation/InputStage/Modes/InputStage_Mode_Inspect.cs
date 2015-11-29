@@ -11,6 +11,8 @@ partial class InputStage : Stage
         data.ModesTextList.Insert(7, new System.Tuple<string, bool>("Inspect", true));
 
         CurrentInputState = InputStates.Inspect;
+
+        data.Input.ClearTrackedKeys();
     }
 
     void ProcessInspectState()
