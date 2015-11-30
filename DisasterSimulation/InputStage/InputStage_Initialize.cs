@@ -33,6 +33,7 @@ partial class InputStage : Stage
         data.ModesTextList.Add(new System.Tuple<string, bool>("Finalize", false));
 
         //Information
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Input Stage", true));
         data.InfoTextList.Add(new System.Tuple<string, bool>("Red   - Damage", false));
         data.InfoTextList.Add(new System.Tuple<string, bool>("Green - Value", false));
         data.InfoTextList.Add(new System.Tuple<string, bool>("Blue  - Difficulty", false));

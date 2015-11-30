@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
 
 partial class InputStage : Stage
 {
@@ -46,6 +47,40 @@ partial class InputStage : Stage
             CursorAdditive = false;
             PaintCursor();
         }
+    }
+
+    private Color getAverageColor()
+    {
+        Vector2f Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
+        EnvironmentProduction.Display();
+        Image icopy = EnvironmentProduction.Texture.CopyToImage();
+
+        float R = 0, B = 0, G = 0;
+        int n = 0;
+
+        for(int x = -(int)Math.Ceiling(CursorRadius); x < (int)Math.Ceiling(CursorRadius); x++ )
+        {
+            if (x + Position.X < 0)
+                continue;
+            else if (x + Position.X > CursorProduction.Size.X)
+                continue;
+
+            for (int y = -(int)Math.Ceiling(CursorRadius); y < (int)Math.Ceiling(CursorRadius); y++)
+            {
+                if (y + Position.Y < 0)
+                    continue;
+                else if (y + Position.Y > CursorProduction.Size.Y)
+                    continue;
+
+                n++;
+                Color pColor = icopy.GetPixel((uint)(x + Position.X), (uint)(y + Position.Y));
+                R += pColor.R;
+                G += pColor.G;
+                B += pColor.B;
+            }
+        }
+
+        return new Color((byte)(R / n), (byte)(G / n), (byte)(B / n));
     }
 
     RenderStates Additive = new RenderStates(BlendMode.Add);

@@ -94,6 +94,7 @@
     <Compile Include="Data\TimeHolder.cs" />
     <Compile Include="Generic\Stage_GetFileFromBrowser.cs" />
     <Compile Include="Generic\Stage.cs" />
+    <Compile Include="InputStage\InputStage_Finalize.cs" />
     <Compile Include="InputStage\InputStage_Update.cs" />
     <Compile Include="InputStage\InputStage_Initialize.cs" />
     <Compile Include="InputStage\InputStage.cs" />

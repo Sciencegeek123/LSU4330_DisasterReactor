@@ -5,8 +5,9 @@ using SFML.Window;
 partial class SimulationStage : Stage
 {
 
-    public override void Initialize(Data data)
+    public override void Initialize(Data d)
     {
-
+        data = d;
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Simulation Stage", true));
     }
 }
