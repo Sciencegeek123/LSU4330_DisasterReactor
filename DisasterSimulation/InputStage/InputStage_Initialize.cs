@@ -37,5 +37,9 @@ partial class InputStage : Stage
         data.InfoTextList.Add(new System.Tuple<string, bool>("Blue  - Difficulty", false));
 
         EnterDifficultyState();
+
+        //Controls
+        data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("M - Switch Modes", false));
+        data.Input.TrackKey(Keyboard.Key.M);
     }
 }

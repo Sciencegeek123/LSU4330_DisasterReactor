@@ -97,6 +97,8 @@
     <Compile Include="InputStage\InputStage_Update.cs" />
     <Compile Include="InputStage\InputStage_Initialize.cs" />
     <Compile Include="InputStage\InputStage.cs" />
+    <Compile Include="InputStage\LoadElevation\ElevationHolder.cs" />
+    <Compile Include="InputStage\LoadInfastructure\InfastructureHolder.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Difficulty.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Inspect.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Finalize.cs" />
@@ -149,9 +151,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="InputStage\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

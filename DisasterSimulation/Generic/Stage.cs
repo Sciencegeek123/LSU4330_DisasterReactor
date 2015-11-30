@@ -8,7 +8,7 @@ partial class Stage
 {
     private float lastTime = 0f;
     private float deltaTime = 0f;
-    private bool PerformStageTransition = false;
+    protected bool PerformStageTransition = false;
 
     public bool transitionToNextStage()
     {

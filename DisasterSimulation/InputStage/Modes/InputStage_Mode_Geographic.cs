@@ -11,9 +11,7 @@ partial class InputStage : Stage
 
         CurrentInputState = InputStates.Geographic;
 
-        data.Input.ClearTrackedKeys();
-
-        data.ControlsTextList.Add(new System.Tuple<string, bool>("L - Load from File", false));
+        data.ControlsTextList.Add(Keyboard.Key.L,new System.Tuple<string, bool>("L - Load from File", false));
         data.Input.TrackKey(Keyboard.Key.L);
     }
 
@@ -30,6 +28,8 @@ partial class InputStage : Stage
     void LeaveGeographicState()
     {
         //Cleanup
+        data.ControlsTextList.Remove(Keyboard.Key.L);
+        data.Input.UntrackKey(Keyboard.Key.L);
 
         //Transition
         data.ModesTextList.RemoveAt(4);

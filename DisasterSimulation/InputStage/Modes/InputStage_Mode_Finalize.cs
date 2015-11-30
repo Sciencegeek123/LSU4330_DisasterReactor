@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
 
 partial class InputStage : Stage
 {
@@ -12,12 +13,19 @@ partial class InputStage : Stage
 
         CurrentInputState = InputStates.Finalize;
 
-        data.Input.ClearTrackedKeys();
+        data.ControlsTextList.Add(Keyboard.Key.Return,new System.Tuple<string, bool>("Return - Begin Simulation", false));
+        data.Input.TrackKey(Keyboard.Key.Return);
     }
 
     void ProcessFinalizeState()
     {
         //Update
+        if(data.Input.CheckKeyPressed(Keyboard.Key.Return))
+        {
+            data.Environment = EnvironmentProduction.Texture.CopyToImage();
+            PerformStageTransition = true;
+            return;
+        }
 
         //Check Transition
         if (data.Input.CheckKeyPressed(Keyboard.Key.M))
@@ -28,6 +36,9 @@ partial class InputStage : Stage
     void LeaveFinalizeState()
     {
         //Cleanup
+        data.Input.UntrackKey(Keyboard.Key.Return);
+        data.ControlsTextList.Remove(Keyboard.Key.Return);
+
 
         //Transition
         data.ModesTextList.RemoveAt(8);

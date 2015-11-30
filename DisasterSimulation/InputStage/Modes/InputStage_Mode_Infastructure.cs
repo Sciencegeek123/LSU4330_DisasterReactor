@@ -11,9 +11,7 @@ partial class InputStage : Stage
 
         CurrentInputState = InputStates.Infastructure;
 
-        data.Input.ClearTrackedKeys();
-
-        data.ControlsTextList.Add(new System.Tuple<string, bool>("L - Load from File", false));
+        data.ControlsTextList.Add(Keyboard.Key.L, new System.Tuple<string, bool>("L - Load from File", false));
         data.Input.TrackKey(Keyboard.Key.L);
     }
 
@@ -26,11 +24,11 @@ partial class InputStage : Stage
             if(GetFileFromBrowser(out FileName))
             {
                 InfastructureHolder InfLoadHolder = new InfastructureHolder();
-                InfLoadHolder.parseFile(FileName);
-                if(InfLoadHolder.isValid())
-                {
-                    InfastructureList.Add(InfLoadHolder);
-                }
+               // InfLoadHolder.parseFile(FileName);
+               // if(InfLoadHolder.isValid())
+               // {
+               //     InfastructureList.Add(InfLoadHolder);
+               // }
             }
         }
 
@@ -42,6 +40,8 @@ partial class InputStage : Stage
     void LeaveInfastructureState()
     {
         //Cleanup
+        data.ControlsTextList.Remove(Keyboard.Key.L);
+        data.Input.UntrackKey(Keyboard.Key.L);
 
         //Transition
         data.ModesTextList.RemoveAt(5);

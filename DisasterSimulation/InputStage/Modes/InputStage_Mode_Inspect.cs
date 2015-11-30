@@ -12,7 +12,11 @@ partial class InputStage : Stage
 
         CurrentInputState = InputStates.Inspect;
 
-        data.Input.ClearTrackedKeys();
+        data.ControlsTextList.Add(Keyboard.Key.R, new System.Tuple<string, bool>("R - Increase Cursor Radius", false));
+        data.Input.TrackKey(Keyboard.Key.R);
+
+        data.ControlsTextList.Add(Keyboard.Key.T, new System.Tuple<string, bool>("T - Decrease Cursor Radius", false));
+        data.Input.TrackKey(Keyboard.Key.T);
     }
 
     void ProcessInspectState()
@@ -28,6 +32,10 @@ partial class InputStage : Stage
     void LeaveInspectState()
     {
         //Cleanup
+        data.Input.UntrackKey(Keyboard.Key.R);
+        data.ControlsTextList.Remove(Keyboard.Key.R);
+        data.Input.UntrackKey(Keyboard.Key.T);
+        data.ControlsTextList.Remove(Keyboard.Key.T);
 
         //Transition
         data.ModesTextList.RemoveAt(7);

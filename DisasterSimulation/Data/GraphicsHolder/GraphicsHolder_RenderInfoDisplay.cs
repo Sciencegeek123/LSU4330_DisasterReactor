@@ -44,12 +44,12 @@ partial class GraphicsHolder
         ProgramInfoTexture.Draw(ControlsHeaderText);
         offset += lineSize * 1.5f;
 
-        foreach (Tuple<string, bool> str in data.ControlsTextList)
+        foreach (var str in data.ControlsTextList)
         {
-            TextTemplate.DisplayedString = str.Item1;
+            TextTemplate.DisplayedString = str.Value.Item1;
             TextTemplate.Position = new Vector2f(15, offset);
 
-            if (str.Item2)
+            if (str.Value.Item2)
                 TextTemplate.Font = BoldFont;
             else
                 TextTemplate.Font = RegularFont;
