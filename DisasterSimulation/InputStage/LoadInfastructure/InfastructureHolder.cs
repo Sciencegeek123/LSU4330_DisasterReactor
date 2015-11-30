@@ -20,7 +20,7 @@ class InfastructureHolder
     
     public void parseFile(string str)
     {
-        XmlReader reader = XmlReader.Create("C: \\Users\\Sam\\Downloads\\wcjones - disastersimulation - 6740de7a37db\\wcjones - disastersimulation - 6740de7a37db\\DisasterSimulation\\MapData.xml");
+        XmlReader reader = XmlReader.Create(str);
         Console.WriteLine();
         while (reader.Read())
         {
@@ -101,11 +101,13 @@ class InfastructureHolder
     {
 
     }
+    */
 
     public bool isValid()
     {
-
+        //You'll need to fill this in.
+        return true;
     }
-    */
+    
 
 }

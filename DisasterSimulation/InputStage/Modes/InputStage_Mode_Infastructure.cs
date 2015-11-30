@@ -24,11 +24,11 @@ partial class InputStage : Stage
             if(GetFileFromBrowser(out FileName))
             {
                 InfastructureHolder InfLoadHolder = new InfastructureHolder();
-               // InfLoadHolder.parseFile(FileName);
-               // if(InfLoadHolder.isValid())
-               // {
-               //     InfastructureList.Add(InfLoadHolder);
-               // }
+                InfLoadHolder.parseFile(FileName);
+                if(InfLoadHolder.isValid())
+                {
+                    InfastructureList.Add(InfLoadHolder);
+                }
             }
         }
 

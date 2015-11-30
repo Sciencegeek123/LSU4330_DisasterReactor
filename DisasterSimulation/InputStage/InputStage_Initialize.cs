@@ -15,6 +15,9 @@ partial class InputStage : Stage
         CursorProduction = new RenderTexture(data.Settings.SimulationResolution.X, data.Settings.SimulationResolution.Y);
         CursorProduction.Clear(Color.Red);
 
+        InfastructureList = new System.Collections.Generic.List<InfastructureHolder>();
+        
+
         //Initial State
         CurrentInputState = InputStates.Difficulty;
 
@@ -28,8 +31,6 @@ partial class InputStage : Stage
         data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
         data.ModesTextList.Add(new System.Tuple<string, bool>("Inspect", false));
         data.ModesTextList.Add(new System.Tuple<string, bool>("Finalize", false));
-
-        //Controls
 
         //Information
         data.InfoTextList.Add(new System.Tuple<string, bool>("Red   - Damage", false));
