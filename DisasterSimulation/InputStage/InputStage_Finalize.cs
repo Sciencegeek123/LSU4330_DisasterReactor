@@ -6,6 +6,9 @@ partial class InputStage : Stage
 {
     public override void Finalize(Data d)
     {
+        data.ModesTextList.Clear();
+        data.ControlsTextList.Clear();
+        data.InfoTextList.Clear();
 
     }
 }
