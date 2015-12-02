@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
+
 class InfastructureHolder
 {
     /*
@@ -20,20 +21,18 @@ class InfastructureHolder
     
     public void parseFile(string str)
     {
+        
         XmlReader reader = XmlReader.Create(str);
-        Console.WriteLine();
         while (reader.Read())
         {
-            Console.WriteLine();
             if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "node"))
             {
-                Console.WriteLine();
+                //This is to read in the road cooridinates
                 if (reader.HasAttributes)
                 {
-                    reader.GetAttribute("id");
-                    float.Parse(reader.GetAttribute("lat"));
-                    float.Parse(reader.GetAttribute("lon"));
-                    Console.WriteLine();
+                   reader.GetAttribute("id");
+                   Console.WriteLine("lat= " + float.Parse(reader.GetAttribute("lat")));
+                   Console.WriteLine("lon=" + float.Parse(reader.GetAttribute("lon")));
                 }
             }
             if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "way"))
@@ -41,73 +40,62 @@ class InfastructureHolder
                 if (reader.HasAttributes)
                 {
                     reader.GetAttribute("id");
-                    if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "nd"))
-                    {
-                        reader.Skip();
-                     //   if (reader.HasAttributes)
-                     //   {
-                     //       reader.GetAttribute("ref");
-                     //   }
-                    }
-                    if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "tag"))
-                    {
-                        if (reader.HasAttributes)
-                        {
-                            if (reader.GetAttribute("k") == "name")
-                            {
-                                reader.GetAttribute("k");
-                                reader.GetAttribute("v");
-                            }
-                            else
-                            {
-                                reader.Skip();
-                            }
-                            
-                        }
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine();
                 }
-                Console.WriteLine();
             }
-            Console.WriteLine();
+                if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "nd"))
+                {
+                    reader.Skip();
+                }
+
+                //This is to read in the road name
+                if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "tag"))
+                {
+                    if (reader.HasAttributes && reader.GetAttribute("k") == "name")
+                    {
+                            Console.WriteLine("v= "+ reader.GetAttribute("v"));
+                    // reader.GetAttribute("v");
+                }
+                else
+                {
+                    reader.Skip();
+                }
+            }
         }
-        Console.WriteLine();
     }
 
     /*
 
-    public void addPointToDictionary(uint ID, Vector2f Position)
-    {
 
-    }
+   public void addPointToDictionary(uint ID, Vector2f Position)
+   {
 
-    public void addLinkToDictionary(uint ID, uint ID)
-    {
+   }
 
-    }
+   public void addLinkToDictionary(uint ID, uint ID)
+   {
 
-    public Texture exportTextureResults()
-    {
+   }
 
-    }
+   public Texture exportTextureResults()
+   {
 
-    public Vector2f getOrigin()
-    {
+   }
 
-    }
+   public Vector2f getOrigin()
+   {
 
-    public Vector2f getSize()
-    {
+   }
 
-    }
-    */
+   public Vector2f getSize()
+   {
 
-    public bool isValid()
-    {
-        //You'll need to fill this in.
+   }
+   */
+   public bool isValid()
+   {
         return true;
-    }
-    
+
+   }
+   
 
 }
