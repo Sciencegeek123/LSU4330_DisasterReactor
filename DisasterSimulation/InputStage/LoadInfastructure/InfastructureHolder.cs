@@ -25,95 +25,105 @@ class InfastructureHolder
     private uint Node;
     private Vector2f Position;
 
-    private Dictionary<uint, Vector2f> PointDictionary;
-    private Dictionary<uint, uint> LinkDictionary;
+    private Vector2f OriginBounds, Size;
+
+    private Dictionary<uint, Vector2f> PointDictionary = new Dictionary<uint, Vector2f>();
+    private List<Tuple<uint, uint>> LinkList = new List<Tuple<uint, uint>>();
 
     public void parseFile(string str)
     {
-
-        List<uint> nodes = new List<uint>();
         XmlReader reader = XmlReader.Create(str);
         while (reader.Read())
         {
-            if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "node"))
+            if (reader.Name == "bounds")
             {
-                
+                latitude = (float)double.Parse(reader.GetAttribute("minlat"));
+                longitude = (float)double.Parse(reader.GetAttribute("minlon"));
+                OriginBounds = new Vector2f(latitude, longitude);
+                latitude = (float)double.Parse(reader.GetAttribute("maxlat")) - latitude;
+                longitude = (float)double.Parse(reader.GetAttribute("maxlon")) - longitude;
+                Size = new Vector2f(latitude, longitude);
+
+            }
+            else if (reader.Name == "node")
+            {
+
                 //This is to read in the road cooridinates
                 if (reader.HasAttributes)
                 {
-                    
+
                     id = uint.Parse(reader.GetAttribute("id"));
-                    nodes.Add(id);
                     latitude = float.Parse(reader.GetAttribute("lat"));
                     longitude = float.Parse(reader.GetAttribute("lon"));
                     Position.X = latitude;
                     Position.Y = longitude;
                     addPointToDictionary(id, Position);
-                  
+
                 }
-               
-                    
+
+
             }
-            if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "way"))
+            else if (reader.Name == "way")
             {
-                if (reader.HasAttributes)
+                Console.WriteLine("Found way");
+                XmlReader childReader = reader.ReadSubtree();
+                childReader.ReadToDescendant("nd");
+                uint id1 = 0, id2 = 0;
+                do
                 {
-                    reader.GetAttribute("id");
-                }
-            }
-                if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "nd"))
-                {
-                    reader.Skip();
-                }
-
-                //This is to read in the road name
-                if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "tag"))
-                {
-                    if (reader.HasAttributes && reader.GetAttribute("k") == "name")
+                    if (childReader.Name == "nd")
                     {
-                            Console.WriteLine("v= "+ reader.GetAttribute("v"));
-                    // reader.GetAttribute("v");
-                }
-                else
-                {
-                    reader.Skip();
-                }
+                        id2 = uint.Parse(childReader.GetAttribute("ref"));
+                        if (id1 != 0)
+                        {
+                            addLinkToDictionary(id1, id2);
+                        }
+                        id1 = id2;
+                    }
+                } while (childReader.Read());
+
+
             }
         }
-        int i = nodes.Count - 1;
-        while (i > 0)
-        {
-            addLinkToDictionary(nodes[i], nodes[i - 1]);
-            i--;
-        }
     }
 
-    
 
 
-   public void addPointToDictionary(uint ID, Vector2f Position)
-   {
-        id = ID;
-        PointDictionary = new Dictionary<uint, Vector2f>();
+
+    public void addPointToDictionary(uint ID, Vector2f Position)
+    {
+        Position.X = (Position.X - OriginBounds.X) / Size.X;
+        Position.Y = (Position.Y - OriginBounds.Y) / Size.Y;
+
         PointDictionary.Add(ID, Position);
-        Console.WriteLine("Dictionary = " + Position);
-        
-   }
-    
-   public void addLinkToDictionary(uint ID, uint node)
-   {
-        id = ID;
-        Node = node;
-        LinkDictionary = new Dictionary<uint, uint>();
-        LinkDictionary.Add(ID, node);
-        Console.WriteLine("link Ditionary= " + ID +" " + node);
+        Console.WriteLine("Node: " + ID + " @ " + Position);
+
     }
-    /*
+
+    public void addLinkToDictionary(uint node1, uint node2)
+    {
+        LinkList.Add(new Tuple<uint, uint>(node1, node2));
+        Console.WriteLine("Link: " + node1 + " - " + node2);
+    }
+    
    public Texture exportTextureResults()
    {
+        RenderTexture Map = new RenderTexture(4096, 4096);
+        Map.Clear(Color.Black);
 
+        foreach (var link in LinkList)
+        {
+            //Draw a link by drawing a reactangle from one point to another with a thickness
+            //Multiply the x and y coordinates by 4096.
+            RectangleShape road = new RectangleShape();
+
+            Map.Draw(road);
+        }
+
+        return Map.Texture;
    }
 
+    /*
    public Vector2f getOrigin()
    {
 
@@ -124,11 +134,11 @@ class InfastructureHolder
 
    }
    */
-   public bool isValid()
-   {
+    public bool isValid()
+    {
         return true;
 
-   }
-   
+    }
+
 
 }
