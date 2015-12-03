@@ -61,13 +61,38 @@ partial class GraphicsHolder
         ProgramWindow.Clear(Color.Magenta);
     }
 
+    Sprite DisplaySprite = new Sprite();
+    Sprite InformationSprite = new Sprite();
+
     public void RenderWindow()
     {
+
+        CircleShape template = new CircleShape();
+        template.FillColor = Color.Black;
+        template.OutlineColor = Color.White;
+        template.OutlineThickness = 4;
+        template.Radius = 8;
+
+        foreach (Vector2f spawn in data.SpawnPositions) {
+            template.Position = spawn;
+            ProgramDisplayTexture.Draw(template);
+        }
+
+        template.OutlineColor = Color.Black;
+
+        foreach (Agent a in data.Agents)
+        {
+            template.Position = a.Position;
+            template.FillColor = a.data;
+            ProgramDisplayTexture.Draw(template);
+        }
+
+
         ProgramDisplayTexture.Display();
         ProgramInfoTexture.Display();
 
-        Sprite DisplaySprite = new Sprite(ProgramDisplayTexture.Texture);
-        Sprite InformationSprite = new Sprite(ProgramInfoTexture.Texture);
+        DisplaySprite.Texture = ProgramDisplayTexture.Texture;
+        InformationSprite.Texture = ProgramInfoTexture.Texture;
 
         DisplaySprite.Position = data.Settings.SimulationPosition;
         DisplaySprite.Scale = data.Settings.SimulationScale;

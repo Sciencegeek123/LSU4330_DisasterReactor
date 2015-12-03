@@ -85,6 +85,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Agent.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_OnClose.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_RenderInfoDisplay.cs" />
@@ -92,8 +93,8 @@
     <Compile Include="Data\InputHolder.cs" />
     <Compile Include="Data\SettingHolder.cs" />
     <Compile Include="Data\TimeHolder.cs" />
-    <Compile Include="Generic\Stage_GetFileFromBrowser.cs" />
-    <Compile Include="Generic\Stage.cs" />
+    <Compile Include="InputStage\Generic\Stage_GetFileFromBrowser.cs" />
+    <Compile Include="InputStage\Generic\Stage.cs" />
     <Compile Include="InputStage\InputStage_Finalize.cs" />
     <Compile Include="InputStage\InputStage_Update.cs" />
     <Compile Include="InputStage\InputStage_Initialize.cs" />

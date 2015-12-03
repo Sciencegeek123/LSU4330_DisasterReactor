@@ -22,6 +22,12 @@ partial class InputStage : Stage
         data.ControlsTextList.Add(Keyboard.Key.Space, new System.Tuple<string, bool>("Space - Sample Cursor Position", false));
         data.Input.TrackKey(Keyboard.Key.Space);
 
+        data.ControlsTextList.Add(Keyboard.Key.S, new System.Tuple<string, bool>("S - Spawn Point at Position", false));
+        data.Input.TrackKey(Keyboard.Key.S);
+
+        data.ControlsTextList.Add(Keyboard.Key.C, new System.Tuple<string, bool>("C - Clear Spawn Points", false));
+        data.Input.TrackKey(Keyboard.Key.C);
+
         CursorColor = Color.White;
 
         data.InfoTextList.Add(new Tuple<string, bool>("R - Waiting for sample", true));
@@ -60,6 +66,18 @@ partial class InputStage : Stage
 
         }
 
+        //Check Spawn
+        if(data.Input.CheckKeyPressed(Keyboard.Key.S))
+        {
+            Vector2f point = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
+            data.SpawnPositions.Add(point);
+        }
+
+        if(data.Input.CheckKeyPressed(Keyboard.Key.C))
+        {
+            data.SpawnPositions.Clear();
+        }
+
         //Check Transition
         if (data.Input.CheckKeyPressed(Keyboard.Key.M))
             LeaveInspectState();
@@ -76,8 +94,12 @@ partial class InputStage : Stage
         data.ControlsTextList.Remove(Keyboard.Key.T);
         data.Input.UntrackKey(Keyboard.Key.Space);
         data.ControlsTextList.Remove(Keyboard.Key.Space);
+        data.Input.UntrackKey(Keyboard.Key.S);
+        data.ControlsTextList.Remove(Keyboard.Key.S);
+        data.Input.UntrackKey(Keyboard.Key.C);
+        data.ControlsTextList.Remove(Keyboard.Key.C);
         CursorColor = Color.Black;
-        
+
         data.InfoTextList.RemoveRange(data.InfoTextList.Count - 3, 3);
 
         //Transition
@@ -85,4 +107,5 @@ partial class InputStage : Stage
         data.ModesTextList.Insert(7, new System.Tuple<string, bool>("Inspect", false));
         EnterFinalizeState();
     }
+    
 }
