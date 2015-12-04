@@ -105,20 +105,44 @@ class InfastructureHolder
         LinkList.Add(new Tuple<uint, uint>(node1, node2));
         Console.WriteLine("Link: " + node1 + " - " + node2);
     }
+
+    public float Dist(Vector2f a, Vector2f b)
+    {
+        return (float)Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
+    }
     
    public Texture exportTextureResults()
    {
         RenderTexture Map = new RenderTexture(4096, 4096);
-        Map.Clear(Color.Black);
+        Map.Clear(new Color(0, 0, 196));
 
         foreach (var link in LinkList)
         {
             //Draw a link by drawing a reactangle from one point to another with a thickness
             //Multiply the x and y coordinates by 4096.
-            RectangleShape road = new RectangleShape();
+            Vector2f Node1, Node2;
 
+            if(!PointDictionary.TryGetValue(link.Item1, out Node1))
+                continue;
+            if (!PointDictionary.TryGetValue(link.Item2, out Node2))
+                continue;
+
+            Node1 *= 4096;
+            Node2 *= 4096;
+
+            Vector2f Position = Node1;
+            Vector2f Size = new Vector2f(16, Dist(Node1, Node2));
+            float Rotation = (float)Math.Atan2(Node1.Y - Node2.Y, Node1.X - Node2.X) * 360f -  45;
+
+            RectangleShape road = new RectangleShape();
+            road.Position = Position;
+            road.Size = Size;
+            road.Rotation = Rotation;
+            road.FillColor = new Color(0, 0, 32);
             Map.Draw(road);
         }
+
+        Map.Display();
 
         return Map.Texture;
    }

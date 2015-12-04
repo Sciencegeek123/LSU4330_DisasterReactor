@@ -27,7 +27,9 @@ partial class InputStage : Stage
                 InfLoadHolder.parseFile(FileName);
                 if(InfLoadHolder.isValid())
                 {
-                    InfastructureList.Add(InfLoadHolder);
+                    Sprite env = new Sprite(InfLoadHolder.exportTextureResults());
+                    EnvironmentProduction.Draw(env);
+
                 }
             }
         }

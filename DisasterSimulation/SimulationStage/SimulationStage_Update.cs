@@ -48,6 +48,9 @@ partial class SimulationStage : Stage
             p.B = (byte)(p.B + 32);
 
             data.Trails.SetPixel((uint)a.Position.X, (uint)a.Position.Y,p);
+            p = data.Trails.GetPixel((uint)a.Position.X, (uint)a.Position.Y);
+
+            Console.WriteLine("Color: " + p);
 
             a.data = Color.Magenta;
         }
