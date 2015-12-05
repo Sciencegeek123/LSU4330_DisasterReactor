@@ -17,14 +17,27 @@ partial class InputStage : Stage
         data.Input.TrackKey(Keyboard.Key.Return);
     }
 
+    bool SpawnWarning = true;
+
     void ProcessFinalizeState()
     {
         //Update
         if(data.Input.CheckKeyPressed(Keyboard.Key.Return))
         {
-            data.Environment = EnvironmentProduction.Texture.CopyToImage();
-            PerformStageTransition = true;
-            return;
+            if(data.SpawnPositions.Count == 0)
+            {
+                if (SpawnWarning)
+                {
+                    SpawnWarning = false;
+                    data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
+                }
+            } else
+            {
+                EnvironmentProduction.Display();
+                data.Environment = EnvironmentProduction.Texture.CopyToImage();
+                PerformStageTransition = true;
+                return;
+            }
         }
 
         //Check Transition

@@ -18,9 +18,31 @@ class Data
     public List<Agent> Agents = new List<Agent>();
 
     public Image Environment;
-    public Image Trails;
+    public byte[] Trails = new byte[4096 * 4096 * 4];
+
+    public bool RenderAgents = true;
+    public bool RenderSpawn = true;
+
+    public Random rand = new Random();
 
     private float LastRenderTime = -1;
+    
+    public Color getPixel(int X, int Y)
+    {
+        return new Color(Trails[(Y * 4096 + X) * 4 + 0], Trails[(Y * 4096 + X) * 4 + 1], Trails[(Y * 4096 + X) * 4 + 2], Trails[(Y * 4096 + X) * 4 + 3]);
+    }
+
+    public void setPixel(int X, int Y, Color C)
+    {
+        int pos = (Y * 4096 + X) * 4;
+
+        if (pos > 4096 * 4096 * 4)
+            Console.WriteLine("P:" + pos + " X:" + X + " Y:" + Y + "C:" + C);
+
+        Trails[pos + 0] = C.R;
+        Trails[pos + 1] = C.G;
+        Trails[pos + 2] = C.B;
+    }
 
     public void Initialize()
     {
@@ -44,12 +66,9 @@ class Data
 
     public void PostUpdate()
     {
-        if (Time.runTime - LastRenderTime > Settings.RenderTimeDelay)
-        {
-            Graphics.RenderInfo();
-            Graphics.RenderWindow();
-            LastRenderTime = Time.runTime;
-        }
+        Graphics.RenderInfo();
+        Graphics.RenderWindow();
+        LastRenderTime = Time.runTime;
     }
 }
 

@@ -116,6 +116,11 @@ class InfastructureHolder
         RenderTexture Map = new RenderTexture(4096, 4096);
         Map.Clear(new Color(0, 0, 196));
 
+        Vertex[] Corners = new Vertex[4];
+
+        for (int i = 0; i < 4; i++)
+            Corners[i].Color = new Color(0, 0, 32);
+
         foreach (var link in LinkList)
         {
             //Draw a link by drawing a reactangle from one point to another with a thickness
@@ -130,16 +135,17 @@ class InfastructureHolder
             Node1 *= 4096;
             Node2 *= 4096;
 
-            Vector2f Position = Node1;
-            Vector2f Size = new Vector2f(16, Dist(Node1, Node2));
-            float Rotation = (float)Math.Atan2(Node1.Y - Node2.Y, Node1.X - Node2.X) * 360f -  45;
+            Vector2f Dir = (Node2 - Node1) / Dist(Node1, Node2);
+            Dir = new Vector2f(Dir.Y, Dir.X);
 
-            RectangleShape road = new RectangleShape();
-            road.Position = Position;
-            road.Size = Size;
-            road.Rotation = Rotation;
-            road.FillColor = new Color(0, 0, 32);
-            Map.Draw(road);
+            Vector2f Thickness = 8 * Dir;
+
+            Corners[0].Position = Node1 + Thickness;
+            Corners[1].Position = Node1 - Thickness;
+            Corners[2].Position = Node2 + Thickness;
+            Corners[3].Position = Node2 - Thickness;
+
+            Map.Draw(Corners, PrimitiveType.Quads);
         }
 
         Map.Display();

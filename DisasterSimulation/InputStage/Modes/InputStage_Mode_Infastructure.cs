@@ -28,6 +28,11 @@ partial class InputStage : Stage
                 if(InfLoadHolder.isValid())
                 {
                     Sprite env = new Sprite(InfLoadHolder.exportTextureResults());
+
+                    env.Origin = new Vector2f(2048, 2048);
+                    env.Position = new Vector2f(2048, 2048);
+                    env.Rotation = -90;
+
                     EnvironmentProduction.Draw(env);
 
                 }

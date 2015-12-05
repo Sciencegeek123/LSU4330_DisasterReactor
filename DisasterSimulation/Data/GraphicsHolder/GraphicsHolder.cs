@@ -72,19 +72,25 @@ partial class GraphicsHolder
         template.OutlineColor = Color.White;
         template.OutlineThickness = 4;
         template.Radius = 8;
-
-        foreach (Vector2f spawn in data.SpawnPositions) {
-            template.Position = spawn;
-            ProgramDisplayTexture.Draw(template);
+        if (data.RenderSpawn)
+        {
+            foreach (Vector2f spawn in data.SpawnPositions)
+            {
+                template.Position = spawn;
+                ProgramDisplayTexture.Draw(template);
+            }
         }
 
         template.OutlineColor = Color.Black;
 
-        foreach (Agent a in data.Agents)
+        if (data.RenderAgents)
         {
-            template.Position = a.Position;
-            template.FillColor = a.data;
-            ProgramDisplayTexture.Draw(template);
+            foreach (Agent a in data.Agents)
+            {
+                template.Position = new Vector2f(a.Position.X, a.Position.Y);
+                template.FillColor = a.info;
+                ProgramDisplayTexture.Draw(template);
+            }
         }
 
 
