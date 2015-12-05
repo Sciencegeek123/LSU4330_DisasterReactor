@@ -5,7 +5,7 @@ using System;
 
 partial class SimulationStage : Stage
 {
-    int agentCount = 100;
+    int agentCount = 512;
 
     public override void Initialize(Data d)
     {

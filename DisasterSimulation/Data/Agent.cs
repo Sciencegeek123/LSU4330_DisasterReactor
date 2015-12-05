@@ -7,12 +7,23 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System.IO;
-using System;
-
-
 
 class Agent
 {
+
+    /*
+    Info: Energy, Aid, Last Gained Value
+    Environment: R = Damage G = Value B = Difficulty
+    Trails: R = Explore G = Aid B = Repair
+    
+    The Agent has the following options:
+        1) Repair the current position
+        2) Aid the current position
+        3) Move to a neighboring position
+
+    */
+
+
     public Vector2i Position;
     public Color info = new Color(0, 0, 0);
 
@@ -33,14 +44,13 @@ class Agent
     public float CalculateOffset(Vector2i offset)
     {
         Vector2i np = Position + offset;
-        if (np.X > 4095 || np.X < 0 || np.Y > 4096 || np.Y < 0)
+        if (np.X > 4095 || np.X < 0 || np.Y > 4095 || np.Y < 0)
             return -1000;
-
 
         EC = data.Environment.GetPixel((uint)np.X, (uint)np.Y);
         TC = data.getPixel((int)np.X, (int)np.Y);
 
-        return (((EC.R - TC.B) + (EC.G - TC.G) + data.rand.Next() % 9) / (EC.R * TC.R + 1));
+        return ((EC.R - TC.B) + (EC.G - TC.G) + (255 - EC.R)) / (EC.R * TC.R + 1);
     }
 
     public float CalculateRepair()
@@ -73,14 +83,11 @@ class Agent
         TC.B = BClamp(TC.B + dif);
 
         data.setPixel(Position.X, Position.Y, TC);
-
-
     }
 
     public void PerformAid()
     {
         //EC G & TC G
-
         int dif = BClamp(EC.G - TC.G);
 
         if (dif > 32)
@@ -97,12 +104,12 @@ class Agent
         TC.G = BClamp(TC.G + dif);
 
         data.setPixel(Position.X, Position.Y, TC);
-
     }
 
     public void PerformMove(Vector2i offset)
     {
         Position += offset;
+
         EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
         TC = data.getPixel(Position.X, Position.Y);
         
@@ -125,18 +132,6 @@ class Agent
         data.setPixel((int)Position.X, (int)Position.Y, info);
     }
 
-    /*
-    Info: Energy, Aid, Last Gained Value
-    Environment: R = Damage G = Value B = Difficulty
-    Trails: R = Explore G = Aid B = Repair
-    
-    The Agent has the following options:
-        1) Repair the current position
-        2) Aid the current position
-        3) Move to a neighboring position
-
-    */
-
     public void Update()
     {
         info.R = BClamp(info.R + 64); //Energy
@@ -149,15 +144,15 @@ class Agent
             EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
             TC = data.getPixel(Position.X, Position.Y);
 
-            float RepairVal = CalculateRepair() * 0.5f;
-            float AidVal = CalculateAid() * 0.5f;
+            float RepairVal = CalculateRepair() * (float)(data.rand.Next() % 1001) / 1000f;
+            float AidVal = CalculateAid() * (float)(data.rand.Next() % 1001) / 1000f;
 
 
             Vector2i BestOffset = new Vector2i(0, 0);
             float BestMove = -1000;
 
 
-            int startLoc = data.rand.Next() % 9;
+            int startLoc = (data.rand.Next() % (9 * 10000)) / 10000;
             for(int x = (startLoc + 1) % 9; x != startLoc; x = ++x % 9)
             {
                 int i = x / 3;
