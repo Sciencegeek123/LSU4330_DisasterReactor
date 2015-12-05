@@ -14,6 +14,9 @@ partial class SimulationStage : Stage
     Image ITra;
     Sprite STra;
 
+    bool renderEnv = true;
+    bool renderTra = true;
+
     public override void Update()
     {
 
@@ -32,10 +35,30 @@ partial class SimulationStage : Stage
             data.RenderSpawn = !data.RenderSpawn;
         }
 
-        TTra.Update(data.Trails);
+        if(data.Input.CheckKeyPressed(Keyboard.Key.E))
+        {
+            renderEnv = !renderEnv;
+        }
 
-        data.Graphics.ProgramDisplayTexture.Draw(SEnv, new RenderStates(BlendMode.Add));
-        data.Graphics.ProgramDisplayTexture.Draw(STra, new RenderStates(BlendMode.Add));
+        if(data.Input.CheckKeyPressed(Keyboard.Key.T))
+        {
+            renderTra = !renderTra;
+        }
+
+
+        if(renderEnv)
+        {
+            data.Graphics.ProgramDisplayTexture.Draw(SEnv, new RenderStates(BlendMode.Add));
+        }
+
+        if(renderTra)
+        {
+
+            TTra.Update(data.Trails);
+
+            data.Graphics.ProgramDisplayTexture.Draw(STra, new RenderStates(BlendMode.Add));
+        }
+        
 
         data.Graphics.ProgramDisplayTexture.Display();
     }

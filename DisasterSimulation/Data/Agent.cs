@@ -50,7 +50,7 @@ class Agent
         EC = data.Environment.GetPixel((uint)np.X, (uint)np.Y);
         TC = data.getPixel((int)np.X, (int)np.Y);
 
-        return ((EC.R - TC.B) + (EC.G - TC.G) + (255 - EC.R)) / (EC.R * TC.R + 1);
+        return ((EC.R - TC.B) + (EC.G - TC.G) + (255 - EC.R) + data.rand.Next() % 255) / (EC.R * TC.R + 1);
     }
 
     public float CalculateRepair()
@@ -144,8 +144,8 @@ class Agent
             EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
             TC = data.getPixel(Position.X, Position.Y);
 
-            float RepairVal = CalculateRepair() * (float)(data.rand.Next() % 1001) / 1000f;
-            float AidVal = CalculateAid() * (float)(data.rand.Next() % 1001) / 1000f;
+            float RepairVal = CalculateRepair();
+            float AidVal = CalculateAid();
 
 
             Vector2i BestOffset = new Vector2i(0, 0);
