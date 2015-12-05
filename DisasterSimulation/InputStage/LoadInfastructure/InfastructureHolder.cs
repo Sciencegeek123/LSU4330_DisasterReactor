@@ -114,12 +114,12 @@ class InfastructureHolder
    public Texture exportTextureResults()
    {
         RenderTexture Map = new RenderTexture(4096, 4096);
-        Map.Clear(new Color(0, 0, 196));
+        Map.Clear(new Color(32, 32, 196));
 
         Vertex[] Corners = new Vertex[4];
 
         for (int i = 0; i < 4; i++)
-            Corners[i].Color = new Color(0, 0, 32);
+            Corners[i].Color = new Color(16, 16, 32);
 
         foreach (var link in LinkList)
         {

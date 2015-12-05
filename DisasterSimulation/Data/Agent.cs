@@ -50,17 +50,17 @@ class Agent
         EC = data.Environment.GetPixel((uint)np.X, (uint)np.Y);
         TC = data.getPixel((int)np.X, (int)np.Y);
 
-        return ((EC.R - TC.B) + (EC.G - TC.G) + (255 - EC.R) + data.rand.Next() % 255) / (EC.R * TC.R + 1);
+        return (data.rand.Next() % 512) * (((EC.R - TC.B) + (EC.G - TC.G) + (512 - TC.R - EC.B)) / 1024f);
     }
 
     public float CalculateRepair()
     {
-        return (EC.R - TC.B) / (EC.B + 1);
+        return (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
     }
 
     public float CalculateAid()
     {
-        return (EC.G - TC.G) / (EC.B + 1);
+        return (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
     }
 
     public void PerformRepair()
@@ -80,7 +80,7 @@ class Agent
         info.R = BClamp(info.R - dif);
         info.B = BClamp(dif);
 
-        TC.B = BClamp(TC.B + dif);
+        TC.B = BClamp(TC.B + 255);
 
         data.setPixel(Position.X, Position.Y, TC);
     }
@@ -101,7 +101,7 @@ class Agent
         info.R = BClamp(info.R - dif);
         info.B = BClamp(dif);
 
-        TC.G = BClamp(TC.G + dif);
+        TC.G = BClamp(TC.G + 255);
 
         data.setPixel(Position.X, Position.Y, TC);
     }
@@ -174,16 +174,16 @@ class Agent
                 }
             }
 
-            if (RepairVal > AidVal && RepairVal > BestMove)
+            if (BestMove > AidVal && BestMove > RepairVal)
             {
-                PerformRepair();
+                PerformMove(BestOffset);
             }
-            else if (AidVal > BestMove)
+            else if (AidVal > RepairVal)
             {
                 PerformAid();
             } else
             {
-                PerformMove(BestOffset);
+                PerformRepair();
             }
 
             if (data.rand.Next() % 256 > info.R)
