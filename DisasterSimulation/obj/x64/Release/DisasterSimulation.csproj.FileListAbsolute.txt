@@ -38,5 +38,3 @@ C:\Users\Scien\Documents\disastersimulation\DisasterSimulation\bin\x64\Release\s
 C:\Users\Scien\Documents\disastersimulation\DisasterSimulation\bin\x64\Release\sfmlnet-system-2.dll
 C:\Users\Scien\Documents\disastersimulation\DisasterSimulation\bin\x64\Release\sfmlnet-window-2.dll
 C:\Users\Scien\Documents\disastersimulation\DisasterSimulation\obj\x64\Release\DisasterSimulation.csprojResolveAssemblyReference.cache
-C:\Users\Scien\Documents\disastersimulation\DisasterSimulation\bin\x64\Release\DisasterSimulation.exe.CodeAnalysisLog.xml
-C:\Users\Scien\Documents\disastersimulation\DisasterSimulation\bin\x64\Release\DisasterSimulation.exe.lastcodeanalysissucceeded
