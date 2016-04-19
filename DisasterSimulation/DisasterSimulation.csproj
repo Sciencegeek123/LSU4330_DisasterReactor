@@ -85,7 +85,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Agent.cs" />
+    <Compile Include="AI\Level0.cs" />
+    <Compile Include="AI\Level1.cs" />
+    <Compile Include="AI\Agent.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_OnClose.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_RenderInfoDisplay.cs" />

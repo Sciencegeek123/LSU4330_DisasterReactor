@@ -44,6 +44,14 @@ partial class SimulationStage : Stage
 
         SEnv = new Sprite(new Texture(data.Environment));
         
+        //partition Environment into 4x4 equal grids, store in Level 0 AI
+        
+        // calculate the total value of each level0 grid using sum(value+damage-difficulty)
+
+        // store in level0.[x][y].value
+
+        // pass each grid into level1 
+            
         int offset = 0;
         if (data.SpawnPositions.Count != 0) {
             for (int i = 0; i < agentCount; i++)
