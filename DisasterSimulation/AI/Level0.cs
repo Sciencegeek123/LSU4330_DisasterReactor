@@ -11,11 +11,10 @@ namespace DisasterSimulation.AI
 {
     class Level0
     {
-        public Image[,] Grid = new Image[4, 4];
-        public Vector2f[,] value;
+        public Vector2f[,] Level0Value;
         public Image completeImage;
         private Color TC, EC;
-        private Data data;
+        public Data data;
 
         public void Initialize(Image image, Data inputdata)
         {
@@ -24,7 +23,7 @@ namespace DisasterSimulation.AI
             double width = image.Size.X;
             double height = image.Size.Y;
             // Optional : Add the ability for user to change the number of partitions (increases / decreases computation )
-            value = new Vector2f[4, 4];
+            Level0Value = new Vector2f[4, 4];
             completeImage = image;
             data = inputdata;
 
@@ -40,7 +39,7 @@ namespace DisasterSimulation.AI
                 for (int j = 0; j < 4; j++)
                 {
                     //double check... that they are in the right order 
-                    value[i, j] = calculateValue(0, 0, 0+i*Math.Ceiling(width), 0+j*Math.Ceiling(height));
+                    Level0Value[i, j] = calculateValue(0, 0, 0+i*Math.Ceiling(width), 0+j*Math.Ceiling(height));
                 }
             }
 
@@ -49,6 +48,7 @@ namespace DisasterSimulation.AI
 
         public Vector2f calculateValue(uint xcoord, uint ycoord, double xsize, double ysize)
         {
+            // should i be using average ?
             float totalaid = 0;
             float totalrepair = 0;
             Vector2f returnvalue = new Vector2f();
@@ -64,6 +64,7 @@ namespace DisasterSimulation.AI
                 }
             }
 
+  
             returnvalue.X = totalaid;
             returnvalue.Y = totalrepair;
             return returnvalue;
