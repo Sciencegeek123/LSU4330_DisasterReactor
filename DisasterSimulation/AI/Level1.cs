@@ -14,10 +14,14 @@ namespace DisasterSimulation.AI
     {
         // create all the necessary variables
         public Vector2f[,] Level1Value;
+        public Level0 level0;
+
         public void Initialize(Level0 input)
         {
-            double width = input.data.Environment.Size.X;
-            double height = input.data.Environment.Size.Y;
+            double width = input.getWidth();
+            double height = input.getHeight();
+
+            level0 = input;
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -37,6 +41,7 @@ namespace DisasterSimulation.AI
             // should i be using average ?
             float totalaid = 0;
             float totalrepair = 0;
+            float count = 0;
             Vector2f returnvalue = new Vector2f();
             Color TC, EC;
 
@@ -44,17 +49,18 @@ namespace DisasterSimulation.AI
             {
                 for (uint y = ycoord; x < ycoord + ysize; y++)
                 {
-                    EC = data.Environment.GetPixel(x, y);
-                    TC = data.Environment.GetPixel(x, y);
-                    totalaid += (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
-                    totalrepair += (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
+                    EC = level0.data.Environment.GetPixel(x, y);
+                    TC = level0.data.Environment.GetPixel(x, y);
+                    totalaid += (level0.data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
+                    totalrepair += (level0.data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
+                    count++;
                 }
             }
 
 
             returnvalue.X = totalaid;
             returnvalue.Y = totalrepair;
-            return returnvalue;
+            return returnvalue / count;
         }
 
     }

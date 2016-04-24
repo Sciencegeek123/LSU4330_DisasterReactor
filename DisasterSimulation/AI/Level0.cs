@@ -52,6 +52,7 @@ namespace DisasterSimulation.AI
             float totalaid = 0;
             float totalrepair = 0;
             Vector2f returnvalue = new Vector2f();
+            float count = 0;
 
             for (uint x = xcoord; x < xcoord + xsize; x++)
             {
@@ -61,13 +62,24 @@ namespace DisasterSimulation.AI
                     TC = completeImage.GetPixel(x, y);
                     totalaid += (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
                     totalrepair += (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
+                    count++;
                 }
             }
 
   
             returnvalue.X = totalaid;
             returnvalue.Y = totalrepair;
-            return returnvalue;
+            return returnvalue / count ;
+        }
+
+        public double getWidth()
+        {
+            return data.Environment.Size.X;
+        }
+
+        public double getHeight()
+        {
+            return data.Environment.Size.Y;
         }
 
     }

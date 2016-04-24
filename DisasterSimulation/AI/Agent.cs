@@ -7,6 +7,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System.IO;
+using DisasterSimulation.AI;
 
 class Agent
 {
@@ -26,8 +27,10 @@ class Agent
 
     public Vector2i Position;
     public Color info = new Color(0, 0, 0);
-
+    Level0 level0 = null;
+    Level1 level1 = null;
     private Data data;
+
 
     byte BClamp(float f)
     {
@@ -125,6 +128,9 @@ class Agent
     {
         Position = new Vector2i((int)p.X,(int)p.Y);
         data = d;
+
+        level0.Initialize(d.Environment, d);
+        level1.Initialize(level0);
 
     }
 
