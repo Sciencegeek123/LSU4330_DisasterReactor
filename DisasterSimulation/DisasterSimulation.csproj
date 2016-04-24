@@ -86,6 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Agent.cs" />
+    <Compile Include="Data\Button.cs" />
+    <Compile Include="Data\RadioButton.cs" />
+    <Compile Include="Data\Panel.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_OnClose.cs" />
     <Compile Include="Data\GraphicsHolder\GraphicsHolder_RenderInfoDisplay.cs" />

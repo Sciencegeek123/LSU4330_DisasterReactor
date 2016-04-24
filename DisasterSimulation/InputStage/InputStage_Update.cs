@@ -3,53 +3,168 @@ using SFML.System;
 using SFML.Window;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 partial class InputStage : Stage
-{ 
+{
     public override void Update()
     {
         CursorProduction.Clear(Color.Black);
 
-        switch(CurrentInputState)
+        if (Mouse.IsButtonPressed(Mouse.Button.Left)) // handle regular button clicks
         {
-            case InputStates.Difficulty:
+            Button clickedButton = Button.GetButtonClicked();
+            if(clickedButton!= null)
+            {
+                switch (clickedButton.Function)
                 {
-                    InteractCursor();
-                    ProcessDifficultyState();
-                    break;
+                    case Button.ButtonFunctions.LoadMap:
+                        {
+                            string FileName;
+                            if (GetFileFromBrowser(out FileName))
+                            {
+                                InfastructureHolder InfLoadHolder = new InfastructureHolder();
+                                InfLoadHolder.parseFile(FileName);
+                                if (InfLoadHolder.isValid())
+                                {
+                                    Sprite env = new Sprite(InfLoadHolder.exportTextureResults());
+
+                                    env.Origin = new Vector2f(2048, 2048);
+                                    env.Position = new Vector2f(2048, 2048);
+                                    env.Rotation = -90;
+
+                                    EnvironmentProduction.Draw(env);
+                                }
+                            }
+                            break;
+                        }
+
+                    case Button.ButtonFunctions.RunSim:
+                        {
+                            if (data.SpawnPositions.Count == 0)
+                            {
+                                if (SpawnWarning)
+                                {
+                                    SpawnWarning = false;
+                                    data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
+                                }
+                            }
+                            else
+                            {
+                                EnvironmentProduction.Display();
+                                data.Environment = EnvironmentProduction.Texture.CopyToImage();
+                                PerformStageTransition = true;
+                                return;
+                            }
+                            break;
+                        }
                 }
-            case InputStates.Damage:
+            }
+        }
+
+        if(Mouse.IsButtonPressed(Mouse.Button.Left) && Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode)
+        {
+            RadioButton ClickedButton = RadioButton.GetRadioButtonClicked();
+            if(ClickedButton != null)
+            {
+                ClickedButton.SelectRadioButton();
+                switch(ClickedButton.ButtonFunction)
                 {
-                    InteractCursor();
-                    ProcessDamageState();
-                    break;
+                    case RadioButton.ButtonFunctions.PaintDamage:
+                        {
+                            EnterDamageState();
+                            break;
+                        }
+
+                    case RadioButton.ButtonFunctions.PaintDifficulty:
+                        {
+                            EnterDifficultyState();
+                            break;
+                        }
+
+                    case RadioButton.ButtonFunctions.PaintValue:
+                        {
+                            EnterValueState();
+                            break;
+                        }
                 }
-            case InputStates.Value:
+            }
+        }
+
+        if (data.Input.CheckKeyPressed(Keyboard.Key.M)) // swap active panels
+        {
+            Panel PanelToActivate = Panel.GetInactivePanel();
+            Panel.ActivePanel.SetActive(false);
+            PanelToActivate.SetActive(true);
+            System.Console.WriteLine(PanelToActivate.PanelMode);
+            if(PanelToActivate.PanelMode == Panel.PanelModes.InspectMode) // allow inspect mode input
+            {
+                data.Input.TrackKey(Keyboard.Key.S);
+                data.Input.TrackKey(Keyboard.Key.C);
+                data.Input.TrackKey(Keyboard.Key.R);
+                data.Input.TrackKey(Keyboard.Key.T);
+                data.Input.TrackKey(Keyboard.Key.Space);
+                EnterInspectState();
+            }
+            else //disable key tracking for inspect mode
+            {
+                data.Input.UntrackKey(Keyboard.Key.S);
+                data.Input.UntrackKey(Keyboard.Key.C);
+                data.Input.UntrackKey(Keyboard.Key.R);
+                data.Input.UntrackKey(Keyboard.Key.T);
+                data.Input.UntrackKey(Keyboard.Key.Space);
+
+                switch (RadioButton.ActivatedRadioButton.ButtonFunction)
                 {
-                    InteractCursor();
-                    ProcessValueState();
-                    break;
+                    case RadioButton.ButtonFunctions.PaintDamage:
+                        {
+                            EnterDamageState();
+                            break;
+                        }
+
+                    case RadioButton.ButtonFunctions.PaintDifficulty:
+                        {
+                            EnterDifficultyState();
+                            break;
+                        }
+
+                    case RadioButton.ButtonFunctions.PaintValue:
+                        {
+                            EnterValueState();
+                            break;
+                        }
                 }
-            case InputStates.Geographic:
-                {
-                    ProcessGeographicState();
-                    break;
-                }
-            case InputStates.Infastructure:
-                {
-                    ProcessInfastructureState();
-                    break;
-                }
-            case InputStates.Inspect:
-                {
-                    ProcessInspectState();
-                    break;
-                }
-            case InputStates.Finalize:
-                {
-                    ProcessFinalizeState();
-                    break;
-                }
+            }
+            Panel.ActivePanel = PanelToActivate;
+        }
+
+        if(Panel.ActivePanel != null && Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode)
+        {
+            ProcessInspectState();
+        }
+        else // Paint Mode
+        {
+            InteractCursor();
+            switch (CurrentInputState)
+            {
+                case InputStates.Damage:
+                    {
+                        ProcessDamageState();
+                        break;
+                    }
+
+                case InputStates.Difficulty:
+                    {
+                        ProcessDifficultyState();
+                        break;
+                    }
+
+                case InputStates.Value:
+                    {
+                        ProcessValueState();
+                        break;
+                    }
+            }
         }
 
         EnvironmentProduction.Display();
@@ -58,7 +173,7 @@ partial class InputStage : Stage
         Sprite EnvironmentSprite = new Sprite(EnvironmentProduction.Texture);
         Sprite CursorSprite = new Sprite(CursorProduction.Texture);
 
-        data.Graphics.ProgramDisplayTexture.Draw(EnvironmentSprite,new RenderStates(BlendMode.Add));
+        data.Graphics.ProgramDisplayTexture.Draw(EnvironmentSprite, new RenderStates(BlendMode.Add));
         data.Graphics.ProgramDisplayTexture.Draw(CursorSprite, new RenderStates(BlendMode.Add));
     }
 }

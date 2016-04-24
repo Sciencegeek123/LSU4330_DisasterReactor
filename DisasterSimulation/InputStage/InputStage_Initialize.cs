@@ -16,32 +16,51 @@ partial class InputStage : Stage
         CursorProduction.Clear(Color.Red);
 
         InfastructureList = new System.Collections.Generic.List<InfastructureHolder>();
-        
 
         //Initial State
-        CurrentInputState = InputStates.Difficulty;
+        //CurrentInputState = InputStates.Inspect;
 
-        //Modes
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Difficulty", true));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Damage", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Value", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Geographic Input", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Infastructure Input", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Inspect", false));
-        data.ModesTextList.Add(new System.Tuple<string, bool>("Finalize", false));
+        //INSPECT MODE ACTION TEXT
+        //data.ControlsTextList.Add(Keyboard.Key.S, new System.Tuple<string, bool>("S - Spawn Point at Position", false));
+        data.ControlsTextList.Add(Keyboard.Key.S, new System.Tuple<string, bool>("S - Create Spawn Point", false));
+        data.ControlsTextList.Add(Keyboard.Key.C, new System.Tuple<string, bool>("C - Clear Spawn Points", false));
+        //data.ControlsTextList.Add(Keyboard.Key.R, new System.Tuple<string, bool>("R - Increase Cursor Radius", false));
+        data.ControlsTextList.Add(Keyboard.Key.R, new System.Tuple<string, bool>("R - Increase Radius", false));
+        //data.ControlsTextList.Add(Keyboard.Key.T, new System.Tuple<string, bool>("T - Decrease Cursor Radius", false));
+        data.ControlsTextList.Add(Keyboard.Key.T, new System.Tuple<string, bool>("T - Decrease Radius", false));
+        //data.ControlsTextList.Add(Keyboard.Key.Space, new System.Tuple<string, bool>("Space - Sample Cursor Position", false));
+        data.ControlsTextList.Add(Keyboard.Key.Space, new System.Tuple<string, bool>("Space - Sample Position\n\n(R, G, B)", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Difficulty", true));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Difficulty", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Damage", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Paint Value", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Geographic Input", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Infastructure Input", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("-----", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Inspect", false));
+        //data.ModesTextList.Add(new System.Tuple<string, bool>("Finalize", false));
 
         //Information
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Input Stage", true));
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Red   - Damage", false));
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Green - Value", false));
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Blue  - Difficulty", false));
+        //data.InfoTextList.Add(new System.Tuple<string, bool>("Input Stage", true));
+        //data.InfoTextList.Add(new System.Tuple<string, bool>("Red   - Damage", false));
+        //data.InfoTextList.Add(new System.Tuple<string, bool>("Green - Value", false));
+        //data.InfoTextList.Add(new System.Tuple<string, bool>("Blue  - Difficulty", false));
 
-        EnterDifficultyState();
+        //PAINT MODE ACTION TEXT
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Damage (Red)", false));
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Difficulty (Blue)", false));
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Value (Green)", false));
 
         //Controls
-        data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("M - Switch Modes", false));
+        data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("Press M to switch modes", false));
         data.Input.TrackKey(Keyboard.Key.M);
+        data.Input.TrackKey(Keyboard.Key.S);
+        data.Input.TrackKey(Keyboard.Key.C);
+        data.Input.TrackKey(Keyboard.Key.R);
+        data.Input.TrackKey(Keyboard.Key.T);
+        data.Input.TrackKey(Keyboard.Key.Space);
+
+        EnterInspectState();
     }
 }

@@ -9,6 +9,6 @@ partial class InputStage : Stage
         data.ModesTextList.Clear();
         data.ControlsTextList.Clear();
         data.InfoTextList.Clear();
-
+        Button.ButtonList.Clear();
     }
 }

@@ -8,13 +8,13 @@ partial class InputStage : Stage
 
     void EnterFinalizeState()
     {
-        data.ModesTextList.RemoveAt(8);
-        data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", true));
+        //data.ModesTextList.RemoveAt(8);
+        //data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", true));
 
         CurrentInputState = InputStates.Finalize;
 
-        data.ControlsTextList.Add(Keyboard.Key.Return,new System.Tuple<string, bool>("Return - Begin Simulation", false));
-        data.Input.TrackKey(Keyboard.Key.Return);
+        //data.ControlsTextList.Add(Keyboard.Key.Return,new System.Tuple<string, bool>("Return - Begin Simulation", false));
+        //data.Input.TrackKey(Keyboard.Key.Return);
     }
 
     bool SpawnWarning = true;
@@ -22,27 +22,27 @@ partial class InputStage : Stage
     void ProcessFinalizeState()
     {
         //Update
-        if(data.Input.CheckKeyPressed(Keyboard.Key.Return))
-        {
-            if(data.SpawnPositions.Count == 0)
-            {
-                if (SpawnWarning)
-                {
-                    SpawnWarning = false;
-                    data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
-                }
-            } else
-            {
-                EnvironmentProduction.Display();
-                data.Environment = EnvironmentProduction.Texture.CopyToImage();
-                PerformStageTransition = true;
-                return;
-            }
-        }
+        //if(data.Input.CheckKeyPressed(Keyboard.Key.Return))
+        //{
+        //    if(data.SpawnPositions.Count == 0)
+        //    {
+        //        if (SpawnWarning)
+        //        {
+        //            SpawnWarning = false;
+        //            data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
+        //        }
+        //    } else
+        //    {
+        //        EnvironmentProduction.Display();
+        //        data.Environment = EnvironmentProduction.Texture.CopyToImage();
+        //        PerformStageTransition = true;
+        //        return;
+        //    }
+        //}
 
         //Check Transition
-        if (data.Input.CheckKeyPressed(Keyboard.Key.M))
-            LeaveFinalizeState();
+        //if (data.Input.CheckKeyPressed(Keyboard.Key.M))
+        //    LeaveFinalizeState();
 
     }
 
@@ -54,8 +54,8 @@ partial class InputStage : Stage
 
 
         //Transition
-        data.ModesTextList.RemoveAt(8);
-        data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", false));
+        //data.ModesTextList.RemoveAt(8);
+        //data.ModesTextList.Insert(8, new System.Tuple<string, bool>("Finalize", false));
         EnterDifficultyState();
     }
 }
