@@ -1,1 +1,4 @@
 C:\Users\User\OneDrive\B IT.B Com\Exchange\Subjects\Semester 1\CSC 4330\wcjones-disastersimulation-b2f267ba4ee7\wcjones-disastersimulation-b2f267ba4ee7\DisasterSimulation\bin\x64\Release\DisasterSimulation.exe.config
+C:\Users\User\Documents\GitHub\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Release\DisasterSimulation.exe.config
+C:\Users\User\Documents\GitHub\LSU4330_DisasterReactor\DisasterSimulation\obj\x64\Release\DisasterSimulation.exe
+C:\Users\User\Documents\GitHub\LSU4330_DisasterReactor\DisasterSimulation\obj\x64\Release\DisasterSimulation.pdb
