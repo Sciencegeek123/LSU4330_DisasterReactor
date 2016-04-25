@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Data\Agent.cs" />
     <Compile Include="Data\Button.cs" />
+    <Compile Include="Data\ErrorText.cs" />
     <Compile Include="Data\RadioButton.cs" />
     <Compile Include="Data\Panel.cs" />
     <Compile Include="Data\Data.cs" />

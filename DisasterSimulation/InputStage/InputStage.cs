@@ -16,6 +16,8 @@ partial class InputStage : Stage
     List<InfastructureHolder> InfastructureList;
     List<ElevationHolder> ElevationList;
 
+    public static bool MapIsLoaded;
+
     enum InputStates
     {
         Difficulty,

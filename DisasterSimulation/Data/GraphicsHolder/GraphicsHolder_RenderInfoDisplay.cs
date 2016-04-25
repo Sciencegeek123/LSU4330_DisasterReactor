@@ -16,6 +16,26 @@ partial class GraphicsHolder
             ProgramInfoTexture.Draw(current.PanelShape);
         }
 
+        if(ErrorText.CurrentErrorText.showText) // show error text
+        {
+            TextTemplate.DisplayedString = ErrorText.CurrentErrorText.stringToDisplay;
+            TextTemplate.Color = new Color(255, 0, 0, ErrorText.CurrentErrorText.alphaValue);
+            TextTemplate.Origin = new Vector2f(TextTemplate.GetLocalBounds().Width / 2f, TextTemplate.GetLocalBounds().Height / 2f); // setting origin to center of text
+            TextTemplate.Position = new Vector2f((LoadMapButton.ButtonSprite.Position.X + RunSimButton.ButtonSprite.Position.X) / 2f, LoadMapButton.ButtonSprite.Position.Y - 75); // positioning text between load map & run sim buttons
+            ProgramInfoTexture.Draw(TextTemplate);
+
+            if (ErrorText.CurrentErrorText.displayDurationRemaining > 0)
+            {
+                ErrorText.CurrentErrorText.displayDurationRemaining -= data.Time.deltaTime;
+                if(ErrorText.CurrentErrorText.displayDurationRemaining <= 0)
+                {
+                    ErrorText.CurrentErrorText.displayDurationRemaining = 0;
+                    ErrorText.CurrentErrorText.showText = false;
+                }
+            }
+            ErrorText.CurrentErrorText.alphaValue = (byte)(255 * (ErrorText.CurrentErrorText.displayDurationRemaining / ErrorText.CurrentErrorText.displayDuration));
+        }
+
         //HeaderText.DisplayedString = "Disaster Simulation - CS3380 Project \nWilliam Jones & Sam Shrestha\nFrame " + data.Time.frame + "\n\nPress ESC to exit";
         //ProgramInfoTexture.Draw(HeaderText);
 
