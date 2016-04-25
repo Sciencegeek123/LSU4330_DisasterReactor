@@ -53,28 +53,24 @@ namespace DisasterSimulation.AI
                 for (int j = 0; j < 4; j++)
                 {
                     //double check... that they are in the right order
-                    Level0Value[i, j] = calculateValue(0, 0, Math.Ceiling(width), Math.Ceiling(height));
+                    Level0Value[i, j] = calculateValue((int)(i *xoffset-1), (int)(j * yoffset - 1), Math.Ceiling(width), Math.Ceiling(height));
                 }
             }
 
         }
 
+        //xsize and ysize maybe useless.
 
-        public Vector2f calculateValue(uint xcoord, uint ycoord, double xsize, double ysize)
+        public Vector2f calculateValue(int xcoord, int ycoord, double xsize, double ysize)
         {
             float totalaid = 0;
             float totalrepair = 0;
             Vector2f returnvalue = new Vector2f();
             float count = 0;
-            //TODO add the xsize in
-            if(xcoord < xoffset)
 
-
-            xsize = 0;
-            ysize = 0;
-            for (int x = getArrayIndex((int)xcoord,(int)ycoord).X*(int)xoffset; x < (getArrayIndex((int)xcoord, (int)ycoord).X+1) * (int)xoffset; x++)
+            for (int x = getArrayIndex(xcoord,ycoord).X*(int)xoffset; x < (getArrayIndex(xcoord, ycoord).X+1) * (int)xoffset; x++)
             {
-                for (int y = getArrayIndex((int)xcoord, (int)ycoord).Y * (int)yoffset; y < (getArrayIndex((int)xcoord, (int)ycoord).Y + 1) * (int)yoffset; y++)
+                for (int y = getArrayIndex(xcoord, ycoord).Y * (int)yoffset; y < (getArrayIndex(xcoord,ycoord).Y + 1) * (int)yoffset; y++)
                 {
                     EC = data.Environment.GetPixel((uint)x,(uint)y);
                     TC = data.getPixel(x, y);
