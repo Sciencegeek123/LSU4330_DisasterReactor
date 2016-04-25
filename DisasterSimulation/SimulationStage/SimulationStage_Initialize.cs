@@ -9,7 +9,6 @@ partial class SimulationStage : Stage
 
     public override void Initialize(Data d)
     {
-
         data = d;
         data.InfoTextList.Add(new System.Tuple<string, bool>("Simulation Stage", true));
         data.InfoTextList.Add(new System.Tuple<string, bool>("Press ESC to exit the program when desired.", true));
@@ -44,7 +43,7 @@ partial class SimulationStage : Stage
 
         SEnv = new Sprite(new Texture(data.Environment));
 
-        Overlord overlord = new Overlord();
+        overlord = new Overlord();
 
         overlord.Initialize(data);
 
