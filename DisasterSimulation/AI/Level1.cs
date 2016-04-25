@@ -20,7 +20,7 @@ namespace DisasterSimulation.AI
         {
             double width = input.getWidth();
             double height = input.getHeight();
-
+            Level1Value = new Vector2f[4, 4];
             level0 = input;
             for (int i = 0; i < 4; i++)
             {
@@ -38,16 +38,15 @@ namespace DisasterSimulation.AI
 
         public Vector2f calculateValue(uint xcoord, uint ycoord, double xsize, double ysize)
         {
-            // should i be using average ?
             float totalaid = 0;
             float totalrepair = 0;
             float count = 0;
             Vector2f returnvalue = new Vector2f();
             Color TC, EC;
-
-            for (uint x = xcoord; x < xcoord + xsize; x++)
+            //TODO add the x size in
+            for (uint x = xcoord; x < xcoord + 0; x++)
             {
-                for (uint y = ycoord; x < ycoord + ysize; y++)
+                for (uint y = ycoord; x < ycoord + 0; y++)
                 {
                     EC = level0.data.Environment.GetPixel(x, y);
                     TC = level0.data.getPixel((int)x, (int)y);

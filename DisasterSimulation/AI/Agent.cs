@@ -59,9 +59,10 @@ class Agent
 
     public float CalculateRepair()
     {
+        Console.WriteLine("Agent.cs: EC.R" + EC.R + " TC.B:" + TC.B + " EC.B" + EC.B + " (EC.R - TC.B + 1) / (EC.B + 255):" + (EC.R - TC.B + 1) / (EC.B + 255));
         float repair = (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
 
-        repair = repair + level0.Level0Value[Position.X, Position.Y].Y/4 + level1.Level1Value[Position.X, Position.Y].Y/4;
+        repair = repair + level0.Level0Value[(int)Math.Floor((decimal)Position.X) / 4, (int)Math.Floor((decimal)Position.Y) / 4].Y + level1.Level1Value[(int)Math.Floor((decimal)Position.X)/4, (int)Math.Floor((decimal)Position.Y)/4].Y;
 
         return repair;
     }
@@ -136,6 +137,8 @@ class Agent
     {
         Position = new Vector2i((int)p.X,(int)p.Y);
         data = d;
+        level0 = new Level0();
+        level1 = new Level1();
 
         level0.Initialize(d.Environment, d);
         level1.Initialize(level0);

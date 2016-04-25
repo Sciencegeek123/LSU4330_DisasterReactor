@@ -29,6 +29,7 @@ class Data
     
     public Color getPixel(int X, int Y)
     {
+        Console.WriteLine("Data.cs: X:" + X + " Y:" + Y);
         return new Color(Trails[(Y * 4096 + X) * 4 + 0], Trails[(Y * 4096 + X) * 4 + 1], Trails[(Y * 4096 + X) * 4 + 2], Trails[(Y * 4096 + X) * 4 + 3]);
     }
 
