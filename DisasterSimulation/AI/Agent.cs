@@ -31,6 +31,7 @@ class Agent
 
     public List<AgentActions> TurnActions;
     public List<Vector2i> TurnMoves;
+    public List<Vector2u> TurnTrails;
 
     public Vector2u Position;
 
@@ -38,10 +39,6 @@ class Agent
 
     private Data data;
     private Overlord overlord;
-
-    public Color TurnEnvironmentColor;
-    public Color TurnTrailsColor;
-
 
     byte BClamp(float f)
     {
@@ -52,7 +49,6 @@ class Agent
         else
             return (byte)f;
     }
-    // trails colour , environment colour @ current location
 
     private Color TC, EC;
 
@@ -92,11 +88,15 @@ class Agent
     public void PerformRepair()
     {
         TurnActions.Add(AgentActions.PERFORM_REPAIR);
+
+        if (TC.B < 255) TC.B++;
     }
 
     public void PerformAid()
     {
         TurnActions.Add(AgentActions.PERFORM_AID);
+
+        if (TC.G < 255) TC.G++;
     }
 
     public void PerformMove(Vector2i offset)
@@ -109,8 +109,10 @@ class Agent
 
         //Add a calculation to store changes so we don't go back and forth. 
 
-        TurnTrailsColor = data.getPixel((int)Position.X, (int)Position.Y);
-        TurnEnvironmentColor = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
+        TC = data.getPixel((int)Position.X, (int)Position.Y);
+        EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
+        
+        if (TC.R < 255) TC.R++;
     }
 
     public void init(Data d, Vector2f p, Overlord overlord)
@@ -129,15 +131,14 @@ class Agent
         TurnMoves.Clear();
         TurnActions.Clear();
 
-        TurnTrailsColor = data.getPixel((int)Position.X, (int)Position.Y);
-        TurnEnvironmentColor = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
+        TC = data.getPixel((int)Position.X, (int)Position.Y);
+        EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
 
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid
 
         //To calculate direction use:
-        
-        Vector2f valueMagnitude = overlord.CalculateValueVector((uint)Position.X, (uint)Position.Y); //Triple check the typecast.
+        Vector2f valueMagnitude = overlord.CalculateValueVector(Position); //This will be the same every iteration.
 
 
         while(info.R > 8)
@@ -146,9 +147,6 @@ class Agent
             //This is at the current position;
             float RepairVal = CalculateRepair();
             float AidVal = CalculateAid();
-
-
-            Vector2f OverlordCalculation = overlord.CalculateValueVector(Position.X, Position.Y);
 
             float BestMove = 1; //Calculate the magnitude of the overlord calculation;
 

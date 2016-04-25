@@ -20,10 +20,14 @@ partial class SimulationStage : Stage
     public override void Update()
     {
 
+        overlord.Update();
+
         foreach(Agent a in data.Agents)
         {
             a.Update();
         }
+
+        //TODO Update the images;
 
         if(data.Input.CheckKeyPressed(Keyboard.Key.A))
         {

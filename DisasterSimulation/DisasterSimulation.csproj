@@ -120,6 +120,7 @@
     <Compile Include="SimulationStage\SimulationStage_Update.cs" />
     <Compile Include="SimulationStage\SimulationStage_Initialize.cs" />
     <Compile Include="SimulationStage\SimulationStage.cs" />
+    <Compile Include="Utilities\CalculateVector2fMagnitude.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

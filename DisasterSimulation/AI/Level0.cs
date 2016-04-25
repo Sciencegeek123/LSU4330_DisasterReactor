@@ -19,13 +19,8 @@ class Level0
     Vector2u subCommandersCount;
 
     Vector2u l0Origin; //The middle of this L0 Commander;
-    public Vector2f magnitude;
-    public Vector2f totalMagnitude;
-    float frameMagnitude = 1; //The arbitrary value of the entire l0 region. Calculated once per frame.
 
-    /*
-    Vector2f[,] Level0Values;
-    */
+    float frameMagnitude = 1; //The value of the entire l0 region. Calculated once per frame.
 
     public void Initialize(Data _data, Vector2u _offset, Vector2u _size)
     {
@@ -57,28 +52,34 @@ class Level0
         }
     }
 
-    //Calculate cached values for each iteration.
+    //Calculate cached values for each frame.
     public void Update()
     {
-        //gets the value from the origin for use with other 
-        settotalMagnitude();
+        frameMagnitude = 0;
+
+        for (int i = 0; i < subCommandersCount.X; i++)
+        {
+            for (int j = 0; j < subCommandersCount.X; j++)
+            {
+                frameMagnitude += subCommanders[i, j].Update();
+            }
+        }
     }
+    
     // check if position is within current commander bounds (look at offset)
     public Boolean isInMyRegion(Vector2u position)
     {
-        bool value = true;
-        if (position.X > offset.X + l0Size.X / 2 || position.X < offset.X - l0Size.X / 2)
-            value = false;
-        if (position.Y > offset.Y + l0Size.Y / 2 || position.Y < offset.Y - l0Size.Y / 2)
-            value = false;
-
-        return value;
+        if (position.X > offset.X + l0Size.X || position.X < offset.X)
+            return false;
+        if (position.Y > offset.Y + l0Size.Y || position.Y < offset.Y)
+            return false;
+        return true;
     }
 
-    public Vector2f calculateMagnitude(Vector2u position)
+    public Vector2f calculateMagnitudeVector(Vector2u position)
     {
         
-        magnitude = new Vector2f(0, 0);
+        Vector2f magnitude = new Vector2f(0, 0);
 
 
         if(isInMyRegion(position))
@@ -89,34 +90,22 @@ class Level0
                 {
                     magnitude += subCommanders[i, j].calculateMagnitude(position);
                 }
-
             }
 
         } else
         {
-            Vector2f direction = new Vector2f(1, 1); //TODO You need to determine;
-            
+            Vector2f direction = new Vector2f(1, 1);
 
+            direction.X = position.X - l0Origin.X;
+            direction.Y = position.Y - l0Origin.Y;
+
+            direction /= Utilities.CalculateVector2fMagnitude(direction); // normalize;
+            
             return direction * frameMagnitude;
         }
 
 
         return magnitude;
-    }
-
-    public void settotalMagnitude()
-    {
-        totalMagnitude = calculateMagnitude(l0Origin);
-    }
-
-    public uint distancefromAgent(Vector2f agentpos)
-    {
-        uint distance;
-        distance = (uint)Math.Sqrt((agentpos.X - l0Origin.X) * (agentpos.X - l0Origin.X) + (agentpos.Y - l0Origin.Y) * (agentpos.Y - l0Origin.Y));
-
-        return distance;
-    }
-   
-
+    }  
 }
 
