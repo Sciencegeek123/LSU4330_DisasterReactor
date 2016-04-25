@@ -22,13 +22,27 @@ class Agent
         3) Move to a neighboring position
 
     */
+    public enum AgentActions
+    {
+        PERFORM_MOVE,
+        PERFORM_AID,
+        PERFORM_REPAIR,
+    }
 
+    public List<AgentActions> TurnActions;
+    public List<Vector2i> TurnMoves;
 
-    public Vector2i Position;
-    public Color info = new Color(0, 0, 0);
+    public Vector2u Position;
+
+   public Color info = new Color(0, 0, 0);
+
     private Data data;
     private Overlord overlord;
-    
+
+    public Color TurnEnvironmentColor;
+    public Color TurnTrailsColor;
+
+
     byte BClamp(float f)
     {
         if (f > 255)
@@ -42,9 +56,9 @@ class Agent
 
     private Color TC, EC;
 
-    public float CalculateOffset(Vector2i offset)
+    public float CalculateOffset(Vector2u offset)
     {
-        Vector2i np = Position + offset;
+        Vector2u np = Position + offset;
         if (np.X > 4095 || np.X < 0 || np.Y > 4095 || np.Y < 0)
             return -1000;
 
@@ -57,8 +71,8 @@ class Agent
     public float CalculateRepair()
     {
         float repair = (float) (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
-        int x = Position.X;
-        int y = Position.Y;
+        uint x = Position.X;
+        uint y = Position.Y;
        // repair = repair + level0.Level0Value[level0.getArrayIndex(x,y).X, level0.getArrayIndex(x, y).Y].Y + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].Y;
 
         return repair;
@@ -67,8 +81,8 @@ class Agent
     public float CalculateAid()
     {
         float aid = (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
-        int x = Position.X;
-        int y = Position.Y;
+        uint x = Position.X;
+        uint y = Position.Y;
                     
         //aid = aid + level0.Level0Value[level0.getArrayIndex(x, y).X, level0.getArrayIndex(x, y).Y].X + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].X;
 
@@ -77,76 +91,47 @@ class Agent
 
     public void PerformRepair()
     {
-        //EC R & TC B
-
-        int dif = BClamp(EC.R - TC.B);
-
-        if (dif > 32)
-            dif = 32;
-
-        if (dif > info.R)
-            dif = info.R;
-        if (dif > info.G)
-            dif = info.G;
-
-        info.R = BClamp(info.R - dif);
-        info.B = BClamp(dif);
-
-        TC.B = BClamp(TC.B + 255);
-
-        data.setPixel(Position.X, Position.Y, TC);
+        TurnActions.Add(AgentActions.PERFORM_REPAIR);
     }
 
     public void PerformAid()
     {
-        //EC G & TC G
-        int dif = BClamp(EC.G - TC.G);
-
-        if (dif > 32)
-            dif = 32;
-
-        if (dif > info.R)
-            dif = info.R;
-        if (dif > info.G)
-            dif = info.G;
-
-        info.R = BClamp(info.R - dif);
-        info.B = BClamp(dif);
-
-        TC.G = BClamp(TC.G + 255);
-
-        data.setPixel(Position.X, Position.Y, TC);
+        TurnActions.Add(AgentActions.PERFORM_AID);
     }
 
     public void PerformMove(Vector2i offset)
     {
-        Position += offset;
+        TurnActions.Add(AgentActions.PERFORM_MOVE);
+        TurnMoves.Add(offset);
 
-        EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
-        TC = data.getPixel(Position.X, Position.Y);
-        
-        TC.R = BClamp(TC.R + 8);
-        info.R = BClamp(info.R - EC.B);
-        data.setPixel(Position.X, Position.Y, TC);
+        Position.X = (uint)(Position.X + offset.X);
+        Position.Y = (uint)(Position.Y + offset.Y);
 
-        info.B = BClamp(TC.R + 8);
+        //Add a calculation to store changes so we don't go back and forth. 
+
+        TurnTrailsColor = data.getPixel((int)Position.X, (int)Position.Y);
+        TurnEnvironmentColor = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
     }
 
     public void init(Data d, Vector2f p, Overlord overlord)
     {
-        Position = new Vector2i((int)p.X,(int)p.Y);
+        Position = new Vector2u((uint)p.X,(uint)p.Y);
         data = d;
         this.overlord = overlord;
+        TurnActions = new List<AgentActions>();
+        TurnMoves = new List<Vector2i>();
 
-    }
-
-    public void paintPosition()
-    {
-        data.setPixel((int)Position.X, (int)Position.Y, info);
     }
 
     public void Update()
     {
+
+        TurnMoves.Clear();
+        TurnActions.Clear();
+
+        TurnTrailsColor = data.getPixel((int)Position.X, (int)Position.Y);
+        TurnEnvironmentColor = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
+
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid
 
@@ -157,43 +142,25 @@ class Agent
 
         while(info.R > 8)
         {
-            info.R = BClamp(info.R - 1);
 
-            EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
-            TC = data.getPixel(Position.X, Position.Y);
-
+            //This is at the current position;
             float RepairVal = CalculateRepair();
             float AidVal = CalculateAid();
 
 
-            Vector2i BestOffset = new Vector2i(0, 0);
-            float BestMove = -1000;
+            Vector2f OverlordCalculation = overlord.CalculateValueVector(Position.X, Position.Y);
 
-            int startLoc = (data.rand.Next() % (9 * 10000)) / 10000;
-            for(int x = (startLoc + 1) % 9; x != startLoc; x = ++x % 9)
-            {
-                int i = x / 3;
-                int j = (x - i * 3);
+            float BestMove = 1; //Calculate the magnitude of the overlord calculation;
 
-                i -= 1;
-                j -= 1;
-                
-                if (i == 0 && j == 0)
-                    continue;
-                if ((Position.X + i) < 0 || (Position.X + i) > 4095 || (Position.Y + j) < 0 || (Position.Y + j) > 4095)
-                    continue;
-
-                float cal = CalculateOffset(new Vector2i(i, j));
-                if (cal > BestMove)
-                {
-                    BestMove = cal;
-                    BestOffset = new Vector2i(i, j);
-                }
-            }
 
             if (BestMove > AidVal && BestMove > RepairVal)
             {
-                PerformMove(BestOffset);
+                //Take the direction of overlord calculation and calculate which of the 8 surrounding tiles it wants to move to.
+                //This is a delta, so the elements have a range of -1 to 1
+
+                Vector2i DeltaOffset = new Vector2i(0, 0);
+
+                PerformMove(DeltaOffset);
             }
             else if (AidVal > RepairVal)
             {
