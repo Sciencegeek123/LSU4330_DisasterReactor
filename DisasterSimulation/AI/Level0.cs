@@ -47,7 +47,7 @@ class Level0
             for(uint j = 0; j < y; j++)
             {
                 subCommanders[i, j] = new Level1();
-                subCommanders[i, j].Initialize(data, new Vector2u(i * l1Size.X, j * l1Size.Y), l0Size);
+                subCommanders[i, j].Initialize(data, new Vector2u(i * l1Size.X + offset.X, j * l1Size.Y + offset.Y), l1Size);
             }
         }
     }
@@ -59,7 +59,7 @@ class Level0
 
         for (int i = 0; i < subCommandersCount.X; i++)
         {
-            for (int j = 0; j < subCommandersCount.X; j++)
+            for (int j = 0; j < subCommandersCount.Y; j++)
             {
                 frameMagnitude += subCommanders[i, j].Update();
             }

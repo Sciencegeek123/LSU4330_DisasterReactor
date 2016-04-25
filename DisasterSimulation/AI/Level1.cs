@@ -67,7 +67,8 @@ class Level1
 
     public float calculatePixelValue(uint xpos, uint ypos)
     {
-
+    
+        
         //TODO Perhaps with some coefficients or something.
 
         Color EC = data.Environment.GetPixel(xpos, ypos);
@@ -82,11 +83,11 @@ class Level1
         uint repair = TC.B;
         if(Difficulty-repair == 0)
         {
-            return BClamp(((damage - aid) * Value) /0.01f);
+            return (damage - aid) * Value;
         }
         
 
-        return BClamp(((damage - aid) * Value) / (Difficulty - repair+1));
+        return ((damage - aid) * Value) / (Difficulty - repair+1);
     }
 
     // input: vector2u position

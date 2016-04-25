@@ -20,16 +20,22 @@ partial class SimulationStage : Stage
     public override void Update()
     {
 
+        Console.Out.WriteLine("Simulation Update Entered");
+
         overlord.Update();
 
-        foreach(Agent a in data.Agents)
+        Console.Out.WriteLine("Overlord Update Complete");
+
+        foreach (Agent a in data.Agents)
         {
             a.Update();
         }
 
+        Console.Out.WriteLine("Agent Update Complete");
+
         //TODO Update the images;
 
-        if(data.Input.CheckKeyPressed(Keyboard.Key.A))
+        if (data.Input.CheckKeyPressed(Keyboard.Key.A))
         {
             data.RenderAgents = !data.RenderAgents;
         }

@@ -30,12 +30,11 @@ class Agent
     }
 
     public List<AgentActions> TurnActions;
-    public List<Vector2i> TurnMoves;
-    public List<Vector2u> TurnTrails;
 
     public Vector2u Position;
+    public Vector2u NewPosition;
 
-   public Color info = new Color(0, 0, 0);
+    public Color info = new Color(0, 0, 0);
 
     private Data data;
     private Overlord overlord;
@@ -102,20 +101,12 @@ class Agent
     public void PerformMove(Vector2i offset)
     {
         TurnActions.Add(AgentActions.PERFORM_MOVE);
-        TurnMoves.Add(offset);
 
-        Position.X = (uint)(Position.X + offset.X);
-        Position.Y = (uint)(Position.Y + offset.Y);
-
-        //Add a calculation to store changes so we don't go back and forth. 
-
-        TC = data.getPixel((int)Position.X, (int)Position.Y);
-        EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
+        NewPosition.X = (uint)(Position.X + offset.X);
+        NewPosition.Y = (uint)(Position.Y + offset.Y);
 
         // Check if current square is completely explored
         if (TC.R < 255) TC.R++;
-        // add currrent position to a list
-        TurnTrails.Add(Position);
 
 
     }
@@ -123,19 +114,19 @@ class Agent
     public void init(Data d, Vector2f p, Overlord overlord)
     {
         Position = new Vector2u((uint)p.X,(uint)p.Y);
+        NewPosition = new Vector2u((uint)p.X, (uint)p.Y);
         data = d;
         this.overlord = overlord;
         TurnActions = new List<AgentActions>();
-        TurnMoves = new List<Vector2i>();
-        TurnTrails = new List<Vector2u>();
 
     }
 
     public void Update()
     {
-
-        TurnMoves.Clear();
+        
         TurnActions.Clear();
+
+        Position = NewPosition;
 
         TC = data.getPixel((int)Position.X, (int)Position.Y);
         EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
@@ -156,6 +147,7 @@ class Agent
 
             float BestMove = 1; //Calculate the magnitude of the overlord calculation;
 
+            info.R -= 8;
 
             if (BestMove > AidVal && BestMove > RepairVal)
             {
@@ -165,6 +157,8 @@ class Agent
                 Vector2i DeltaOffset = new Vector2i(0, 0);
 
                 PerformMove(DeltaOffset);
+
+                break;
             }
             else if (AidVal > RepairVal)
             {
