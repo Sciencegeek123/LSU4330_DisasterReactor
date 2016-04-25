@@ -43,34 +43,39 @@ partial class SimulationStage : Stage
         STra = new Sprite(TTra);
 
         SEnv = new Sprite(new Texture(data.Environment));
-        
+
+        Overlord overlord = new Overlord();
+
+        overlord.Initialize(data);
+
         //partition Environment into 4x4 equal grids, store in Level 0 AI
-        
+
         // calculate the total value of each level0 grid using sum(value+damage-difficulty)
 
         // store in level0.[x][y].value
 
         // pass each grid into level1 
-            
-        int offset = 0;
-        if (data.SpawnPositions.Count != 0) {
+
+        Vector2f halfSize = new Vector2f(data.Environment.Size.X / 2, data.Environment.Size.Y / 2);
+
+        if (data.SpawnPositions.Count > 0) { //Use the spawn points if there are some.
+            int offset = 0;
             for (int i = 0; i < agentCount; i++)
             {
                 Agent a = new Agent();
-                a.init(data,data.SpawnPositions[offset]);
+                a.init(data,data.SpawnPositions[offset], overlord);
                 a.info = new Color(255, 255, 0);
                 offset = ++offset % data.SpawnPositions.Count;
                 data.Agents.Add(a);
                 
             }
-        } else
+        } else //Spawn them in the middle of the map.
         {
             for (int i = 0; i < agentCount; i++)
             {
                 Agent a = new Agent();
-                a.init(data,new Vector2f(2048, 2048));
+                a.init(data, halfSize, overlord);
                 a.info = new Color(32, 32, 0);
-                offset = ++offset % data.SpawnPositions.Count;
                 data.Agents.Add(a);
 
             }

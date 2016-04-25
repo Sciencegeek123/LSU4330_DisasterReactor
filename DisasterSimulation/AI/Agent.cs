@@ -7,7 +7,6 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System.IO;
-using DisasterSimulation.AI;
 
 class Agent
 {
@@ -27,11 +26,9 @@ class Agent
 
     public Vector2i Position;
     public Color info = new Color(0, 0, 0);
-    Level0 level0 = null;
-    Level1 level1 = null;
     private Data data;
-
-
+    private Overlord overlord;
+    
     byte BClamp(float f)
     {
         if (f > 255)
@@ -62,7 +59,7 @@ class Agent
         float repair = (float) (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
         int x = Position.X;
         int y = Position.Y;
-        repair = repair + level0.Level0Value[level0.getArrayIndex(x,y).X, level0.getArrayIndex(x, y).Y].Y + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].Y;
+       // repair = repair + level0.Level0Value[level0.getArrayIndex(x,y).X, level0.getArrayIndex(x, y).Y].Y + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].Y;
 
         return repair;
     }
@@ -73,7 +70,7 @@ class Agent
         int x = Position.X;
         int y = Position.Y;
                     
-        aid = aid + level0.Level0Value[level0.getArrayIndex(x, y).X, level0.getArrayIndex(x, y).Y].X + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].X;
+        //aid = aid + level0.Level0Value[level0.getArrayIndex(x, y).X, level0.getArrayIndex(x, y).Y].X + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].X;
 
         return aid;
     }
@@ -135,15 +132,10 @@ class Agent
         info.B = BClamp(TC.R + 8);
     }
 
-    public void init(Data d, Vector2f p)
+    public void init(Data d, Vector2f p, Overlord overlord)
     {
         Position = new Vector2i((int)p.X,(int)p.Y);
         data = d;
-        level0 = new Level0();
-        level1 = new Level1();
-
-        level0.Initialize(d.Environment, d);
-        level1.Initialize(level0);
 
     }
 
@@ -156,6 +148,10 @@ class Agent
     {
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid
+
+        //To calculate direction use:
+
+        Vector2f valueMagnitude = overlord.CalculateValueVector((uint)Position.X, (uint)Position.Y); //Triple check the typecast.
 
         while(info.R > 8)
         {

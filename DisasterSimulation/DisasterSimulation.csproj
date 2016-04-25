@@ -85,6 +85,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Overlord.cs" />
     <Compile Include="AI\Level0.cs" />
     <Compile Include="AI\Level1.cs" />
     <Compile Include="AI\Agent.cs" />
