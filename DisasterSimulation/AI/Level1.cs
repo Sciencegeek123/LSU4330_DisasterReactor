@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,14 @@ namespace DisasterSimulation.AI
             double width = input.getWidth();
             double height = input.getHeight();
             Level1Value = new Vector2f[4, 4];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Level1Value[i, j] = new Vector2f(0, 0);
+                }
+            }
+
             level0 = input;
             for (int i = 0; i < 4; i++)
             {

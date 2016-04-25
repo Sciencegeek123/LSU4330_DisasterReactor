@@ -60,9 +60,11 @@ class Agent
     public float CalculateRepair()
     {
         Console.WriteLine("Agent.cs: EC.R" + EC.R + " TC.B:" + TC.B + " EC.B" + EC.B + " (EC.R - TC.B + 1) / (EC.B + 255):" + (EC.R - TC.B + 1) / (EC.B + 255));
-        float repair = (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
-
-        repair = repair + level0.Level0Value[(int)Math.Floor((decimal)Position.X) / 4, (int)Math.Floor((decimal)Position.Y) / 4].Y + level1.Level1Value[(int)Math.Floor((decimal)Position.X)/4, (int)Math.Floor((decimal)Position.Y)/4].Y;
+        float repair = (float) (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
+        int x = (int)Math.Floor((decimal)Position.X) / 4;
+        int y = (int)Math.Floor((decimal)Position.Y) / 4;
+        Console.WriteLine("Calculate: " + x + "," + y);
+        repair = repair + level0.Level0Value[x,y].Y + level1.Level1Value[x,y].Y;
 
         return repair;
     }

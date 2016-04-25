@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using System.Collections;
 
 namespace DisasterSimulation.AI
 {
@@ -24,6 +25,25 @@ namespace DisasterSimulation.AI
             double height = inputdata.Environment.Size.Y;
             // Optional : Add the ability for user to change the number of partitions (increases / decreases computation )
             Level0Value = new Vector2f[4, 4];
+
+            for(int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Level0Value[i, j] = new Vector2f(0,0);
+                }
+            }
+
+
+            int X = 5, Y = 5;
+            Vector2f[,] D = new Vector2f[X, Y];
+            for (int i = 0; i < X; i++)
+            {
+                for (int j = 0; j < Y; j++)
+                {
+                    D[i, j] = new Vector2f(0, 0);
+                }
+            }
             completeImage = image;
             data = inputdata;
 
