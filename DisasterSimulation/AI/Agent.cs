@@ -111,8 +111,13 @@ class Agent
 
         TC = data.getPixel((int)Position.X, (int)Position.Y);
         EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
-        
+
+        // Check if current square is completely explored
         if (TC.R < 255) TC.R++;
+        // add currrent position to a list
+        TurnTrails.Add(Position);
+
+
     }
 
     public void init(Data d, Vector2f p, Overlord overlord)
@@ -122,6 +127,7 @@ class Agent
         this.overlord = overlord;
         TurnActions = new List<AgentActions>();
         TurnMoves = new List<Vector2i>();
+        TurnTrails = new List<Vector2u>();
 
     }
 

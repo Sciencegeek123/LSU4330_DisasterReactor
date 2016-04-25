@@ -21,9 +21,15 @@ class Level1
 
     public float frameMagnitude = 1;
 
-    /*
-    Vector2f[,] Level1Value;
-    */
+    byte BClamp(float f)
+    {
+        if (f > 255)
+            return 255;
+        else if (f < 0)
+            return 0;
+        else
+            return (byte)f;
+    }
 
     public void Initialize(Data _data, Vector2u _offset, Vector2u _size)
     {
@@ -59,15 +65,28 @@ class Level1
         return true;
     }
 
-    public float calculatePixelValue(uint i, uint j)
+    public float calculatePixelValue(uint xpos, uint ypos)
     {
-        //Look at the environment and trails data for this pixel and come up with a function of how valuable this pixel is.
+
+        //TODO Perhaps with some coefficients or something.
+
+        Color EC = data.Environment.GetPixel(xpos, ypos);
+
+        uint damage = EC.R;
+        uint Difficulty = EC.B;
+        uint Value = EC.G;
+
+        Color TC = data.getPixel((int)xpos, (int)ypos);
+
+        uint aid = TC.G;
+        uint repair = TC.B;
+        if(Difficulty-repair == 0)
+        {
+            return BClamp(((damage - aid) * Value) /0.01f);
+        }
         
-        //It's something like ((Damage - Aid) * Value / (Difficulty - Repair));
 
-        //Perhaps with some coefficients or something.
-
-        return 1;
+        return BClamp(((damage - aid) * Value) / (Difficulty - repair+1));
     }
 
     // input: vector2u position
@@ -87,13 +106,10 @@ class Level1
 
         if (isInMyRegion(position))
         {
-            //TODO Look at every pixel in the region.
             for (uint i = offset.X; i < offset.X+l1Size.X; i++)
             {
                 for(uint j= offset.Y; j < offset.Y + l1Size.Y; j++)
                 {
-                    // can change the frame magnitude 
-                    // currently adds all vectors together (without looking at their individual values)
                     magnitude += direction * calculatePixelValue(i, j);
                 }
             }
