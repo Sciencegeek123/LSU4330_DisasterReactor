@@ -22,7 +22,6 @@ class InfastructureHolder
     private float latitude;
     private float longitude;
     private uint id;
-    private uint Node;
     private Vector2f Position;
 
     private Vector2f OriginBounds, Size;

@@ -58,30 +58,19 @@ class Agent
             return -1000;
 
         EC = data.Environment.GetPixel((uint)np.X, (uint)np.Y);
-        TC = data.getPixel((int)np.X, (int)np.Y);
+        TC = data.getPixel(np.X, np.Y);
 
         return (data.rand.Next() % 512) * (((EC.R - TC.B) + (EC.G - TC.G) + (512 - TC.R - EC.B)) / 1024f);
     }
 
     public float CalculateRepair()
     {
-        float repair = (float) (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
-        uint x = Position.X;
-        uint y = Position.Y;
-       // repair = repair + level0.Level0Value[level0.getArrayIndex(x,y).X, level0.getArrayIndex(x, y).Y].Y + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].Y;
-
-        return repair;
+        return (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
     }
 
     public float CalculateAid()
     {
-        float aid = (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
-        uint x = Position.X;
-        uint y = Position.Y;
-                    
-        //aid = aid + level0.Level0Value[level0.getArrayIndex(x, y).X, level0.getArrayIndex(x, y).Y].X + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].X;
-
-        return aid;
+        return (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
     }
 
     public void PerformRepair()
@@ -123,13 +112,13 @@ class Agent
 
     public void Update()
     {
-        
+
         TurnActions.Clear();
 
         Position = NewPosition;
 
-        TC = data.getPixel((int)Position.X, (int)Position.Y);
-        EC = data.Environment.GetPixel((uint)Position.X, (uint)Position.Y);
+        TC = data.getPixel(Position.X, Position.Y);
+        EC = data.Environment.GetPixel(Position.X, Position.Y);
 
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid
@@ -170,6 +159,8 @@ class Agent
 
             if (data.rand.Next() % 256 > info.R)
                 break;
+
+
         }
     }
 }

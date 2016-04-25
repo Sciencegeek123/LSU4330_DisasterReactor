@@ -47,14 +47,6 @@ partial class SimulationStage : Stage
 
         overlord.Initialize(data);
 
-        //partition Environment into 4x4 equal grids, store in Level 0 AI
-
-        // calculate the total value of each level0 grid using sum(value+damage-difficulty)
-
-        // store in level0.[x][y].value
-
-        // pass each grid into level1 
-
         Vector2f halfSize = new Vector2f(data.Environment.Size.X / 2, data.Environment.Size.Y / 2);
 
         if (data.SpawnPositions.Count > 0) { //Use the spawn points if there are some.

@@ -68,7 +68,6 @@ class Level1
     public float calculatePixelValue(uint xpos, uint ypos)
     {
     
-        
         //TODO Perhaps with some coefficients or something.
 
         Color EC = data.Environment.GetPixel(xpos, ypos);
@@ -77,7 +76,7 @@ class Level1
         uint Difficulty = EC.B;
         uint Value = EC.G;
 
-        Color TC = data.getPixel((int)xpos, (int)ypos);
+        Color TC = data.getPixel(xpos, ypos);
 
         uint aid = TC.G;
         uint repair = TC.B;

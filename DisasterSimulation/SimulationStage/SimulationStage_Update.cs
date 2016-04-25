@@ -19,6 +19,7 @@ partial class SimulationStage : Stage
 
     public override void Update()
     {
+        var overlordtime = System.Diagnostics.Stopwatch.StartNew();
 
         Console.Out.WriteLine("Simulation Update Entered");
 
@@ -26,13 +27,15 @@ partial class SimulationStage : Stage
 
         Console.Out.WriteLine("Overlord Update Complete");
 
+        overlordtime.Stop();
+        var agenttime = System.Diagnostics.Stopwatch.StartNew();
         foreach (Agent a in data.Agents)
         {
             a.Update();
         }
 
         Console.Out.WriteLine("Agent Update Complete");
-
+        agenttime.Stop();
         //TODO Update the images;
 
         if (data.Input.CheckKeyPressed(Keyboard.Key.A))
@@ -71,5 +74,8 @@ partial class SimulationStage : Stage
         
 
         data.Graphics.ProgramDisplayTexture.Display();
+
+   
+        Console.WriteLine("Overlord: " + overlordtime.ElapsedMilliseconds + " AgentTime: " + agenttime.ElapsedMilliseconds);
     }
 }

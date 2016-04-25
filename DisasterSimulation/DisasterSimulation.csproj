@@ -96,6 +96,7 @@
     <Compile Include="Data\InputHolder.cs" />
     <Compile Include="Data\SettingHolder.cs" />
     <Compile Include="Data\TimeHolder.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InputStage\Generic\Stage_GetFileFromBrowser.cs" />
     <Compile Include="InputStage\Generic\Stage.cs" />
     <Compile Include="InputStage\InputStage_Finalize.cs" />
