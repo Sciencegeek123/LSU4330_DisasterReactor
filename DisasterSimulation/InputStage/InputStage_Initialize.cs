@@ -61,6 +61,8 @@ partial class InputStage : Stage
         data.Input.TrackKey(Keyboard.Key.T);
         data.Input.TrackKey(Keyboard.Key.Space);
 
+        RadioButton.FadeColors(); // fade colors since initial activated panel is inspect mode
+
         EnterInspectState();
     }
 }

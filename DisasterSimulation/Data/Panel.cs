@@ -11,8 +11,8 @@ class Panel
     public RectangleShape PanelShape;
     public static List<Panel> PanelList = new List<Panel>();
     public static Panel ActivePanel;
-    private Color FillColor_Inactive = new Color(100, 100, 100);
-    private Color FillColor_Active = new Color(200, 200, 200);
+    private static readonly Color FillColor_Inactive = new Color(120, 120, 120);
+    private static readonly Color FillColor_Active = new Color(200, 200, 200);
     
     public Panel(Vector2f size, Vector2f position, PanelModes modeRef)
     {
@@ -31,6 +31,7 @@ class Panel
     public void SetActive(bool value)
     {
         IsActive = value;
+        PanelShape.OutlineThickness = IsActive ? 4 : 2;
         PanelShape.FillColor = IsActive ? FillColor_Active : FillColor_Inactive;
         ActivePanel = this;
     }

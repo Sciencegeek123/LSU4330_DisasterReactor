@@ -30,15 +30,27 @@ partial class GraphicsHolder
         foreach (var str in data.ControlsTextList) // inspect mode subtext
         {
             TextTemplate.DisplayedString = str.Value.Item1;
-            if(TextTemplate.DisplayedString == "Press M to switch modes") // moving switch modes text into specific pos
+            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode) // change font color to hint that panel is disabled
             {
-                TextTemplate.Position = new Vector2f(ModesHeaderText.Position.X - 45, LoadMapButton.ButtonSprite.Position.Y - 125);
+                ModesHeaderText.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
+                TextTemplate.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
+            }
+            else
+            {
+                ModesHeaderText.Color = Color.Black;
+                TextTemplate.Color = Color.Black;
+            }
+            if (TextTemplate.DisplayedString == "Press M to switch modes") // moving switch modes text into specific pos
+            {
+                TextTemplate.Origin = new Vector2f(TextTemplate.GetLocalBounds().Width / 2f, TextTemplate.GetLocalBounds().Height / 2f); // setting origin to center of text
+                TextTemplate.Position = new Vector2f((LoadMapButton.ButtonSprite.Position.X + RunSimButton.ButtonSprite.Position.X)/2f, LoadMapButton.ButtonSprite.Position.Y - 125); // positioning text between load map & run sim buttons
                 TextTemplate.Font = RegularFont;
+                TextTemplate.Color = Color.Black;
                 ProgramInfoTexture.Draw(TextTemplate);
             }
             else
             {
-                //TextTemplate.Position = new Vector2f(15, offset);
+                TextTemplate.Origin = new Vector2f(0, 0);
                 TextTemplate.Position = new Vector2f(ModesHeaderText.Position.X - 60, offset);
 
                 if (str.Value.Item2)
@@ -61,6 +73,16 @@ partial class GraphicsHolder
         foreach (Tuple<string, bool> str in data.InfoTextList) // Paint Mode subtext
         {
             TextTemplate.DisplayedString = str.Item1;
+            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode) // change font color to hint that panel is disabled
+            {
+                InfoHeaderText.Color = new Color(175, 175, 175, (byte)(255*0.45f));
+                TextTemplate.Color = new Color(175, 175, 175, (byte)(255*0.45f));
+            }
+            else
+            {
+                InfoHeaderText.Color = Color.Black;
+                TextTemplate.Color = Color.Black;
+            }
             //TextTemplate.Position = new Vector2f(15, offset);
             TextTemplate.Position = new Vector2f(InfoHeaderText.Position.X - 30, offset - 80); 
 

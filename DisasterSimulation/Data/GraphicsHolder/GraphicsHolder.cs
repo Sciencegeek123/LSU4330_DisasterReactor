@@ -65,7 +65,7 @@ partial class GraphicsHolder
         //Creating Panels
         InspectModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.38f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.05f), Panel.PanelModes.InspectMode);
         InspectModePanel.SetActive(true);
-        PaintModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.25f), new Vector2f(InspectModePanel.PanelShape.Position.X, data.Settings.InformationResolution.Y * 0.50f), Panel.PanelModes.PaintMode);
+        PaintModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.25f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.50f), Panel.PanelModes.PaintMode);
 
         //Creating Buttons
         LoadMapButton = new Button("loadmapimage.png", new Vector2f(data.Graphics.ProgramInfoTexture.Size.X / 5f, data.Graphics.ProgramInfoTexture.Size.Y*0.95f), Button.ButtonFunctions.LoadMap);
@@ -76,7 +76,7 @@ partial class GraphicsHolder
         PaintDamageButton.SelectRadioButton();
         PaintDifficultyButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 668), RadioButton.ButtonFunctions.PaintDifficulty);
         PaintValueButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 718), RadioButton.ButtonFunctions.PaintValue);
-     }
+    }
 
     public void ClearWindow()
     {

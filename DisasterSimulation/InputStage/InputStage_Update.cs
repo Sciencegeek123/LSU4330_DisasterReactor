@@ -9,6 +9,10 @@ partial class InputStage : Stage
 {
     public override void Update()
     {
+        // Hide Mouse Pointer while over simulation area
+        bool hideMouseCursor = Mouse.GetPosition(Button.RenderWindow).X >= data.Settings.InformationResolution.X && Mouse.GetPosition(Button.RenderWindow).Y >= 0;
+        Button.RenderWindow.SetMouseCursorVisible(!hideMouseCursor);
+
         CursorProduction.Clear(Color.Black);
 
         if (Mouse.IsButtonPressed(Mouse.Button.Left)) // handle regular button clicks
@@ -62,7 +66,7 @@ partial class InputStage : Stage
             }
         }
 
-        if(Mouse.IsButtonPressed(Mouse.Button.Left) && Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode)
+        if(Mouse.IsButtonPressed(Mouse.Button.Left) && Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode) // handle radio button clicks
         {
             RadioButton ClickedButton = RadioButton.GetRadioButtonClicked();
             if(ClickedButton != null)
@@ -96,7 +100,7 @@ partial class InputStage : Stage
             Panel PanelToActivate = Panel.GetInactivePanel();
             Panel.ActivePanel.SetActive(false);
             PanelToActivate.SetActive(true);
-            System.Console.WriteLine(PanelToActivate.PanelMode);
+            //System.Console.WriteLine(PanelToActivate.PanelMode);
             if(PanelToActivate.PanelMode == Panel.PanelModes.InspectMode) // allow inspect mode input
             {
                 data.Input.TrackKey(Keyboard.Key.S);
@@ -104,6 +108,7 @@ partial class InputStage : Stage
                 data.Input.TrackKey(Keyboard.Key.R);
                 data.Input.TrackKey(Keyboard.Key.T);
                 data.Input.TrackKey(Keyboard.Key.Space);
+                RadioButton.FadeColors(); // fade buttons since paint mode will be deactivated
                 EnterInspectState();
             }
             else //disable key tracking for inspect mode
@@ -113,6 +118,8 @@ partial class InputStage : Stage
                 data.Input.UntrackKey(Keyboard.Key.R);
                 data.Input.UntrackKey(Keyboard.Key.T);
                 data.Input.UntrackKey(Keyboard.Key.Space);
+
+                RadioButton.ReturnColorsToNormal(); // set radio buttons to normal colors since paint mode will be reactivated
 
                 switch (RadioButton.ActivatedRadioButton.ButtonFunction)
                 {

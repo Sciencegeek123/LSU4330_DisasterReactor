@@ -36,7 +36,7 @@ class Button
             && Mouse.GetPosition(RenderWindow).Y >= current.ButtonSprite.Position.Y - current.ButtonSprite.Texture.Size.Y / 2f
             && Mouse.GetPosition(RenderWindow).Y <= current.ButtonSprite.Position.Y + current.ButtonSprite.Texture.Size.Y / 2f)
             {
-                System.Console.WriteLine(current.Function + " button clicked");
+                //System.Console.WriteLine(current.Function + " button clicked");
                 return current;
             }
         }
