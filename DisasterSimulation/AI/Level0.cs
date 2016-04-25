@@ -101,10 +101,13 @@ class Level0
 
     }
     // check if position is within current commander bounds (look at offset)
-    public Boolean isInMyRegion()
+    public Boolean isInMyRegion(Vector2u position)
     {
-        bool value = false;
-
+        bool value = true;
+        if (position.X > offset.X + l0Size.X / 2 || position.X < offset.X - l0Size.X / 2)
+            value = false;
+        if (position.Y > offset.Y + l0Size.Y / 2 || position.Y < offset.Y - l0Size.Y / 2)
+            value = false;
 
         return value;
     }
@@ -114,9 +117,8 @@ class Level0
         
         Vector2f magnitude = new Vector2f(0, 0);
 
-        bool isInMyRegion = false; //You need to determine this.
 
-        if(isInMyRegion)
+        if(isInMyRegion(position))
         {
             for (int i = 0; i < subCommandersCount.X; i++)
             {
@@ -129,7 +131,8 @@ class Level0
 
         } else
         {
-            Vector2f direction = new Vector2f(1, 1); //You need to determine;
+            Vector2f direction = new Vector2f(1, 1); //TODO You need to determine;
+
             return direction * frameMagnitude;
         }
 

@@ -19,7 +19,7 @@ class Level1
 
     Vector2u l1Origin; //The middle of this l1 commander.
 
-    float frameMagnitude;
+    float frameMagnitude = 1;
 
     /*
     Vector2f[,] Level1Value;
@@ -32,6 +32,7 @@ class Level1
         l1Size = _size;
 
         l1Origin = offset + l1Size / 2;
+
 
         /*
         double width = input.getWidth();
@@ -53,8 +54,20 @@ class Level1
         */
 
     }
+    // check if position is within current commander bounds (look at offset)
+    public Boolean isInMyRegion(Vector2u position)
+    {
+        bool value = true;
+        if (position.X > offset.X + l1Size.X / 2 || position.X < offset.X - l1Size.X / 2)
+            value = false;
+        if (position.Y > offset.Y + l1Size.Y / 2 || position.Y < offset.Y - l1Size.Y / 2)
+            value = false;
 
-    // input: image (with x, y, size coord 
+        return value;
+    }
+
+
+    // input: vector2u position
     // output: vector2f with the calculations for each 
 
     public Vector2f calculateMagnitude(Vector2u position)
@@ -66,7 +79,7 @@ class Level1
 
         if (isInMyRegion)
         {
-            //Look at every pixel in the region.
+            //TODO Look at every pixel in the region.
         }
         else
         {

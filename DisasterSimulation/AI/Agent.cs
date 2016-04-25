@@ -27,7 +27,6 @@ class Agent
     public Vector2i Position;
     public Color info = new Color(0, 0, 0);
     private Data data;
-    private Overlord overlord;
     
     byte BClamp(float f)
     {

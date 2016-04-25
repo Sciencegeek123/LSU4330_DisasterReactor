@@ -53,8 +53,8 @@ class Overlord
 
     public Vector2f CalculateValueVector(uint X, uint Y)
     {
-
-        return new Vector2f(0, 0);
+        //TODO
+        return new Vector2f(X, Y);
     }
 
 }
