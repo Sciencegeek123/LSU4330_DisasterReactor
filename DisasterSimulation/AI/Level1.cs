@@ -72,14 +72,23 @@ class Level1
 
     public Vector2f calculateMagnitude(Vector2u position)
     {
-
         Vector2f magnitude = new Vector2f(0, 0);
-
-        bool isInMyRegion = false; //You need to determine this.
-
-        if (isInMyRegion)
+        
+        if (isInMyRegion(position))
         {
+            Vector2u start = l1Origin - offset - l1Size / 2;
+
             //TODO Look at every pixel in the region.
+            for (uint i =start.X; i < start.X+l1Size.X; i++)
+            {
+                for(uint j=start.Y; j < start.Y + l1Size.Y; j++)
+                {
+                    // can change the frame magnitude 
+                    // currently adds all vectors together (without looking at their individual values)
+                    magnitude += new Vector2f(i, j)*frameMagnitude;
+                }
+            }
+            
         }
         else
         {

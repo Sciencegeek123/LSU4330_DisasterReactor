@@ -22,7 +22,7 @@ partial class SimulationStage : Stage
 
         foreach(Agent a in data.Agents)
         {
-            a.Update(overlord);
+            a.Update();
         }
 
         if(data.Input.CheckKeyPressed(Keyboard.Key.A))

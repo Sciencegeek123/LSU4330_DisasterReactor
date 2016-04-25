@@ -16,6 +16,9 @@ class Overlord
     Vector2u commandersCount;
     Level0[,] commanders; //Each commander contains subcommanders.
     Data data;
+    Vector2f[,] totalMagnitude;
+
+    Vector2f cumulativeVector;
 
     public void Initialize(Data d)
     {
@@ -51,11 +54,26 @@ class Overlord
         }
     }
 
-    public Vector2f CalculateValueVector(uint X, uint Y)
+    public Vector2f CalculateValueVector(uint xpos, uint ypos)
     {
-        //TODO
-        return new Vector2f(X, Y);
-    }
+        Vector2f direction = new Vector2f(0, 0);
 
+        for (int i = 0; i < commandersCount.X; i++)
+        {
+            for (int j = 0; j < commandersCount.Y; j++)
+            {
+                if (commanders[i, j].isInMyRegion(new Vector2u(xpos, ypos)))
+                {
+                    direction += commanders[i, j].magnitude;
+                }
+                else
+                {
+                    direction += commanders[i, j].totalMagnitude / commanders[i, j].distancefromAgent(new Vector2f(xpos, ypos));
+                }
+
+            }
+        }
+        return direction;
+    }
 }
 

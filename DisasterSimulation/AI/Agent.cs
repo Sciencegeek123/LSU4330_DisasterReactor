@@ -27,6 +27,7 @@ class Agent
     public Vector2i Position;
     public Color info = new Color(0, 0, 0);
     private Data data;
+    private Overlord overlord;
     
     byte BClamp(float f)
     {
@@ -135,6 +136,7 @@ class Agent
     {
         Position = new Vector2i((int)p.X,(int)p.Y);
         data = d;
+        this.overlord = overlord;
 
     }
 
@@ -143,14 +145,15 @@ class Agent
         data.setPixel((int)Position.X, (int)Position.Y, info);
     }
 
-    public void Update(Overlord overlord)
+    public void Update()
     {
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid
 
         //To calculate direction use:
-
+        
         Vector2f valueMagnitude = overlord.CalculateValueVector((uint)Position.X, (uint)Position.Y); //Triple check the typecast.
+
 
         while(info.R > 8)
         {
