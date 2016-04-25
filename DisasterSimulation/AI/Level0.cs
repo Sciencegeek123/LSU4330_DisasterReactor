@@ -28,6 +28,8 @@ class Level0
 
     public void Initialize(Data _data, Vector2u _offset, Vector2u _size)
     {
+
+
         data = _data;
         offset = _offset; //Starting X and Y position. It is responsible for offset -> offset * size. (Though x and y need to be calculated seperately.)
         l0Size = _size;
@@ -48,6 +50,7 @@ class Level0
         {
             for(uint j = 0; j < y; j++)
             {
+                subCommanders[i, j] = new Level1();
                 subCommanders[i, j].Initialize(data, new Vector2u(i * l1Size.X, j * l1Size.Y), l0Size);
             }
         }
@@ -97,8 +100,14 @@ class Level0
     {
 
     }
+    // check if position is within current commander bounds (look at offset)
+    public Boolean isInMyRegion()
+    {
+        bool value = false;
 
-    //xsize and ysize maybe useless.
+
+        return value;
+    }
 
     public Vector2f calculateMagnitude(Vector2u position)
     {

@@ -144,7 +144,7 @@ class Agent
         data.setPixel((int)Position.X, (int)Position.Y, info);
     }
 
-    public void Update()
+    public void Update(Overlord overlord)
     {
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid

@@ -30,12 +30,12 @@ class Overlord
 
         commanders = new Level0[x, y];
 
-
-        for(uint i = 0; i < x; i++)
+        for (uint i = 0; i < x; i++)
         {
             for(uint j = 0; j < y; j++)
             {
-                commanders[i, j].Initialize(data, new Vector2u(i*l0Size.X, j*l0Size.Y), l0Size);
+                commanders[i, j] = new Level0();
+                commanders[i, j].Initialize(data, new Vector2u(i * l0Size.X, j * l0Size.Y), l0Size);
             }
         }
     }
