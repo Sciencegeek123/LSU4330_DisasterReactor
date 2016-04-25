@@ -16,12 +16,17 @@ namespace DisasterSimulation.AI
         // create all the necessary variables
         public Vector2f[,] Level1Value;
         public Level0 level0;
+        public double xoffset;
+        public double yoffset;
 
         public void Initialize(Level0 input)
         {
             double width = input.getWidth();
             double height = input.getHeight();
             Level1Value = new Vector2f[4, 4];
+            xoffset = Math.Ceiling(width / 4);
+            yoffset = Math.Ceiling(height / 4);
+
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -68,6 +73,29 @@ namespace DisasterSimulation.AI
             returnvalue.X = totalaid;
             returnvalue.Y = totalrepair;
             return returnvalue / count;
+        }
+
+
+        public Vector2i getArrayIndex(int x, int y)
+        {
+            Vector2i index = new Vector2i(0, 0);
+            for (int i = 0; i < 4; i++)
+            {
+                if (x < i * xoffset)
+                {
+                    index.X = i;
+                }
+            }
+
+            for (int j = 0; j < 4; j++)
+            {
+                if (x < j * yoffset)
+                {
+                    index.Y = j;
+                }
+            }
+
+            return index;
         }
 
     }

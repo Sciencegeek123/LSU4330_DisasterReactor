@@ -61,10 +61,11 @@ class Agent
     {
         Console.WriteLine("Agent.cs: EC.R" + EC.R + " TC.B:" + TC.B + " EC.B" + EC.B + " (EC.R - TC.B + 1) / (EC.B + 255):" + (EC.R - TC.B + 1) / (EC.B + 255));
         float repair = (float) (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
-        int x = (int)Math.Floor((decimal)Position.X) / 4;
-        int y = (int)Math.Floor((decimal)Position.Y) / 4;
-        Console.WriteLine("Calculate: " + x + "," + y);
-        repair = repair + level0.Level0Value[x,y].Y + level1.Level1Value[x,y].Y;
+        int x = Position.X;
+        int y = Position.Y;
+        Console.WriteLine("Calculate: " + level0.getArrayIndex(x, y).X + "," + level0.getArrayIndex(x, y).Y);
+
+        repair = repair + level0.Level0Value[level0.getArrayIndex(x,y).X, level0.getArrayIndex(x, y).Y].Y + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].Y;
 
         return repair;
     }
@@ -72,8 +73,10 @@ class Agent
     public float CalculateAid()
     {
         float aid = (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
-
-        aid = aid + level0.Level0Value[Position.X, Position.Y].X/4 + level1.Level1Value[Position.X, Position.Y].X/4;
+        int x = Position.X;
+        int y = Position.Y;
+                    
+        aid = aid + level0.Level0Value[level0.getArrayIndex(x, y).X, level0.getArrayIndex(x, y).Y].X + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].X;
 
         return aid;
     }

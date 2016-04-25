@@ -13,9 +13,10 @@ namespace DisasterSimulation.AI
     class Level0
     {
         public Vector2f[,] Level0Value;
-        public Image completeImage;
         private Color TC, EC;
         public Data data;
+        public double xoffset;
+        public double yoffset;
 
         public void Initialize(Image image, Data inputdata)
         {
@@ -25,8 +26,10 @@ namespace DisasterSimulation.AI
             double height = inputdata.Environment.Size.Y;
             // Optional : Add the ability for user to change the number of partitions (increases / decreases computation )
             Level0Value = new Vector2f[4, 4];
+            xoffset = Math.Ceiling(width/4);
+            yoffset = Math.Ceiling(height/4);
 
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
@@ -35,16 +38,6 @@ namespace DisasterSimulation.AI
             }
 
 
-            int X = 5, Y = 5;
-            Vector2f[,] D = new Vector2f[X, Y];
-            for (int i = 0; i < X; i++)
-            {
-                for (int j = 0; j < Y; j++)
-                {
-                    D[i, j] = new Vector2f(0, 0);
-                }
-            }
-            completeImage = image;
             data = inputdata;
 
             // change this to whatever we want. 
@@ -104,6 +97,29 @@ namespace DisasterSimulation.AI
         public double getHeight()
         {
             return data.Environment.Size.Y;
+        }
+
+        public Vector2i getArrayIndex(int x, int y)
+        {
+            Vector2i index = new Vector2i(0, 0);
+            for(int i = 0; i < 4; i++)
+            {
+                if(x < i * xoffset)
+                {
+                    index.X = i;
+                }
+            }
+
+            for (int j = 0; j < 4; j++)
+            {
+                if (x < j * yoffset)
+                {
+                    index.Y = j;
+                }
+            }
+            Console.WriteLine("Level0: offsets" + xoffset + "," + yoffset);
+
+            return index;
         }
 
     }
