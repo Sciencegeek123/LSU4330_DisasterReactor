@@ -50,13 +50,12 @@ namespace DisasterSimulation.AI
                 for (uint y = ycoord; x < ycoord + ysize; y++)
                 {
                     EC = level0.data.Environment.GetPixel(x, y);
-                    TC = level0.data.Environment.GetPixel(x, y);
+                    TC = level0.data.getPixel((int)x, (int)y);
                     totalaid += (level0.data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
                     totalrepair += (level0.data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
                     count++;
                 }
             }
-
 
             returnvalue.X = totalaid;
             returnvalue.Y = totalrepair;

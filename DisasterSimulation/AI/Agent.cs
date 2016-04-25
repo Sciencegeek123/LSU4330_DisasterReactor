@@ -59,12 +59,18 @@ class Agent
 
     public float CalculateRepair()
     {
-        return (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
+        float repair = (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
+
+
+        return repair;
     }
 
     public float CalculateAid()
     {
-        return (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
+        float aid = (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
+
+
+        return aid;
     }
 
     public void PerformRepair()
@@ -143,7 +149,7 @@ class Agent
     {
         info.R = BClamp(info.R + 64); //Energy
         info.G = BClamp(info.G + 32); //Aid
-        // why 8 ??
+
         while(info.R > 8)
         {
             info.R = BClamp(info.R - 1);
@@ -158,7 +164,6 @@ class Agent
             Vector2i BestOffset = new Vector2i(0, 0);
             float BestMove = -1000;
 
-            //what ? haha
             int startLoc = (data.rand.Next() % (9 * 10000)) / 10000;
             for(int x = (startLoc + 1) % 9; x != startLoc; x = ++x % 9)
             {

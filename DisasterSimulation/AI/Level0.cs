@@ -30,6 +30,7 @@ namespace DisasterSimulation.AI
             // change this to whatever we want. 
             if (width < 1024 || height < 1024)
             {
+                Console.WriteLine("P:");
                 throw new System.ArgumentOutOfRangeException();
             }
 
@@ -59,7 +60,7 @@ namespace DisasterSimulation.AI
                 for (uint y = ycoord; x < ycoord + ysize; y++)
                 {
                     EC = data.Environment.GetPixel(x,y);
-                    TC = completeImage.GetPixel(x, y);
+                    TC = data.getPixel((int)x, (int)y);
                     totalaid += (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
                     totalrepair += (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
                     count++;
