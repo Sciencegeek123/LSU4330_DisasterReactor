@@ -61,6 +61,7 @@ class Agent
     {
         float repair = (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
 
+        repair = repair + level0.Level0Value[Position.X, Position.Y].Y/4 + level1.Level1Value[Position.X, Position.Y].Y/4;
 
         return repair;
     }
@@ -69,6 +70,7 @@ class Agent
     {
         float aid = (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
 
+        aid = aid + level0.Level0Value[Position.X, Position.Y].X/4 + level1.Level1Value[Position.X, Position.Y].X/4;
 
         return aid;
     }
