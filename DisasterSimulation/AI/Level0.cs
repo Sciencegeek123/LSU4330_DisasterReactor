@@ -67,15 +67,13 @@ namespace DisasterSimulation.AI
             Vector2f returnvalue = new Vector2f();
             float count = 0;
             //TODO add the xsize in
-            for (uint x = xcoord; x < xcoord + 0; x++)
+            xsize = 0;
+            ysize = 0;
+            for (uint x = xcoord; x < xcoord + xsize; x++)
             {
-                for (uint y = ycoord; x < ycoord + 0; y++)
+                for (uint y = ycoord; x < ycoord + ysize; y++)
                 {
                     EC = data.Environment.GetPixel(x,y);
-                    if(y == 4096)
-                    {
-                        Console.WriteLine("Level0: X:" + x + " Y:" + y + " ysize:" + ysize );
-                    }
                     TC = data.getPixel((int)x, (int)y);
                     totalaid += (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
                     totalrepair += (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);

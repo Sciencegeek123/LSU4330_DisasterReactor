@@ -59,12 +59,9 @@ class Agent
 
     public float CalculateRepair()
     {
-        Console.WriteLine("Agent.cs: EC.R" + EC.R + " TC.B:" + TC.B + " EC.B" + EC.B + " (EC.R - TC.B + 1) / (EC.B + 255):" + (EC.R - TC.B + 1) / (EC.B + 255));
         float repair = (float) (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
         int x = Position.X;
         int y = Position.Y;
-        Console.WriteLine("Calculate: " + level0.getArrayIndex(x, y).X + "," + level0.getArrayIndex(x, y).Y);
-
         repair = repair + level0.Level0Value[level0.getArrayIndex(x,y).X, level0.getArrayIndex(x, y).Y].Y + level1.Level1Value[level1.getArrayIndex(x, y).X, level1.getArrayIndex(x, y).Y].Y;
 
         return repair;
