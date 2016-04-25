@@ -67,14 +67,17 @@ namespace DisasterSimulation.AI
             Vector2f returnvalue = new Vector2f();
             float count = 0;
             //TODO add the xsize in
+            if(xcoord < xoffset)
+
+
             xsize = 0;
             ysize = 0;
-            for (uint x = xcoord; x < xcoord + xsize; x++)
+            for (int x = getArrayIndex((int)xcoord,(int)ycoord).X*(int)xoffset; x < (getArrayIndex((int)xcoord, (int)ycoord).X+1) * (int)xoffset; x++)
             {
-                for (uint y = ycoord; x < ycoord + ysize; y++)
+                for (int y = getArrayIndex((int)xcoord, (int)ycoord).Y * (int)yoffset; y < (getArrayIndex((int)xcoord, (int)ycoord).Y + 1) * (int)yoffset; y++)
                 {
-                    EC = data.Environment.GetPixel(x,y);
-                    TC = data.getPixel((int)x, (int)y);
+                    EC = data.Environment.GetPixel((uint)x,(uint)y);
+                    TC = data.getPixel(x, y);
                     totalaid += (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
                     totalrepair += (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
                     count++;
@@ -115,7 +118,6 @@ namespace DisasterSimulation.AI
                     index.Y = j;
                 }
             }
-            Console.WriteLine("Level0: offsets" + xoffset + "," + yoffset);
 
             return index;
         }

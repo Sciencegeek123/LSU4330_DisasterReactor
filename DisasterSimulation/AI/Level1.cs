@@ -57,10 +57,10 @@ namespace DisasterSimulation.AI
             float count = 0;
             Vector2f returnvalue = new Vector2f();
             Color TC, EC;
-            //TODO add the x size in
-            for (uint x = xcoord; x < xcoord + 0; x++)
+
+            for (int x = getArrayIndex((int)xcoord, (int)ycoord).X * (int)xoffset; x < (getArrayIndex((int)xcoord, (int)ycoord).X + 1) * (int)xoffset; x++)
             {
-                for (uint y = ycoord; x < ycoord + 0; y++)
+                for (int y = getArrayIndex((int)xcoord, (int)ycoord).Y * (int)yoffset; y < (getArrayIndex((int)xcoord, (int)ycoord).Y + 1) * (int)yoffset; y++)
                 {
                     EC = level0.data.Environment.GetPixel(x, y);
                     TC = level0.data.getPixel((int)x, (int)y);
@@ -69,6 +69,7 @@ namespace DisasterSimulation.AI
                     count++;
                 }
             }
+
 
             returnvalue.X = totalaid;
             returnvalue.Y = totalrepair;
