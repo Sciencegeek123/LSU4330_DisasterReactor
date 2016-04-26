@@ -18,6 +18,9 @@ partial class SimulationStage : Stage
     bool renderEnv = true;
     bool renderTra = true;
 
+    float mouseClickDelay = 0.25f;
+    bool mouseClickUsable;
+
     public override void Update()
     {
         var overlordtime = System.Diagnostics.Stopwatch.StartNew();
@@ -39,24 +42,50 @@ partial class SimulationStage : Stage
         agenttime.Stop();
         //TODO Update the images;
 
-        if (data.Input.CheckKeyPressed(Keyboard.Key.A))
+        if(!mouseClickUsable) // ugly placement for custom mouse click delay
         {
-            data.RenderAgents = !data.RenderAgents;
+            mouseClickDelay -= data.Time.deltaTime;
+            if(mouseClickDelay <= 0)
+            {
+                mouseClickUsable = true;
+                mouseClickDelay = 0.25f;
+            }
         }
 
-        if(data.Input.CheckKeyPressed(Keyboard.Key.S))
+        if(Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable)
         {
-            data.RenderSpawn = !data.RenderSpawn;
-        }
+            mouseClickUsable = false;
+            ToggleButton ClickedButton = ToggleButton.GetToggleButtonClicked();
+            if(ClickedButton != null)
+            {
+                ClickedButton.ChangeToggleStatus(!ClickedButton.IsToggled);
+                switch(ClickedButton.ToggleOption)
+                {
+                    case ToggleButton.ToggleOptions.ToggleAgents:
+                        {
+                            data.RenderAgents = ClickedButton.IsToggled;
+                            break;
+                        }
 
-        if(data.Input.CheckKeyPressed(Keyboard.Key.E))
-        {
-            renderEnv = !renderEnv;
-        }
+                    case ToggleButton.ToggleOptions.ToggleEnvironment:
+                        {
+                            renderEnv = ClickedButton.IsToggled;
+                            break;
+                        }
 
-        if(data.Input.CheckKeyPressed(Keyboard.Key.T))
-        {
-            renderTra = !renderTra;
+                    case ToggleButton.ToggleOptions.ToggleSpawns:
+                        {
+                            data.RenderSpawn = ClickedButton.IsToggled;
+                            break;
+                        }
+
+                    case ToggleButton.ToggleOptions.ToggleTrails:
+                        {
+                            renderTra = ClickedButton.IsToggled;
+                            break;
+                        }
+                }
+            }
         }
 
 
@@ -88,5 +117,5 @@ partial class SimulationStage : Stage
 
         printer.printfunction(ImageTitles,ImagePaths);
         Console.WriteLine("Overlord: " + overlordtime.ElapsedMilliseconds + " AgentTime: " + agenttime.ElapsedMilliseconds);
-    }
+    }    {
 }

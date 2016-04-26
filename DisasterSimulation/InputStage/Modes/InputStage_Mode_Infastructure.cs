@@ -6,26 +6,26 @@ partial class InputStage : Stage
 {
     void EnterInfastructureState()
     {
-        data.ModesTextList.RemoveAt(5);
-        data.ModesTextList.Insert(5, new System.Tuple<string, bool>("Infastructure Input", true));
+        //data.ModesTextList.RemoveAt(5);
+        //data.ModesTextList.Insert(5, new System.Tuple<string, bool>("Infastructure Input", true));
 
         CurrentInputState = InputStates.Infastructure;
 
-        data.ControlsTextList.Add(Keyboard.Key.L, new System.Tuple<string, bool>("L - Load from File", false));
-        data.Input.TrackKey(Keyboard.Key.L);
+        //data.ControlsTextList.Add(Keyboard.Key.L, new System.Tuple<string, bool>("L - Load from File", false));
+        //data.Input.TrackKey(Keyboard.Key.L);
     }
 
     void ProcessInfastructureState()
     {
         //Update
-        if(data.Input.CheckKeyPressed(Keyboard.Key.L))
+        if (data.Input.CheckKeyPressed(Keyboard.Key.L))
         {
             string FileName;
-            if(GetFileFromBrowser(out FileName))
+            if (GetFileFromBrowser(out FileName))
             {
                 InfastructureHolder InfLoadHolder = new InfastructureHolder();
                 InfLoadHolder.parseFile(FileName);
-                if(InfLoadHolder.isValid())
+                if (InfLoadHolder.isValid())
                 {
                     Sprite env = new Sprite(InfLoadHolder.exportTextureResults());
 
@@ -40,8 +40,8 @@ partial class InputStage : Stage
         }
 
         //Check Transition
-        if (data.Input.CheckKeyPressed(Keyboard.Key.M))
-            LeaveInfastructureState();
+        //if (data.Input.CheckKeyPressed(Keyboard.Key.M))
+        //    LeaveInfastructureState();
     }
 
     void LeaveInfastructureState()
@@ -51,8 +51,8 @@ partial class InputStage : Stage
         data.Input.UntrackKey(Keyboard.Key.L);
 
         //Transition
-        data.ModesTextList.RemoveAt(5);
-        data.ModesTextList.Insert(5, new System.Tuple<string, bool>("Infastructure Input", false));
+        //data.ModesTextList.RemoveAt(5);
+        //data.ModesTextList.Insert(5, new System.Tuple<string, bool>("Infastructure Input", false));
         EnterInspectState();
     }
 }

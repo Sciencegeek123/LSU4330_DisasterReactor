@@ -28,7 +28,11 @@ class InputHolder
 
     public void TrackKey(Keyboard.Key k)
     {
-        RegisteredKeys.Add(k, new MonitorKey());
+        if(!RegisteredKeys.ContainsKey(k))
+        {
+            RegisteredKeys.Add(k, new MonitorKey());
+        }
+        //RegisteredKeys.Add(k, new MonitorKey());
     }
 
     public void UntrackKey(Keyboard.Key k)

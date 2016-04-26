@@ -13,7 +13,7 @@ class Data
 
     public List<Tuple<string, bool>> ModesTextList = new List<Tuple<string, bool>>();
     public List<Tuple<string, bool>> InfoTextList = new List<Tuple<string, bool>>();
-    public SortedDictionary<Keyboard.Key, Tuple<string, bool>> ControlsTextList = new SortedDictionary<Keyboard.Key, Tuple<string, bool>>();
+    public SortedList<Keyboard.Key, Tuple<string, bool>> ControlsTextList = new SortedList<Keyboard.Key, Tuple<string, bool>>();
     public List<Vector2f> SpawnPositions = new List<Vector2f>();
     public List<Agent> Agents = new List<Agent>();
 
