@@ -10,7 +10,7 @@ partial class InputStage : Stage
 {
     public override void Update()
     {
-        Thread.Sleep(250);
+        //Thread.Sleep(250);
         // Hide Mouse Pointer while over simulation area
         bool hideMouseCursor = Mouse.GetPosition(Button.RenderWindow).X >= data.Settings.InformationResolution.X && Mouse.GetPosition(Button.RenderWindow).Y >= 0;
         Button.RenderWindow.SetMouseCursorVisible(!hideMouseCursor);
@@ -55,7 +55,7 @@ partial class InputStage : Stage
                                 {
                                     //SpawnWarning = false;
                                     //data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
-                                    ErrorText.CurrentErrorText.ShowErrorText("At least one spawn must be set", 1f); // show spawn point error
+                                    ErrorText.CurrentErrorText.ShowErrorText("At least one spawn must be set", 5f); // show spawn point error
                                 }
                             }
                             else

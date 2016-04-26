@@ -3,7 +3,9 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
+
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 partial class SimulationStage : Stage
 {
@@ -52,38 +54,59 @@ partial class SimulationStage : Stage
             }
         }
 
-        if(Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable)
+        if(Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable) // check for toggle or print button clicks
         {
             mouseClickUsable = false;
-            ToggleButton ClickedButton = ToggleButton.GetToggleButtonClicked();
-            if(ClickedButton != null)
+            ToggleButton ClickedToggleButton = ToggleButton.GetToggleButtonClicked();
+            if(ClickedToggleButton != null)
             {
-                ClickedButton.ChangeToggleStatus(!ClickedButton.IsToggled);
-                switch(ClickedButton.ToggleOption)
+                ClickedToggleButton.ChangeToggleStatus(!ClickedToggleButton.IsToggled);
+                switch(ClickedToggleButton.ToggleOption)
                 {
                     case ToggleButton.ToggleOptions.ToggleAgents:
                         {
-                            data.RenderAgents = ClickedButton.IsToggled;
+                            data.RenderAgents = ClickedToggleButton.IsToggled;
                             break;
                         }
 
                     case ToggleButton.ToggleOptions.ToggleEnvironment:
                         {
-                            renderEnv = ClickedButton.IsToggled;
+                            renderEnv = ClickedToggleButton.IsToggled;
                             break;
                         }
 
                     case ToggleButton.ToggleOptions.ToggleSpawns:
                         {
-                            data.RenderSpawn = ClickedButton.IsToggled;
+                            data.RenderSpawn = ClickedToggleButton.IsToggled;
                             break;
                         }
 
                     case ToggleButton.ToggleOptions.ToggleTrails:
                         {
-                            renderTra = ClickedButton.IsToggled;
+                            renderTra = ClickedToggleButton.IsToggled;
                             break;
                         }
+                }
+            }
+            else
+            {
+                Button ClickedButton = Button.GetButtonClicked();
+                if(ClickedButton != null)
+                {
+                    if(ClickedButton.Function == Button.ButtonFunctions.PrintPDF)
+                    {
+                        string thePath;
+                        FolderBrowserDialog FBD = new FolderBrowserDialog();
+                        if (FBD.ShowDialog() == DialogResult.OK)
+                        {
+                            thePath = FBD.SelectedPath;
+                        }
+                        else
+                        {
+                            thePath = "NULL";
+                        }
+                        PrintResults(thePath);
+                    }
                 }
             }
         }

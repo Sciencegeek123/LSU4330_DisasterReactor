@@ -52,6 +52,8 @@ class Level1
             }
         }
 
+        frameMagnitude /= (l1Size.X * l1Size.Y);
+
         return frameMagnitude;
     }
 
@@ -98,10 +100,19 @@ class Level1
 
         Vector2f direction = new Vector2f(1, 1);
 
-        direction.X = position.X - l1Origin.X;
-        direction.Y = position.Y - l1Origin.Y;
+        direction.X = (int)position.X - (int)l1Origin.X;
+        direction.Y = (int)position.Y - (int)l1Origin.Y;
 
-        direction /= Utilities.CalculateVector2fMagnitude(direction); // normalize;
+        float vecMag = Utilities.CalculateVector2fMagnitude(direction);
+
+        if (Math.Abs(vecMag) < 0.001f)
+        {
+            direction /= 0.001f; // normalize;
+        } else
+        {
+            direction /= vecMag; // normalize;
+        }
+
 
 
         if (isInMyRegion(position))
@@ -121,7 +132,7 @@ class Level1
         }
 
 
-        return magnitude;
+        return magnitude / (l1Size.X * l1Size.Y);
     }
 
 }

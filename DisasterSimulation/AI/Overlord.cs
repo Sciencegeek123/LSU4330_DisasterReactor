@@ -20,7 +20,7 @@ class Overlord
     public void Initialize(Data d)
     {
         data = d;
-        Vector2u l0Size = new Vector2u(512, 512);
+        Vector2u l0Size = new Vector2u(64, 64);
 
         uint x, y;
         x = (d.Environment.Size.X + l0Size.X - 1) / l0Size.X; //Natural ceil function for unsigned division.

@@ -3,7 +3,11 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
+<<<<<<< HEAD
 using System.Collections.Generic;
+=======
+using System.Windows.Forms;
+>>>>>>> origin/Khaleel
 
 partial class SimulationStage : Stage
 {
@@ -23,34 +27,26 @@ partial class SimulationStage : Stage
 
     public override void Update()
     {
-<<<<<<< HEAD
-        foreach(Agent a in data.Agents)
-=======
         var overlordtime = System.Diagnostics.Stopwatch.StartNew();
 
         Console.Out.WriteLine("Simulation Update Entered");
 
         overlord.Update();
-
         Console.Out.WriteLine("Overlord Update Complete");
 
         overlordtime.Stop();
         var agenttime = System.Diagnostics.Stopwatch.StartNew();
         foreach (Agent a in data.Agents)
->>>>>>> Nealan
         {
             a.Update();
         }
-
-<<<<<<< HEAD
-        if(!mouseClickUsable) // ugly placement for custom mouse click delay
-=======
         Console.Out.WriteLine("Agent Update Complete");
         agenttime.Stop();
-        //TODO Update the images;
+        //TODO Update the images;        }
 
-        if (data.Input.CheckKeyPressed(Keyboard.Key.A))
->>>>>>> Nealan
+
+        if(!mouseClickUsable) // ugly placement for custom mouse click delay
+
         {
             mouseClickDelay -= data.Time.deltaTime;
             if(mouseClickDelay <= 0)
@@ -60,38 +56,59 @@ partial class SimulationStage : Stage
             }
         }
 
-        if(Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable)
+        if(Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable) // check for toggle or print button clicks
         {
             mouseClickUsable = false;
-            ToggleButton ClickedButton = ToggleButton.GetToggleButtonClicked();
-            if(ClickedButton != null)
+            ToggleButton ClickedToggleButton = ToggleButton.GetToggleButtonClicked();
+            if(ClickedToggleButton != null)
             {
-                ClickedButton.ChangeToggleStatus(!ClickedButton.IsToggled);
-                switch(ClickedButton.ToggleOption)
+                ClickedToggleButton.ChangeToggleStatus(!ClickedToggleButton.IsToggled);
+                switch(ClickedToggleButton.ToggleOption)
                 {
                     case ToggleButton.ToggleOptions.ToggleAgents:
                         {
-                            data.RenderAgents = ClickedButton.IsToggled;
+                            data.RenderAgents = ClickedToggleButton.IsToggled;
                             break;
                         }
 
                     case ToggleButton.ToggleOptions.ToggleEnvironment:
                         {
-                            renderEnv = ClickedButton.IsToggled;
+                            renderEnv = ClickedToggleButton.IsToggled;
                             break;
                         }
 
                     case ToggleButton.ToggleOptions.ToggleSpawns:
                         {
-                            data.RenderSpawn = ClickedButton.IsToggled;
+                            data.RenderSpawn = ClickedToggleButton.IsToggled;
                             break;
                         }
 
                     case ToggleButton.ToggleOptions.ToggleTrails:
                         {
-                            renderTra = ClickedButton.IsToggled;
+                            renderTra = ClickedToggleButton.IsToggled;
                             break;
                         }
+                }
+            }
+            else
+            {
+                Button ClickedButton = Button.GetButtonClicked();
+                if(ClickedButton != null)
+                {
+                    if(ClickedButton.Function == Button.ButtonFunctions.PrintPDF)
+                    {
+                        string thePath;
+                        FolderBrowserDialog FBD = new FolderBrowserDialog();
+                        if (FBD.ShowDialog() == DialogResult.OK)
+                        {
+                            thePath = FBD.SelectedPath;
+                        }
+                        else
+                        {
+                            thePath = "NULL";
+                        }
+                        PrintResults(thePath);
+                    }
                 }
             }
         }
@@ -133,17 +150,7 @@ partial class SimulationStage : Stage
 
         data.Graphics.ProgramDisplayTexture.Display();
 
-        print printer = new print();
-        List<string> ImageTitles = new List<String>();
-        List<string> ImagePaths = new List<String>();
 
-        for(int i = 0; i < 4; i++)
-        {
-            ImageTitles.Add("C:\\Users\\vneal\\Documents\\GitHub\\LSU4330_DisasterReactor\\DisasterSimulation\\Data\\Bitmap1.bmp");
-            ImagePaths.Add("C:\\Users\\vneal\\Documents\\GitHub\\LSU4330_DisasterReactor\\DisasterSimulation\\Data\\Bitmap1.bmp");
-        }
-
-        printer.printfunction(ImageTitles,ImagePaths);
         Console.WriteLine("Overlord: " + overlordtime.ElapsedMilliseconds + " AgentTime: " + agenttime.ElapsedMilliseconds);
     }
 }

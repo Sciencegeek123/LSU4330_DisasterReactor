@@ -20,6 +20,10 @@ class Data
     public Image Environment;
     public byte[] Trails = new byte[1024 * 1024 * 4];
 
+    public int[,] PositionHeatmap;
+    public int[,] AidHeatmap;
+    public int[,] RepairHeatmap;
+
     public bool RenderAgents = true;
     public bool RenderSpawn = true;
 
@@ -30,7 +34,7 @@ class Data
     public Color getPixel(uint X, uint Y)
     {
         //Console.WriteLine("Data.cs: X:" + X + " Y:" + Y);
-        return new Color(Trails[(Y * 1024 + X) * 4 + 0], Trails[(Y * 1024 + X) * 4 + 1], Trails[(Y * 1024 + X) * 4 + 2], Trails[(Y * 1024 + X) * 4 + 3]);
+        return new Color(Trails[(Y * 1024 + X) + 0], Trails[(Y * 1024 + X) + 1], Trails[(Y * 1024 + X) + 2], Trails[(Y * 1024 + X) + 3]);
     }
 
     public void setPixel(int X, int Y, Color C)

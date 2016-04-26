@@ -30,7 +30,7 @@ class Level0
         offset = _offset; //Starting X and Y position. It is responsible for offset -> offset * size. (Though x and y need to be calculated seperately.)
         l0Size = _size;
 
-        Vector2u l1Size = new Vector2u(32, 32);
+        Vector2u l1Size = new Vector2u(8, 8);
 
         uint x, y;
         x = (l0Size.X + l1Size.X - 1) / l1Size.X; //Natural ceil function for unsigned division.
@@ -65,6 +65,9 @@ class Level0
                 frameMagnitude += subCommanders[i, j].Update();
             }
         }
+
+        frameMagnitude /= subCommandersCount.X * subCommandersCount.Y;  
+
         calculatePixelTime.Stop();
         Console.WriteLine("CalculatePixelTime: " + calculatePixelTime.ElapsedMilliseconds);
     }
@@ -99,8 +102,8 @@ class Level0
         {
             Vector2f direction = new Vector2f(1, 1);
 
-            direction.X = position.X - l0Origin.X;
-            direction.Y = position.Y - l0Origin.Y;
+            direction.X = (int)position.X - (int)l0Origin.X;
+            direction.Y = (int)position.Y - (int)l0Origin.Y;
 
             direction /= Utilities.CalculateVector2fMagnitude(direction); // normalize;
             
@@ -108,7 +111,7 @@ class Level0
         }
 
 
-        return magnitude;
+        return magnitude / (subCommandersCount.X * subCommandersCount.Y);
     }  
 }
 

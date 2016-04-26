@@ -10,7 +10,7 @@ partial class InputStage : Stage
     Data data;
 
     bool CursorAdditive = true;
-    Color CursorColor = Color.Black;
+    Color CursorColor = Color.White;
     float CursorRadius = 32f;
 
     List<InfastructureHolder> InfastructureList;
