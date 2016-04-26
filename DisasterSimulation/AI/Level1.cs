@@ -86,7 +86,7 @@ class Level1
         }
         
 
-        return (data.rand.Next() % 256) * ((damage - aid) * Value) / (Difficulty - repair+1);
+        return (data.rand.Next() % 256) * ((damage - aid) * Value) / (Difficulty - repair);
     }
 
     // input: vector2u position
