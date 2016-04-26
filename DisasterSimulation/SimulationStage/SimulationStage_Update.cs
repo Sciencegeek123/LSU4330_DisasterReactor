@@ -47,9 +47,11 @@ partial class SimulationStage : Stage
                 {
                     case Agent.AgentActions.PERFORM_AID:
                         data.AidHeatmap[a.Position.X, a.Position.Y]++;
+                        Console.WriteLine("AID PERFORMED");
                         break;
                     case Agent.AgentActions.PERFORM_REPAIR:
                         data.RepairHeatmap[a.Position.X, a.Position.Y]++;
+                        Console.WriteLine("REPAIR PERFORMED");
                         break;
                     default:
                         break;
