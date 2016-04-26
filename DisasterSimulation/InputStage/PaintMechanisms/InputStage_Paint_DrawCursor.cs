@@ -8,14 +8,12 @@ partial class InputStage : Stage
     private void DrawCursor()
     {
         CircleShape CursorImage = new CircleShape();
-        //CursorImage.Origin = new Vector2f(CursorRadius*1.1f, CursorRadius*1.1f);
         CursorImage.Origin = new Vector2f(CursorRadius, CursorRadius);
         CursorImage.OutlineColor = CursorColor;
-        CursorImage.OutlineThickness = 8f;
+        CursorImage.OutlineThickness = 2f;
         CursorImage.Radius = CursorRadius;
-        CursorImage.FillColor = Color.Black;
-        //CursorImage.Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4f;
-        CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y)*4f; // new position for swapped windows
+        CursorImage.FillColor = Color.Transparent;
+        CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y); // new position for swapped windows
 
         CursorProduction.Draw(CursorImage);
     }
@@ -26,9 +24,11 @@ partial class InputStage : Stage
     {
         DrawCursor();
 
+        Console.Out.WriteLineAsync("IC - Cursor Status: " + Mouse.IsButtonPressed(Mouse.Button.Left));
+
         if(data.Input.CheckKeyHeld(Keyboard.Key.R))
         {
-            if(CursorRadius < 4096f)
+            if(CursorRadius < 256)
                 CursorRadius += data.Settings.RadiusStep * data.Time.deltaTime;
         } 
 
@@ -40,12 +40,14 @@ partial class InputStage : Stage
 
         if(Mouse.IsButtonPressed(Mouse.Button.Left) && (data.Time.runTime - lastPress) > data.Settings.CursorPaintDelay)
         {
+            Console.Out.WriteLineAsync("IC - Painting Left");
             lastPress = data.Time.runTime;
             CursorAdditive = true;
             PaintCursor();
 
         } else if(Mouse.IsButtonPressed(Mouse.Button.Right) && (data.Time.runTime - lastPress) > data.Settings.CursorPaintDelay)
         {
+            Console.Out.WriteLineAsync("IC - Painting Right");
             lastPress = data.Time.runTime;
             CursorAdditive = false;
             PaintCursor();
@@ -94,17 +96,22 @@ partial class InputStage : Stage
 
     private void PaintCursor()
     {
+        Console.Out.WriteLineAsync("IC - Painting Generic");
+
         CircleShape CursorImage = new CircleShape();
-        //CursorImage.Origin = new Vector2f(CursorRadius * 1.1f, CursorRadius * 1.1f);
         CursorImage.Origin = new Vector2f(CursorRadius, CursorRadius);
         CursorImage.OutlineColor = Color.Black;
-        CursorImage.OutlineThickness = 8f;
+        CursorImage.OutlineThickness = 0f;
         CursorImage.Radius = CursorRadius;
         CursorImage.FillColor = new Color(
             (byte)(CursorColor.R * data.Settings.CursorPaintStep), 
             (byte)(CursorColor.G * data.Settings.CursorPaintStep), 
             (byte)(CursorColor.B * data.Settings.CursorPaintStep));
-        //CursorImage.Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
+
+        CursorImage.FillColor = Color.Red;
+        CursorImage.Radius = 64;
+
+
         CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y)*4f; // new position for swapped windows
 
         if (CursorAdditive)
@@ -114,5 +121,7 @@ partial class InputStage : Stage
         {
            EnvironmentProduction.Draw(CursorImage, Subtractive);
         }
+
+        EnvironmentProduction.Display();
     }
 }

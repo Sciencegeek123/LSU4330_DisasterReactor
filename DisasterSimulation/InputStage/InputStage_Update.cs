@@ -4,22 +4,25 @@ using SFML.Window;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Threading;
 
 partial class InputStage : Stage
 {
     public override void Update()
     {
+        Thread.Sleep(250);
         // Hide Mouse Pointer while over simulation area
         bool hideMouseCursor = Mouse.GetPosition(Button.RenderWindow).X >= data.Settings.InformationResolution.X && Mouse.GetPosition(Button.RenderWindow).Y >= 0;
         Button.RenderWindow.SetMouseCursorVisible(!hideMouseCursor);
 
         CursorProduction.Clear(Color.Black);
-
+        
         if (Mouse.IsButtonPressed(Mouse.Button.Left)) // handle regular button clicks
         {
             Button clickedButton = Button.GetButtonClicked();
             if(clickedButton!= null)
             {
+                Console.Out.WriteLine("Button pressed.");
                 switch (clickedButton.Function)
                 {
                     case Button.ButtonFunctions.LoadMap:
@@ -33,8 +36,8 @@ partial class InputStage : Stage
                                 {
                                     Sprite env = new Sprite(InfLoadHolder.exportTextureResults());
 
-                                    env.Origin = new Vector2f(2048, 2048);
-                                    env.Position = new Vector2f(2048, 2048);
+                                    env.Origin = new Vector2f(512, 512);
+                                    env.Position = new Vector2f(512, 512);
                                     env.Rotation = -90;
 
                                     EnvironmentProduction.Draw(env);
@@ -101,7 +104,7 @@ partial class InputStage : Stage
         {
             if(!MapIsLoaded) // show load map error - do not allow active panel swap
             {
-                ErrorText.CurrentErrorText.ShowErrorText("Please load a map", 1f);
+                ErrorText.CurrentErrorText.ShowErrorText("Please load a map", 5f);
             }
             else // allow user to switch panels since map has been loaded
             {
@@ -112,8 +115,6 @@ partial class InputStage : Stage
                 {
                     data.Input.TrackKey(Keyboard.Key.S);
                     data.Input.TrackKey(Keyboard.Key.C);
-                    data.Input.TrackKey(Keyboard.Key.R);
-                    data.Input.TrackKey(Keyboard.Key.T);
                     data.Input.TrackKey(Keyboard.Key.Space);
                     RadioButton.FadeColors(); // fade buttons since paint mode will be deactivated
                     EnterInspectState();
@@ -122,8 +123,6 @@ partial class InputStage : Stage
                 {
                     data.Input.UntrackKey(Keyboard.Key.S);
                     data.Input.UntrackKey(Keyboard.Key.C);
-                    data.Input.UntrackKey(Keyboard.Key.R);
-                    data.Input.UntrackKey(Keyboard.Key.T);
                     data.Input.UntrackKey(Keyboard.Key.Space);
 
                     RadioButton.ReturnColorsToNormal(); // set radio buttons to normal colors since paint mode will be reactivated
@@ -160,26 +159,6 @@ partial class InputStage : Stage
         else // Paint Mode
         {
             InteractCursor();
-            switch (CurrentInputState)
-            {
-                case InputStates.Damage:
-                    {
-                        ProcessDamageState();
-                        break;
-                    }
-
-                case InputStates.Difficulty:
-                    {
-                        ProcessDifficultyState();
-                        break;
-                    }
-
-                case InputStates.Value:
-                    {
-                        ProcessValueState();
-                        break;
-                    }
-            }
         }
 
         EnvironmentProduction.Display();

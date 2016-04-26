@@ -11,11 +11,11 @@ partial class InputStage : Stage
 
     bool CursorAdditive = true;
     Color CursorColor = Color.Black;
-    float CursorRadius = 256f;
+    float CursorRadius = 32f;
 
     List<InfastructureHolder> InfastructureList;
 
-    public static bool MapIsLoaded;
+    public bool MapIsLoaded = false;
 
     enum InputStates
     {

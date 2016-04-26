@@ -25,7 +25,7 @@ partial class SimulationStage : Stage
         data.ControlsTextList.Add(Keyboard.Key.T, new Tuple<string, bool>("Toggle Trails", false));
         //data.Input.TrackKey(Keyboard.Key.T);
 
-        for (int i = 0; i < 4096 * 4096 * 4; i++)
+        for (int i = 0; i < 1024 * 1024 * 4; i++)
         {
             if (i % 4 == 3)
                 data.Trails[i] = 255;
@@ -35,7 +35,7 @@ partial class SimulationStage : Stage
         }
 
 
-        ITra = new Image(4096, 4096, data.Trails);
+        ITra = new Image(1024, 1024, data.Trails);
 
         TTra = new Texture(ITra);
 

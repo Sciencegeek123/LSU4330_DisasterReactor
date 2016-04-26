@@ -43,7 +43,7 @@ partial class InputStage : Stage
         
         if (data.Input.CheckKeyHeld(Keyboard.Key.R))
         {
-            if (CursorRadius < 4096f)
+            if (CursorRadius < 256)
                 CursorRadius += data.Settings.RadiusStep * data.Time.deltaTime;
         }
 
