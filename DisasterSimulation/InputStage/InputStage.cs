@@ -14,7 +14,6 @@ partial class InputStage : Stage
     float CursorRadius = 256f;
 
     List<InfastructureHolder> InfastructureList;
-    List<ElevationHolder> ElevationList;
 
     public static bool MapIsLoaded;
 

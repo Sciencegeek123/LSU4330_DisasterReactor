@@ -23,26 +23,34 @@ partial class SimulationStage : Stage
 
     public override void Update()
     {
+<<<<<<< HEAD
+        foreach(Agent a in data.Agents)
+=======
         var overlordtime = System.Diagnostics.Stopwatch.StartNew();
 
         Console.Out.WriteLine("Simulation Update Entered");
 
         overlord.Update();
+
         Console.Out.WriteLine("Overlord Update Complete");
 
         overlordtime.Stop();
         var agenttime = System.Diagnostics.Stopwatch.StartNew();
         foreach (Agent a in data.Agents)
+>>>>>>> Nealan
         {
             a.Update();
         }
+
+<<<<<<< HEAD
+        if(!mouseClickUsable) // ugly placement for custom mouse click delay
+=======
         Console.Out.WriteLine("Agent Update Complete");
         agenttime.Stop();
-        //TODO Update the images;        }
+        //TODO Update the images;
 
-
-        if(!mouseClickUsable) // ugly placement for custom mouse click delay
-
+        if (data.Input.CheckKeyPressed(Keyboard.Key.A))
+>>>>>>> Nealan
         {
             mouseClickDelay -= data.Time.deltaTime;
             if(mouseClickDelay <= 0)

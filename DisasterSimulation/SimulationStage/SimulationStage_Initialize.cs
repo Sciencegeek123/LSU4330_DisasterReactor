@@ -9,7 +9,6 @@ partial class SimulationStage : Stage
 
     public override void Initialize(Data d)
     {
-
         data = d;
         //data.InfoTextList.Add(new System.Tuple<string, bool>("Simulation Stage", false));
         //data.InfoTextList.Add(new System.Tuple<string, bool>("Press ESC to exit the program when desired.", false));
@@ -43,26 +42,31 @@ partial class SimulationStage : Stage
         STra = new Sprite(TTra);
 
         SEnv = new Sprite(new Texture(data.Environment));
-        
-        int offset = 0;
-        if (data.SpawnPositions.Count != 0) {
+
+        overlord = new Overlord();
+
+        overlord.Initialize(data);
+
+        Vector2f halfSize = new Vector2f(data.Environment.Size.X / 2, data.Environment.Size.Y / 2);
+
+        if (data.SpawnPositions.Count > 0) { //Use the spawn points if there are some.
+            int offset = 0;
             for (int i = 0; i < agentCount; i++)
             {
                 Agent a = new Agent();
-                a.init(data,data.SpawnPositions[offset]);
+                a.init(data,data.SpawnPositions[offset], overlord);
                 a.info = new Color(255, 255, 0);
                 offset = ++offset % data.SpawnPositions.Count;
                 data.Agents.Add(a);
                 
             }
-        } else
+        } else //Spawn them in the middle of the map.
         {
             for (int i = 0; i < agentCount; i++)
             {
                 Agent a = new Agent();
-                a.init(data,new Vector2f(2048, 2048));
+                a.init(data, halfSize, overlord);
                 a.info = new Color(32, 32, 0);
-                offset = ++offset % data.SpawnPositions.Count;
                 data.Agents.Add(a);
 
             }

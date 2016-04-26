@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 partial class Stage
 {
-    private float lastTime = 0f;
     private float deltaTime = 0f;
     protected bool PerformStageTransition = false;
 
