@@ -82,11 +82,11 @@ class Level1
         uint repair = TC.B;
         if(Difficulty-repair == 0)
         {
-            return (damage - aid) * Value;
+            return (data.rand.Next() % 256)*((damage - aid) * Value);
         }
         
 
-        return ((damage - aid) * Value) / (Difficulty - repair+1);
+        return (data.rand.Next() % 256) * ((damage - aid) * Value) / (Difficulty - repair+1);
     }
 
     // input: vector2u position
