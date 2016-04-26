@@ -34,6 +34,9 @@ partial class SimulationStage : Stage
 
         }
 
+        data.AidHeatmap = new int[1024, 1024];
+        data.PositionHeatmap = new int[1024, 1024];
+        data.RepairHeatmap = new int[1024, 1024];
 
         ITra = new Image(1024, 1024, data.Trails);
 

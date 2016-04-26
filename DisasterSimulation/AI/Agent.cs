@@ -49,7 +49,7 @@ class Agent
             return (byte)f;
     }
 
-    private Color TC, EC;
+    public Color TC, EC;
 
     public float CalculateOffset(Vector2u offset)
     {
@@ -147,7 +147,7 @@ class Agent
         float valueMagnitude = Utilities.CalculateVector2fMagnitude(valueVector); //This will be the same every iteration.
         Vector2f valueNormal = valueVector / valueMagnitude; //This will be the same every iteration.
 
-        Console.Out.WriteLine(valueVector.X + "," + valueVector.Y);
+        //Console.Out.WriteLine(valueVector.X + "," + valueVector.Y);
 
         while (info.R > 8)
         {

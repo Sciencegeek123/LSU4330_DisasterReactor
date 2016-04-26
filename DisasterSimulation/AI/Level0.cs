@@ -56,7 +56,7 @@ class Level0
     public void Update()
     {
         frameMagnitude = 0;
-        var calculatePixelTime = System.Diagnostics.Stopwatch.StartNew();
+       // var calculatePixelTime = System.Diagnostics.Stopwatch.StartNew();
 
         for (int i = 0; i < subCommandersCount.X; i++)
         {
@@ -68,8 +68,8 @@ class Level0
 
         frameMagnitude /= subCommandersCount.X * subCommandersCount.Y;  
 
-        calculatePixelTime.Stop();
-        Console.WriteLine("CalculatePixelTime: " + calculatePixelTime.ElapsedMilliseconds);
+        //calculatePixelTime.Stop();
+        //Console.WriteLine("CalculatePixelTime: " + calculatePixelTime.ElapsedMilliseconds);
     }
     
     // check if position is within current commander bounds (look at offset)

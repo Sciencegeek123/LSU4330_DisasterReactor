@@ -98,7 +98,7 @@ class Level1
     {
         Vector2f magnitude = new Vector2f(0, 0);
 
-        Vector2f direction = new Vector2f(1, 1);
+        Vector2f direction = new Vector2f(0, 0);
 
         direction.X = (int)position.X - (int)l1Origin.X;
         direction.Y = (int)position.Y - (int)l1Origin.Y;
@@ -107,10 +107,10 @@ class Level1
 
         if (Math.Abs(vecMag) < 0.001f)
         {
-            direction /= 0.001f; // normalize;
+            direction = new Vector2f(0, 0); // normalize;
         } else
         {
-            direction /= vecMag; // normalize;
+            direction /= vecMag * vecMag; // normalize and distance penalty;
         }
 
 

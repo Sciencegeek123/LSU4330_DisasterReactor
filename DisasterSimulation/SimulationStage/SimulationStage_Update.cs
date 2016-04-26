@@ -37,6 +37,24 @@ partial class SimulationStage : Stage
         foreach (Agent a in data.Agents)
         {
             a.Update();
+
+            data.setPixel((int)a.Position.X, (int)a.Position.Y, a.TC);
+
+            foreach (var action in a.TurnActions)
+            {
+                data.PositionHeatmap[a.Position.X, a.Position.Y]++;
+                switch (action)
+                {
+                    case Agent.AgentActions.PERFORM_AID:
+                        data.AidHeatmap[a.Position.X, a.Position.Y]++;
+                        break;
+                    case Agent.AgentActions.PERFORM_REPAIR:
+                        data.RepairHeatmap[a.Position.X, a.Position.Y]++;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         Console.Out.WriteLine("Agent Update Complete");
         agenttime.Stop();
@@ -54,7 +72,23 @@ partial class SimulationStage : Stage
             }
         }
 
-        if(Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable) // check for toggle or print button clicks
+
+        if (renderEnv)
+        {
+            data.Graphics.ProgramDisplayTexture.Draw(SEnv, new RenderStates(BlendMode.Add));
+        }
+
+        if (renderTra)
+        {
+
+            TTra.Update(data.Trails);
+
+            data.Graphics.ProgramDisplayTexture.Draw(STra, new RenderStates(BlendMode.Add));
+        }
+        
+        data.Graphics.ProgramDisplayTexture.Display();
+
+        if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseClickUsable) // check for toggle or print button clicks
         {
             mouseClickUsable = false;
             ToggleButton ClickedToggleButton = ToggleButton.GetToggleButtonClicked();
@@ -130,23 +164,6 @@ partial class SimulationStage : Stage
         //{
         //    renderTra = !renderTra;
         //}
-
-
-        if(renderEnv)
-        {
-            data.Graphics.ProgramDisplayTexture.Draw(SEnv, new RenderStates(BlendMode.Add));
-        }
-
-        if(renderTra)
-        {
-
-            TTra.Update(data.Trails);
-
-            data.Graphics.ProgramDisplayTexture.Draw(STra, new RenderStates(BlendMode.Add));
-        }
-        
-
-        data.Graphics.ProgramDisplayTexture.Display();
 
 
         Console.WriteLine("Overlord: " + overlordtime.ElapsedMilliseconds + " AgentTime: " + agenttime.ElapsedMilliseconds);
