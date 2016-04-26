@@ -6,7 +6,7 @@ using System.Collections.Generic;
 class Button
 {
     public Sprite ButtonSprite;
-    public enum ButtonFunctions { LoadMap, RunSim };
+    public enum ButtonFunctions { LoadMap, RunSim, PrintPDF };
     public ButtonFunctions Function;
     public static List<Button> ButtonList = new List<Button>();
     public static Window RenderWindow;

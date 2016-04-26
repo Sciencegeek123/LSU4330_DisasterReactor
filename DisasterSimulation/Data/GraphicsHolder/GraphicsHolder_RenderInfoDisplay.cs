@@ -18,7 +18,8 @@ partial class GraphicsHolder
             ProgramInfoTexture.Draw(current.PanelShape);
         }
 
-        if(ErrorText.CurrentErrorText.showText) // show error text
+        System.Console.WriteLine("dt: " + data.Time.deltaTime);
+        if (ErrorText.CurrentErrorText.showText) // show error text
         {
             TextTemplate.DisplayedString = ErrorText.CurrentErrorText.stringToDisplay;
             TextTemplate.Color = new Color(255, 0, 0, ErrorText.CurrentErrorText.alphaValue);

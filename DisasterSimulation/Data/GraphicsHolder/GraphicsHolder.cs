@@ -72,12 +72,13 @@ partial class GraphicsHolder
         //Creating Buttons
         LoadMapButton = new Button("loadmapimage.png", new Vector2f(data.Graphics.ProgramInfoTexture.Size.X / 5f, data.Graphics.ProgramInfoTexture.Size.Y*0.95f), Button.ButtonFunctions.LoadMap);
         RunSimButton = new Button("runsimimage.png", new Vector2f(4*data.Graphics.ProgramInfoTexture.Size.X / 5f, data.Graphics.ProgramInfoTexture.Size.Y*0.95f), Button.ButtonFunctions.RunSim);
-
+        
         //Creating Radio Buttons
         PaintDamageButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 620), RadioButton.ButtonFunctions.PaintDamage);
         PaintDamageButton.SelectRadioButton();
         PaintDifficultyButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 668), RadioButton.ButtonFunctions.PaintDifficulty);
         PaintValueButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 718), RadioButton.ButtonFunctions.PaintValue);
+
 
         //Creating Toggle Buttons
         ToggleAgentsButton = new ToggleButton(new Vector2f(80, 182), ToggleButton.ToggleOptions.ToggleAgents);

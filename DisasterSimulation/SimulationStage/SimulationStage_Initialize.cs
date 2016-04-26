@@ -67,5 +67,7 @@ partial class SimulationStage : Stage
 
             }
         }
+
+        Button PrintPdfButton = new Button("printimage.png", new Vector2f(data.Graphics.ProgramInfoTexture.Size.X / 2f, data.Graphics.ProgramInfoTexture.Size.Y * 0.95f), Button.ButtonFunctions.PrintPDF);
     }
 }
