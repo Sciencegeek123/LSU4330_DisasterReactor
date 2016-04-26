@@ -6,6 +6,6 @@ partial class OutputStage : Stage
 {
     public override void Initialize(Data data)
     {
-
+        
     }
 }

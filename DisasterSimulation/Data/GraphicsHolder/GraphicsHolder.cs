@@ -12,6 +12,7 @@ partial class GraphicsHolder
 
     Button LoadMapButton, RunSimButton;
     RadioButton PaintDifficultyButton, PaintDamageButton, PaintValueButton;
+    ToggleButton ToggleAgentsButton, ToggleSpawnsButton, ToggleEnvironmentButton, ToggleTrailsButton;
     Panel InspectModePanel, PaintModePanel;
 
     Data data;
@@ -22,9 +23,10 @@ partial class GraphicsHolder
         
         ProgramDisplayTexture = new RenderTexture(data.Settings.SimulationResolution.X, data.Settings.SimulationResolution.Y);
         ProgramInfoTexture = new RenderTexture(data.Settings.InformationResolution.X, data.Settings.InformationResolution.Y);
-        ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Recovery Simulation - CS3380 Project - wjone48 & sshre18",Styles.Close);
+        ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Disaster Reactor - CS4330 Project",Styles.Close);
         Button.RenderWindow = ProgramWindow;
         RadioButton.RenderWindow = ProgramWindow;
+        ToggleButton.RenderWindow = ProgramWindow;
         ProgramWindow.Closed += onWindowClose;
 
         ProgramWindow.Clear(Color.White);
@@ -76,6 +78,16 @@ partial class GraphicsHolder
         PaintDamageButton.SelectRadioButton();
         PaintDifficultyButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 668), RadioButton.ButtonFunctions.PaintDifficulty);
         PaintValueButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 718), RadioButton.ButtonFunctions.PaintValue);
+
+        //Creating Toggle Buttons
+        ToggleAgentsButton = new ToggleButton(new Vector2f(80, 182), ToggleButton.ToggleOptions.ToggleAgents);
+        ToggleAgentsButton.ChangeToggleStatus(true);
+        ToggleSpawnsButton = new ToggleButton(new Vector2f(80, 230), ToggleButton.ToggleOptions.ToggleSpawns);
+        ToggleSpawnsButton.ChangeToggleStatus(true);
+        ToggleEnvironmentButton = new ToggleButton(new Vector2f(80, 278), ToggleButton.ToggleOptions.ToggleEnvironment);
+        ToggleEnvironmentButton.ChangeToggleStatus(true);
+        ToggleTrailsButton = new ToggleButton(new Vector2f(80, 326), ToggleButton.ToggleOptions.ToggleTrails);
+        ToggleTrailsButton.ChangeToggleStatus(true);
     }
 
     public void ClearWindow()
@@ -142,6 +154,14 @@ partial class GraphicsHolder
         {
             ProgramWindow.Draw(current.ButtonShape_Outer);
             ProgramWindow.Draw(current.ButtonShape_Inner);
+        }
+        if(SimStageLoaded)
+        {
+            foreach(ToggleButton current in ToggleButton.ToggleButtonList)
+            {
+                ProgramWindow.Draw(current.OuterShape);
+                ProgramWindow.Draw(current.InnerShape);
+            }
         }
 
         ProgramWindow.Display();

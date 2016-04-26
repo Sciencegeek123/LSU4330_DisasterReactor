@@ -9,6 +9,8 @@ partial class GraphicsHolder
     Font RegularFont, BoldFont;
     Text HeaderText, ModesHeaderText, InfoHeaderText, ControlsHeaderText, TextTemplate;
 
+    public static bool SimStageLoaded;
+
     public void RenderInfo()
     {
         foreach (Panel current in Panel.PanelList) // Drawing Info Overlay Panels
@@ -43,14 +45,24 @@ partial class GraphicsHolder
         //float offset = lineSize * 7f;
         float offset = lineSize * 2f;
 
-        ModesHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 80, offset);
+        if(SimStageLoaded)
+        {
+            ModesHeaderText.DisplayedString = "Toggle Options";
+            ModesHeaderText.Origin = new Vector2f(ModesHeaderText.GetLocalBounds().Width / 2f, ModesHeaderText.GetLocalBounds().Height / 2f);
+            ModesHeaderText.Position = new Vector2f(InspectModePanel.PanelShape.Position.X, offset + 20);
+            offset += lineSize * 1.5f + 45;
+        }
+        else
+        {
+            ModesHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 80, offset);
+            offset += lineSize * 1.5f + 25;
+        }
         ProgramInfoTexture.Draw(ModesHeaderText);
-        offset += lineSize * 1.5f + 25;
 
         foreach (var str in data.ControlsTextList) // inspect mode subtext
         {
             TextTemplate.DisplayedString = str.Value.Item1;
-            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode) // change font color to hint that panel is disabled
+            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode && !SimStageLoaded) // change font color to hint that panel is disabled
             {
                 ModesHeaderText.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
                 TextTemplate.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
@@ -71,7 +83,14 @@ partial class GraphicsHolder
             else
             {
                 TextTemplate.Origin = new Vector2f(0, 0);
-                TextTemplate.Position = new Vector2f(ModesHeaderText.Position.X - 60, offset);
+                if(!SimStageLoaded)
+                {
+                    TextTemplate.Position = new Vector2f(ModesHeaderText.Position.X - 60, offset);
+                }
+                else
+                {
+                    TextTemplate.Position = new Vector2f(InfoHeaderText.Position.X - 30, offset);
+                }
 
                 if (str.Value.Item2)
                     TextTemplate.Font = BoldFont;
@@ -87,14 +106,18 @@ partial class GraphicsHolder
         offset += lineSize + 215;
 
         InfoHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 60, offset - 100);
-        ProgramInfoTexture.Draw(InfoHeaderText);
+        if(!SimStageLoaded)
+        {
+            ProgramInfoTexture.Draw(InfoHeaderText);
+        }
         offset += lineSize * 1.5f;
 
         foreach (Tuple<string, bool> str in data.InfoTextList) // Paint Mode subtext
         {
             TextTemplate.DisplayedString = str.Item1;
-            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode) // change font color to hint that panel is disabled
+            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode && !SimStageLoaded) // change font color to hint that panel is disabled
             {
+
                 InfoHeaderText.Color = new Color(175, 175, 175, (byte)(255*0.45f));
                 TextTemplate.Color = new Color(175, 175, 175, (byte)(255*0.45f));
             }
