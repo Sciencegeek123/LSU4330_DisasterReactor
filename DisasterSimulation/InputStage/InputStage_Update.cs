@@ -38,7 +38,13 @@ partial class InputStage : Stage
                                     env.Rotation = -90;
 
                                     EnvironmentProduction.Draw(env);
-                                    MapIsLoaded = true; // allow user to paint
+                                    MapIsLoaded = true; // enable panels
+                                    processInspectState = true; // begin processing inspect state
+                                    foreach (Panel current in Panel.PanelList)
+                                    {
+                                        current.SetActive(true);
+                                    }
+                                    RadioButton.ReturnColorsToNormal();
                                 }
                             }
                             break;
@@ -46,33 +52,37 @@ partial class InputStage : Stage
 
                     case Button.ButtonFunctions.RunSim:
                         {
-                            if (data.SpawnPositions.Count == 0)
+                            if(MapIsLoaded)
                             {
-                                if (SpawnWarning)
+                                if (data.SpawnPositions.Count == 0)
                                 {
-                                    //SpawnWarning = false;
-                                    //data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
-                                    ErrorText.CurrentErrorText.ShowErrorText("At least one spawn must be set", 1f); // show spawn point error
+                                    if (SpawnWarning)
+                                    {
+                                        //SpawnWarning = false;
+                                        //data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
+                                        ErrorText.CurrentErrorText.ShowErrorText("At least one spawn must be set", 1f); // show spawn point error
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                EnvironmentProduction.Display();
-                                data.Environment = EnvironmentProduction.Texture.CopyToImage();
-                                PerformStageTransition = true;
-                                return;
-                            }
+                                else
+                                {
+                                    EnvironmentProduction.Display();
+                                    data.Environment = EnvironmentProduction.Texture.CopyToImage();
+                                    PerformStageTransition = true;
+                                    return;
+                                }
+                            }       
                             break;
                         }
                 }
             }
         }
 
-        if(Mouse.IsButtonPressed(Mouse.Button.Left) && Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode) // handle radio button clicks
+        if(Mouse.IsButtonPressed(Mouse.Button.Left) && MapIsLoaded) // handle radio button clicks
         {
             RadioButton ClickedButton = RadioButton.GetRadioButtonClicked();
             if(ClickedButton != null)
             {
+                processInspectState = false;
                 ClickedButton.SelectRadioButton();
                 switch(ClickedButton.ButtonFunction)
                 {
@@ -97,67 +107,70 @@ partial class InputStage : Stage
             }
         }
 
-        if(data.Input.CheckKeyPressed(Keyboard.Key.M))
+        if(data.Input.CheckKeyPressed(Keyboard.Key.I))
         {
             if(!MapIsLoaded) // show load map error - do not allow active panel swap
             {
-                ErrorText.CurrentErrorText.ShowErrorText("Please load a map", 1f);
+                //ErrorText.CurrentErrorText.ShowErrorText("Please load a map", 1f);
             }
-            else // allow user to switch panels since map has been loaded
+            else // enable inspect mode
             {
-                Panel PanelToActivate = Panel.GetInactivePanel();
-                Panel.ActivePanel.SetActive(false);
-                PanelToActivate.SetActive(true);
-                if (PanelToActivate.PanelMode == Panel.PanelModes.InspectMode) // allow inspect mode input
+                if(RadioButton.ActivatedRadioButton != null)
                 {
-                    data.Input.TrackKey(Keyboard.Key.S);
-                    data.Input.TrackKey(Keyboard.Key.C);
-                    data.Input.TrackKey(Keyboard.Key.R);
-                    data.Input.TrackKey(Keyboard.Key.T);
-                    data.Input.TrackKey(Keyboard.Key.Space);
-                    RadioButton.FadeColors(); // fade buttons since paint mode will be deactivated
-                    EnterInspectState();
+                    RadioButton.ActivatedRadioButton.DeselectRadioButton();
                 }
-                else //disable key tracking for inspect mode
-                {
-                    data.Input.UntrackKey(Keyboard.Key.S);
-                    data.Input.UntrackKey(Keyboard.Key.C);
-                    data.Input.UntrackKey(Keyboard.Key.R);
-                    data.Input.UntrackKey(Keyboard.Key.T);
-                    data.Input.UntrackKey(Keyboard.Key.Space);
+                processInspectState = true;
+                EnterInspectState();
+                //if (PanelToActivate.PanelMode == Panel.PanelModes.InspectMode) // allow inspect mode input
+                //{
+                //    data.Input.TrackKey(Keyboard.Key.S);
+                //    data.Input.TrackKey(Keyboard.Key.C);
+                //    data.Input.TrackKey(Keyboard.Key.R);
+                //    data.Input.TrackKey(Keyboard.Key.T);
+                //    data.Input.TrackKey(Keyboard.Key.Space);
+                //    RadioButton.FadeColors(); // fade buttons since paint mode will be deactivated
+                //    EnterInspectState();
+                //}
+                //else //disable key tracking for inspect mode
+                //{
+                //    data.Input.UntrackKey(Keyboard.Key.S);
+                //    data.Input.UntrackKey(Keyboard.Key.C);
+                //    data.Input.UntrackKey(Keyboard.Key.R);
+                //    data.Input.UntrackKey(Keyboard.Key.T);
+                //    data.Input.UntrackKey(Keyboard.Key.Space);
 
-                    RadioButton.ReturnColorsToNormal(); // set radio buttons to normal colors since paint mode will be reactivated
+                //    RadioButton.ReturnColorsToNormal(); // set radio buttons to normal colors since paint mode will be reactivated
 
-                    switch (RadioButton.ActivatedRadioButton.ButtonFunction)
-                    {
-                        case RadioButton.ButtonFunctions.PaintDamage:
-                            {
-                                EnterDamageState();
-                                break;
-                            }
+                //    switch (RadioButton.ActivatedRadioButton.ButtonFunction)
+                //    {
+                //        case RadioButton.ButtonFunctions.PaintDamage:
+                //            {
+                //                EnterDamageState();
+                //                break;
+                //            }
 
-                        case RadioButton.ButtonFunctions.PaintDifficulty:
-                            {
-                                EnterDifficultyState();
-                                break;
-                            }
+                //        case RadioButton.ButtonFunctions.PaintDifficulty:
+                //            {
+                //                EnterDifficultyState();
+                //                break;
+                //            }
 
-                        case RadioButton.ButtonFunctions.PaintValue:
-                            {
-                                EnterValueState();
-                                break;
-                            }
-                    }
-                }
-                Panel.ActivePanel = PanelToActivate;
+                //        case RadioButton.ButtonFunctions.PaintValue:
+                //            {
+                //                EnterValueState();
+                //                break;
+                //            }
+                //    }
+                //}
             }
         }
 
-        if(Panel.ActivePanel != null && Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode)
+        //if(Panel.ActivePanel != null && Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode)
+        if(processInspectState)
         {
             ProcessInspectState();
         }
-        else // Paint Mode
+        else if(MapIsLoaded) // Paint Mode
         {
             InteractCursor();
             switch (CurrentInputState)

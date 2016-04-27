@@ -6,6 +6,7 @@ using System;
 partial class SimulationStage : Stage
 {
     int agentCount = 512;
+    Button PrintPdfButton, ExitButton;
 
     public override void Initialize(Data d)
     {
@@ -68,6 +69,7 @@ partial class SimulationStage : Stage
             }
         }
 
-        Button PrintPdfButton = new Button("printimage.png", new Vector2f(data.Graphics.ProgramInfoTexture.Size.X / 2f, data.Graphics.ProgramInfoTexture.Size.Y * 0.95f), Button.ButtonFunctions.PrintPDF);
+        PrintPdfButton = new Button("printimage.png", new Vector2f(1*data.Graphics.ProgramInfoTexture.Size.X / 4f, data.Graphics.ProgramInfoTexture.Size.Y * 0.95f), Button.ButtonFunctions.PrintPDF);
+        ExitButton = new Button("exitimage.png", new Vector2f(3 * data.Graphics.ProgramInfoTexture.Size.X / 4f, data.Graphics.ProgramInfoTexture.Size.Y * 0.95f), Button.ButtonFunctions.ExitSim);
     }
 }

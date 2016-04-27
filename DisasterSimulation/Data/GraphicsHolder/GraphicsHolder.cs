@@ -66,7 +66,7 @@ partial class GraphicsHolder
 
         //Creating Panels
         InspectModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.38f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.05f), Panel.PanelModes.InspectMode);
-        InspectModePanel.SetActive(true);
+        //InspectModePanel.SetActive(true);
         PaintModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.25f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.50f), Panel.PanelModes.PaintMode);
 
         //Creating Buttons
@@ -75,7 +75,7 @@ partial class GraphicsHolder
         
         //Creating Radio Buttons
         PaintDamageButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 620), RadioButton.ButtonFunctions.PaintDamage);
-        PaintDamageButton.SelectRadioButton();
+        //PaintDamageButton.SelectRadioButton();
         PaintDifficultyButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 668), RadioButton.ButtonFunctions.PaintDifficulty);
         PaintValueButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 718), RadioButton.ButtonFunctions.PaintValue);
 
@@ -83,10 +83,10 @@ partial class GraphicsHolder
         //Creating Toggle Buttons
         ToggleAgentsButton = new ToggleButton(new Vector2f(80, 182), ToggleButton.ToggleOptions.ToggleAgents);
         ToggleAgentsButton.ChangeToggleStatus(true);
-        ToggleSpawnsButton = new ToggleButton(new Vector2f(80, 230), ToggleButton.ToggleOptions.ToggleSpawns);
-        ToggleSpawnsButton.ChangeToggleStatus(true);
-        ToggleEnvironmentButton = new ToggleButton(new Vector2f(80, 278), ToggleButton.ToggleOptions.ToggleEnvironment);
+        ToggleEnvironmentButton = new ToggleButton(new Vector2f(80, 230), ToggleButton.ToggleOptions.ToggleEnvironment);
         ToggleEnvironmentButton.ChangeToggleStatus(true);
+        ToggleSpawnsButton = new ToggleButton(new Vector2f(80, 278), ToggleButton.ToggleOptions.ToggleSpawns);
+        ToggleSpawnsButton.ChangeToggleStatus(true);
         ToggleTrailsButton = new ToggleButton(new Vector2f(80, 326), ToggleButton.ToggleOptions.ToggleTrails);
         ToggleTrailsButton.ChangeToggleStatus(true);
     }

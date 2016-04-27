@@ -53,15 +53,17 @@ partial class InputStage : Stage
         data.InfoTextList.Add(new System.Tuple<string, bool>("Value (Green)", false));
 
         //Controls
-        data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("Press M to switch modes", false));
+        //data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("Press M to switch modes", false));
+        data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("Please load a map", false));
         data.Input.TrackKey(Keyboard.Key.M);
         data.Input.TrackKey(Keyboard.Key.S);
         data.Input.TrackKey(Keyboard.Key.C);
         data.Input.TrackKey(Keyboard.Key.R);
         data.Input.TrackKey(Keyboard.Key.T);
         data.Input.TrackKey(Keyboard.Key.Space);
+        data.Input.TrackKey(Keyboard.Key.I);
 
-        RadioButton.FadeColors(); // fade colors since initial activated panel is inspect mode
+        RadioButton.FadeColors(); // fade colors since all panels are deactivated until map is loaded
 
         EnterInspectState();
     }

@@ -90,6 +90,10 @@ partial class SimulationStage : Stage
                         }
                         PrintResults(thePath);
                     }
+                    else if(ClickedButton.Function == Button.ButtonFunctions.ExitSim)
+                    {
+                        data.Input.EscapeKeyPressed = true;
+                    }
                 }
             }
         }

@@ -18,7 +18,6 @@ partial class GraphicsHolder
             ProgramInfoTexture.Draw(current.PanelShape);
         }
 
-        System.Console.WriteLine("dt: " + data.Time.deltaTime);
         if (ErrorText.CurrentErrorText.showText) // show error text
         {
             TextTemplate.DisplayedString = ErrorText.CurrentErrorText.stringToDisplay;
@@ -63,7 +62,8 @@ partial class GraphicsHolder
         foreach (var str in data.ControlsTextList) // inspect mode subtext
         {
             TextTemplate.DisplayedString = str.Value.Item1;
-            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode && !SimStageLoaded) // change font color to hint that panel is disabled
+            //if (Panel.ActivePanel != null && Panel.ActivePanel.PanelMode == Panel.PanelModes.PaintMode && !SimStageLoaded) // change font color to hint that panel is disabled
+            if(!InputStage.MapIsLoaded)
             {
                 ModesHeaderText.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
                 TextTemplate.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
@@ -73,10 +73,14 @@ partial class GraphicsHolder
                 ModesHeaderText.Color = Color.Black;
                 TextTemplate.Color = Color.Black;
             }
-            if (TextTemplate.DisplayedString == "Press M to switch modes") // moving switch modes text into specific pos
+            if (TextTemplate.DisplayedString == "Please load a map") // handling the load a map text
             {
+                if(InputStage.MapIsLoaded)
+                {
+                    TextTemplate.DisplayedString = "Press I to Inspect";
+                }
                 TextTemplate.Origin = new Vector2f(TextTemplate.GetLocalBounds().Width / 2f, TextTemplate.GetLocalBounds().Height / 2f); // setting origin to center of text
-                TextTemplate.Position = new Vector2f((LoadMapButton.ButtonSprite.Position.X + RunSimButton.ButtonSprite.Position.X)/2f, LoadMapButton.ButtonSprite.Position.Y - 125); // positioning text between load map & run sim buttons
+                TextTemplate.Position = new Vector2f((LoadMapButton.ButtonSprite.Position.X + RunSimButton.ButtonSprite.Position.X) / 2f, LoadMapButton.ButtonSprite.Position.Y - 125); // positioning text between load map & run sim buttons
                 TextTemplate.Font = RegularFont;
                 TextTemplate.Color = Color.Black;
                 ProgramInfoTexture.Draw(TextTemplate);
@@ -116,7 +120,8 @@ partial class GraphicsHolder
         foreach (Tuple<string, bool> str in data.InfoTextList) // Paint Mode subtext
         {
             TextTemplate.DisplayedString = str.Item1;
-            if (Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode && !SimStageLoaded) // change font color to hint that panel is disabled
+            //if (Panel.ActivePanel != null && Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode && !SimStageLoaded) // change font color to hint that panel is disabled
+            if(!InputStage.MapIsLoaded)
             {
 
                 InfoHeaderText.Color = new Color(175, 175, 175, (byte)(255*0.45f));

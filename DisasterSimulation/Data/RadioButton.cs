@@ -51,6 +51,13 @@ class RadioButton
         }
     }
 
+    public void DeselectRadioButton()
+    {
+        ActivatedRadioButton = null;
+        IsActivated = false;
+        ButtonShape_Inner.FillColor = ButtonShape_Outer.FillColor;
+    }
+
     public static RadioButton GetRadioButtonClicked()
     {
         foreach (RadioButton current in RadioButtonList)

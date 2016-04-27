@@ -25,7 +25,9 @@ class Program
         {
             data.PreUpdate();
             if (data.Input.EscapeKeyPressed)
+            {
                 return;
+            }
             inputControl.PreUpdate(data);
             inputControl.Update();
             data.PostUpdate();

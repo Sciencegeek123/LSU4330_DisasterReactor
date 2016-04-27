@@ -17,6 +17,7 @@ partial class InputStage : Stage
     List<ElevationHolder> ElevationList;
 
     public static bool MapIsLoaded;
+    bool processInspectState;
 
     enum InputStates
     {

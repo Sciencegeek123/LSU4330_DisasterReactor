@@ -78,3 +78,6 @@ C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Debug\
 C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Debug\sfmlnet-system-2.dll
 C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Debug\sfmlnet-window-2.dll
 C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\obj\x64\Debug\DisasterSimulation.csprojResolveAssemblyReference.cache
+C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Debug\itextsharp.dll
+C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Debug\itextsharp.pdfa.dll
+C:\Users\khale\Desktop\LSU4330_DisasterReactor\DisasterSimulation\bin\x64\Debug\itextsharp.xtra.dll
