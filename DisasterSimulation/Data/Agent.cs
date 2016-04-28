@@ -44,7 +44,7 @@ class Agent
     public float CalculateOffset(Vector2i offset)
     {
         Vector2i np = Position + offset;
-        if (np.X > 4095 || np.X < 0 || np.Y > 4095 || np.Y < 0)
+        if (np.X > 1023 || np.X < 0 || np.Y > 1023 || np.Y < 0)
             return -1000;
 
         EC = data.Environment.GetPixel((uint)np.X, (uint)np.Y);
@@ -83,6 +83,7 @@ class Agent
         TC.B = BClamp(TC.B + 255);
 
         data.setPixel(Position.X, Position.Y, TC);
+        data.RepairHeatmap[Position.X, Position.Y]++;
     }
 
     public void PerformAid()
@@ -104,6 +105,7 @@ class Agent
         TC.G = BClamp(TC.G + 255);
 
         data.setPixel(Position.X, Position.Y, TC);
+        data.AidHeatmap[Position.X, Position.Y]++;
     }
 
     public void PerformMove(Vector2i offset)
@@ -163,7 +165,7 @@ class Agent
                 
                 if (i == 0 && j == 0)
                     continue;
-                if ((Position.X + i) < 0 || (Position.X + i) > 4095 || (Position.Y + j) < 0 || (Position.Y + j) > 4095)
+                if ((Position.X + i) < 0 || (Position.X + i) > 1023 || (Position.Y + j) < 0 || (Position.Y + j) > 1023)
                     continue;
 
                 float cal = CalculateOffset(new Vector2i(i, j));
@@ -185,6 +187,8 @@ class Agent
             {
                 PerformRepair();
             }
+
+            data.PositionHeatmap[Position.X, Position.Y]++;
 
             if (data.rand.Next() % 256 > info.R)
                 break;

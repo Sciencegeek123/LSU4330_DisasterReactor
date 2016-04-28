@@ -65,7 +65,7 @@ class InfastructureHolder
             }
             else if (reader.Name == "way")
             {
-                Console.WriteLine("Found way");
+               // Console.WriteLine("Found way");
                 XmlReader childReader = reader.ReadSubtree();
                 childReader.ReadToDescendant("nd");
                 uint id1 = 0, id2 = 0;
@@ -85,6 +85,7 @@ class InfastructureHolder
 
             }
         }
+        Console.Out.WriteLine("Map loaded.");
     }
 
 
@@ -96,14 +97,14 @@ class InfastructureHolder
         Position.Y = (Position.Y - OriginBounds.Y) / Size.Y;
 
         PointDictionary.Add(ID, Position);
-        Console.WriteLine("Node: " + ID + " @ " + Position);
+       // Console.WriteLine("Node: " + ID + " @ " + Position);
 
     }
 
     public void addLinkToDictionary(uint node1, uint node2)
     {
         LinkList.Add(new Tuple<uint, uint>(node1, node2));
-        Console.WriteLine("Link: " + node1 + " - " + node2);
+      //  Console.WriteLine("Link: " + node1 + " - " + node2);
     }
 
     public float Dist(Vector2f a, Vector2f b)
@@ -113,7 +114,7 @@ class InfastructureHolder
     
    public Texture exportTextureResults()
    {
-        RenderTexture Map = new RenderTexture(4096, 4096);
+        RenderTexture Map = new RenderTexture(1024, 1024);
         Map.Clear(new Color(32, 32, 196));
 
         Vertex[] Corners = new Vertex[4];
@@ -124,7 +125,7 @@ class InfastructureHolder
         foreach (var link in LinkList)
         {
             //Draw a link by drawing a reactangle from one point to another with a thickness
-            //Multiply the x and y coordinates by 4096.
+            //Multiply the x and y coordinates by 1024.
             Vector2f Node1, Node2;
 
             if(!PointDictionary.TryGetValue(link.Item1, out Node1))
@@ -132,13 +133,13 @@ class InfastructureHolder
             if (!PointDictionary.TryGetValue(link.Item2, out Node2))
                 continue;
 
-            Node1 *= 4096;
-            Node2 *= 4096;
+            Node1 *= 1024;
+            Node2 *= 1024;
 
             Vector2f Dir = (Node2 - Node1) / Dist(Node1, Node2);
             Dir = new Vector2f(Dir.Y, Dir.X);
 
-            Vector2f Thickness = 8 * Dir;
+            Vector2f Thickness = 2 * Dir;
 
             Corners[0].Position = Node1 + Thickness;
             Corners[1].Position = Node1 - Thickness;

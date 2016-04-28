@@ -17,8 +17,12 @@ class Data
     public List<Vector2f> SpawnPositions = new List<Vector2f>();
     public List<Agent> Agents = new List<Agent>();
 
+    public int[,] PositionHeatmap;
+    public int[,] AidHeatmap;
+    public int[,] RepairHeatmap;
+
     public Image Environment;
-    public byte[] Trails = new byte[4096 * 4096 * 4];
+    public byte[] Trails = new byte[1024 * 1024 * 4];
 
     public bool RenderAgents = true;
     public bool RenderSpawn = true;
@@ -29,14 +33,14 @@ class Data
     
     public Color getPixel(int X, int Y)
     {
-        return new Color(Trails[(Y * 4096 + X) * 4 + 0], Trails[(Y * 4096 + X) * 4 + 1], Trails[(Y * 4096 + X) * 4 + 2], Trails[(Y * 4096 + X) * 4 + 3]);
+        return new Color(Trails[(Y * 1024 + X) * 4 + 0], Trails[(Y * 1024 + X) * 4 + 1], Trails[(Y * 1024 + X) * 4 + 2], Trails[(Y * 1024 + X) * 4 + 3]);
     }
 
     public void setPixel(int X, int Y, Color C)
     {
-        int pos = (Y * 4096 + X) * 4;
+        int pos = (Y * 1024 + X) * 4;
 
-        if (pos > 4096 * 4096 * 4)
+        if (pos > 1024 * 1024 * 4)
             Console.WriteLine("P:" + pos + " X:" + X + " Y:" + Y + "C:" + C);
 
         Trails[pos + 0] = C.R;

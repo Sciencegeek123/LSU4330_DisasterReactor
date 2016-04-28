@@ -29,8 +29,8 @@ partial class InputStage : Stage
                 {
                     Sprite env = new Sprite(InfLoadHolder.exportTextureResults());
 
-                    env.Origin = new Vector2f(2048, 2048);
-                    env.Position = new Vector2f(2048, 2048);
+                    env.Origin = new Vector2f(512, 512);
+                    env.Position = new Vector2f(512, 512);
                     env.Rotation = -90;
 
                     EnvironmentProduction.Draw(env);

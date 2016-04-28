@@ -27,7 +27,11 @@ partial class SimulationStage : Stage
         data.ControlsTextList.Add(Keyboard.Key.T, new Tuple<string, bool>("Toggle Trails", false));
         //data.Input.TrackKey(Keyboard.Key.T);
 
-        for (int i = 0; i < 4096 * 4096 * 4; i++)
+        data.AidHeatmap = new int[1024, 1024];
+        data.PositionHeatmap = new int[1024, 1024];
+        data.RepairHeatmap = new int[1024, 1024];
+
+        for (int i = 0; i < 1024 * 1024 * 4; i++)
         {
             if (i % 4 == 3)
                 data.Trails[i] = 255;
@@ -37,7 +41,7 @@ partial class SimulationStage : Stage
         }
 
 
-        ITra = new Image(4096, 4096, data.Trails);
+        ITra = new Image(1024, 1024, data.Trails);
 
         TTra = new Texture(ITra);
 
@@ -61,7 +65,7 @@ partial class SimulationStage : Stage
             for (int i = 0; i < agentCount; i++)
             {
                 Agent a = new Agent();
-                a.init(data,new Vector2f(2048, 2048));
+                a.init(data,new Vector2f(512, 512));
                 a.info = new Color(32, 32, 0);
                 offset = ++offset % data.SpawnPositions.Count;
                 data.Agents.Add(a);

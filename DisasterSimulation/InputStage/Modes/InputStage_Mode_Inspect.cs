@@ -43,7 +43,7 @@ partial class InputStage : Stage
         
         if (data.Input.CheckKeyHeld(Keyboard.Key.R))
         {
-            if (CursorRadius < 4096f)
+            if (CursorRadius < 1024f)
                 CursorRadius += data.Settings.RadiusStep * data.Time.deltaTime;
         }
 
@@ -75,7 +75,7 @@ partial class InputStage : Stage
         if(data.Input.CheckKeyPressed(Keyboard.Key.S))
         {
             //Vector2f point = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
-            Vector2f point = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y ) * 4f; // new position for swapped windows
+            Vector2f point = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y ); // new position for swapped windows
 
             data.SpawnPositions.Add(point);
         }

@@ -11,11 +11,11 @@ partial class InputStage : Stage
         //CursorImage.Origin = new Vector2f(CursorRadius*1.1f, CursorRadius*1.1f);
         CursorImage.Origin = new Vector2f(CursorRadius, CursorRadius);
         CursorImage.OutlineColor = CursorColor;
-        CursorImage.OutlineThickness = 8f;
+        CursorImage.OutlineThickness = 4f;
         CursorImage.Radius = CursorRadius;
         CursorImage.FillColor = Color.Black;
         //CursorImage.Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4f;
-        CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y)*4f; // new position for swapped windows
+        CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y); // new position for swapped windows
 
         CursorProduction.Draw(CursorImage);
     }
@@ -28,7 +28,7 @@ partial class InputStage : Stage
 
         if(data.Input.CheckKeyHeld(Keyboard.Key.R))
         {
-            if(CursorRadius < 4096f)
+            if(CursorRadius < 512f)
                 CursorRadius += data.Settings.RadiusStep * data.Time.deltaTime;
         } 
 
@@ -55,7 +55,7 @@ partial class InputStage : Stage
     private Color getAverageColor()
     {
         //Vector2f Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
-        Vector2f Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X) * 4f, Mouse.GetPosition(data.Graphics.ProgramWindow).Y * 4f); // new position for swapped windows
+        Vector2f Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y); // new position for swapped windows
         EnvironmentProduction.Display();
         Image icopy = EnvironmentProduction.Texture.CopyToImage();
 
@@ -98,14 +98,14 @@ partial class InputStage : Stage
         //CursorImage.Origin = new Vector2f(CursorRadius * 1.1f, CursorRadius * 1.1f);
         CursorImage.Origin = new Vector2f(CursorRadius, CursorRadius);
         CursorImage.OutlineColor = Color.Black;
-        CursorImage.OutlineThickness = 8f;
+        CursorImage.OutlineThickness = 2f;
         CursorImage.Radius = CursorRadius;
         CursorImage.FillColor = new Color(
             (byte)(CursorColor.R * data.Settings.CursorPaintStep), 
             (byte)(CursorColor.G * data.Settings.CursorPaintStep), 
             (byte)(CursorColor.B * data.Settings.CursorPaintStep));
         //CursorImage.Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
-        CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y)*4f; // new position for swapped windows
+        CursorImage.Position = new Vector2f((Mouse.GetPosition(data.Graphics.ProgramWindow).X - data.Settings.InformationResolution.X), Mouse.GetPosition(data.Graphics.ProgramWindow).Y); // new position for swapped windows
 
         if (CursorAdditive)
         {
