@@ -23,7 +23,8 @@ partial class GraphicsHolder
         
         ProgramDisplayTexture = new RenderTexture(data.Settings.SimulationResolution.X, data.Settings.SimulationResolution.Y);
         ProgramInfoTexture = new RenderTexture(data.Settings.InformationResolution.X, data.Settings.InformationResolution.Y);
-        ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Disaster Reactor - CS4330 Project",Styles.Close);
+        ProgramWindow = new RenderWindow(new VideoMode(data.Settings.ScreenResolution.X, data.Settings.ScreenResolution.Y),"Disaster Reactor - CS4330 Project",Styles.Close | Styles.Titlebar);
+        
         Button.RenderWindow = ProgramWindow;
         RadioButton.RenderWindow = ProgramWindow;
         ToggleButton.RenderWindow = ProgramWindow;
