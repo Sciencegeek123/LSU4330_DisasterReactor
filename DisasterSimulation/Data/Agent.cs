@@ -29,7 +29,7 @@ class Agent
 
     private Data data;
 
-    byte BClamp(float f)
+    public byte BClamp(float f)
     {
         if (f > 255)
             return 255;
@@ -131,9 +131,12 @@ class Agent
 
     public void paintPosition()
     {
-        data.setPixel((int)Position.X, (int)Position.Y, info);
+        data.setPixel(Position.X, Position.Y, info);
     }
-
+    public Data getData()
+    {
+        return data;
+    }
     public void Update()
     {
         info.R = BClamp(info.R + 64); //Energy
@@ -193,5 +196,23 @@ class Agent
             if (data.rand.Next() % 256 > info.R)
                 break;
         }
+    }
+
+    public void setEC(Color input)
+    {
+        EC = input;
+    }
+    public void setTC(Color input)
+    {
+        TC = input;
+    }
+
+    public Color getEC()
+    {
+        return EC;
+    }
+    public Color getTC()
+    {
+        return TC;
     }
 }

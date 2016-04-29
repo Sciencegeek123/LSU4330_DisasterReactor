@@ -65,6 +65,26 @@
     <Reference Include="itextsharp.xtra">
       <HintPath>.\itextsharp.xtra.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTDNet.3.0.1.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
+      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="sfmlnet-audio-2, Version=2.2.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SFML.Net-2.2\lib\sfmlnet-audio-2.dll</HintPath>
@@ -134,6 +154,7 @@
     <Compile Include="SimulationStage\SimulationStage_Update.cs" />
     <Compile Include="SimulationStage\SimulationStage_Initialize.cs" />
     <Compile Include="SimulationStage\SimulationStage.cs" />
+    <Compile Include="Testing\Simulation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -143,6 +164,8 @@
     <None Include="Anonymous_Pro_B.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="csfml-audio-2.dll">
