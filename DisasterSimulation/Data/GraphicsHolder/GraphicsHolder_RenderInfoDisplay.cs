@@ -43,9 +43,6 @@ partial class GraphicsHolder
 
         if(SimStageLoaded)
         {
-            //ModesHeaderText.DisplayedString = "Toggle Options";
-            //ModesHeaderText.Origin = new Vector2f(ModesHeaderText.GetLocalBounds().Width / 2f, ModesHeaderText.GetLocalBounds().Height / 2f);
-            //ModesHeaderText.Position = new Vector2f(InspectModePanel.PanelShape.Position.X, offset + 20);
             InfoHeaderText.DisplayedString = "Toggle Options";
             InfoHeaderText.Origin = new Vector2f(InfoHeaderText.GetLocalBounds().Width / 2f, InfoHeaderText.GetLocalBounds().Height / 2f);
             InfoHeaderText.Position = new Vector2f(InspectModePanel.PanelShape.Position.X, offset + 20);
@@ -54,22 +51,15 @@ partial class GraphicsHolder
         else
         {
             InfoHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.Position.X, offset + 15);
-            if (!SimStageLoaded)
-            {
-                ProgramInfoTexture.Draw(InfoHeaderText);
-            }
-            //ModesHeaderText.Origin = new Vector2f(ModesHeaderText.GetLocalBounds().Width / 2f, ModesHeaderText.GetLocalBounds().Height / 2f);
-            //ModesHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.Position.X, offset + 20);
             offset += lineSize * 1.5f + 25;
         }
-        //ProgramInfoTexture.Draw(ModesHeaderText);
+        ProgramInfoTexture.Draw(InfoHeaderText);
 
-        foreach (Tuple<string, bool> str in data.InfoTextList) // Paint Mode subtext
+        foreach (Tuple<string, bool> str in data.InfoTextList) // Mode subtext
         {
             TextTemplate.DisplayedString = str.Item1;
             if (!InputStage.MapIsLoaded)
             {
-
                 InfoHeaderText.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
                 TextTemplate.Color = new Color(175, 175, 175, (byte)(255 * 0.45f));
             }
@@ -78,7 +68,8 @@ partial class GraphicsHolder
                 InfoHeaderText.Color = Color.Black;
                 TextTemplate.Color = Color.Black;
             }
-            TextTemplate.Position = new Vector2f(InfoHeaderText.Position.X - 150, offset);
+            TextTemplate.Origin = new Vector2f(0, 0); // setting origin to center of text
+            TextTemplate.Position = new Vector2f(100, offset);
 
             if (str.Item2)
                 TextTemplate.Font = BoldFont;
@@ -92,12 +83,10 @@ partial class GraphicsHolder
 
         offset += lineSize + 215;
 
-        //InfoHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.Position.X, offset - 125);
         ModesHeaderText.Origin = new Vector2f(ModesHeaderText.GetLocalBounds().Width / 2f, ModesHeaderText.GetLocalBounds().Height / 2f);
         ModesHeaderText.Position = new Vector2f(PaintModePanel.PanelShape.Position.X, offset - 175);
         if (!SimStageLoaded)
         {
-            //ProgramInfoTexture.Draw(InfoHeaderText);
             ProgramInfoTexture.Draw(ModesHeaderText);
         }
         offset += lineSize * 1.5f;
@@ -115,8 +104,17 @@ partial class GraphicsHolder
                 ModesHeaderText.Color = Color.Black;
                 TextTemplate.Color = Color.Black;
             }
-            if (TextTemplate.DisplayedString == "Please load a map") // handling the load a map text
+            if (TextTemplate.DisplayedString == "Please load a map" && !InputStage.MapIsLoaded) // handling the load a map text
             {
+                TextTemplate.Origin = new Vector2f(TextTemplate.GetLocalBounds().Width / 2f, TextTemplate.GetLocalBounds().Height / 2f); // setting origin to center of text
+                TextTemplate.Position = new Vector2f((LoadMapButton.ButtonSprite.Position.X + RunSimButton.ButtonSprite.Position.X) / 2f, LoadMapButton.ButtonSprite.Position.Y - 125); // positioning text between load map & run sim buttons
+                TextTemplate.Font = RegularFont;
+                TextTemplate.Color = Color.Black;
+                ProgramInfoTexture.Draw(TextTemplate);
+            }
+            else if(TextTemplate.DisplayedString == "Please load a map" && InputStage.MapIsLoaded)
+            {
+                TextTemplate.DisplayedString = "";
                 TextTemplate.Origin = new Vector2f(TextTemplate.GetLocalBounds().Width / 2f, TextTemplate.GetLocalBounds().Height / 2f); // setting origin to center of text
                 TextTemplate.Position = new Vector2f((LoadMapButton.ButtonSprite.Position.X + RunSimButton.ButtonSprite.Position.X) / 2f, LoadMapButton.ButtonSprite.Position.Y - 125); // positioning text between load map & run sim buttons
                 TextTemplate.Font = RegularFont;
@@ -132,7 +130,7 @@ partial class GraphicsHolder
                 }
                 else
                 {
-                    TextTemplate.Position = new Vector2f(InfoHeaderText.Position.X - 30, offset);
+                    TextTemplate.Position = new Vector2f(InfoHeaderText.Position.X - 145, offset - 297);
                 }
 
                 if (str.Value.Item2)

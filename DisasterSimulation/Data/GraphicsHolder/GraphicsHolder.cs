@@ -32,7 +32,6 @@ partial class GraphicsHolder
         ProgramWindow.Clear(Color.White);
         ProgramWindow.Display();
         ProgramWindow.RequestFocus();
-        //ProgramWindow.SetMouseCursorVisible(false);
 
         RegularFont = new Font("Anonymous_Pro.ttf");
         Button.ButtonFont = RegularFont;
@@ -44,22 +43,16 @@ partial class GraphicsHolder
         HeaderText.CharacterSize = data.Settings.InformationFontSize + 4;
         HeaderText.Position = new Vector2f(5, 5);
 
-        //ModesHeaderText = new Text("Modes: ", RegularFont);
         //INSPECT MODE HEADER TEXT
         ModesHeaderText = new Text("Inspect Mode", RegularFont);
         ModesHeaderText.Color = Color.Black;
         ModesHeaderText.CharacterSize = data.Settings.InformationFontSize + 10;
 
-        //InfoHeaderText = new Text("Info: ", RegularFont);
         //PAINT MODE HEADER TEXT
         InfoHeaderText = new Text("Mode", RegularFont);
         InfoHeaderText.Color = Color.Black;
         InfoHeaderText.CharacterSize = data.Settings.InformationFontSize + 10;
         InfoHeaderText.Origin = new Vector2f(InfoHeaderText.GetLocalBounds().Width / 2f, InfoHeaderText.GetLocalBounds().Height / 2f);
-
-        //ControlsHeaderText = new Text("Controls: ", RegularFont);
-        //ControlsHeaderText.Color = Color.Black;
-        //ControlsHeaderText.CharacterSize = data.Settings.InformationFontSize + 4;
 
         TextTemplate = new Text("VOID", RegularFont);
         TextTemplate.Color = Color.Black;

@@ -12,6 +12,6 @@ partial class InputStage : Stage
         Button.ButtonList.Clear();
         RadioButton.RadioButtonList.Clear();
         GraphicsHolder.SimStageLoaded = true;
-        Panel.PanelList.RemoveAt(1); // remove paint mode panel
+        Panel.PanelList.RemoveAt(0); // remove inspect mode panel
     }
 }

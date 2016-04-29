@@ -12,20 +12,14 @@ partial class SimulationStage : Stage
     {
 
         data = d;
-        //data.InfoTextList.Add(new System.Tuple<string, bool>("Simulation Stage", false));
-        //data.InfoTextList.Add(new System.Tuple<string, bool>("Press ESC to exit the program when desired.", false));
-
+        
         data.ControlsTextList.Add(Keyboard.Key.A, new Tuple<string, bool>("Toggle Agents", false));
-        //data.Input.TrackKey(Keyboard.Key.A);
 
         data.ControlsTextList.Add(Keyboard.Key.S, new Tuple<string, bool>("Toggle Spawns", false));
-        //data.Input.TrackKey(Keyboard.Key.S);
 
         data.ControlsTextList.Add(Keyboard.Key.E, new Tuple<string, bool>("Toggle Environment", false));
-        //data.Input.TrackKey(Keyboard.Key.E);
 
         data.ControlsTextList.Add(Keyboard.Key.T, new Tuple<string, bool>("Toggle Trails", false));
-        //data.Input.TrackKey(Keyboard.Key.T);
 
         data.AidHeatmap = new int[1024, 1024];
         data.PositionHeatmap = new int[1024, 1024];
