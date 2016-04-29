@@ -1,4 +1,21 @@
-﻿class ErrorText
+﻿/****************************************************************************************/
+/*
+/* FILE NAME: ErrorText.cs
+/*
+/* DESCRIPTION: Displays error text for specified duration when user performs certain invalid actions
+/*
+/* REFERENCE: 
+/*
+/*      DATE                 BY                 DESCRIPTION
+/* ========               =======               =============
+/* 4/25/2016            Khaleel Harris          Created the class
+/* 
+/*
+/*
+/*
+/****************************************************************************************/
+
+class ErrorText
 {
     public byte alphaValue;
     public string stringToDisplay;

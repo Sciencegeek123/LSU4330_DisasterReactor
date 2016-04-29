@@ -48,9 +48,10 @@ partial class InputStage : Stage
         //data.InfoTextList.Add(new System.Tuple<string, bool>("Blue  - Difficulty", false));
 
         //PAINT MODE ACTION TEXT
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Damage (Red)", false));
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Difficulty (Blue)", false));
-        data.InfoTextList.Add(new System.Tuple<string, bool>("Value (Green)", false));
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Inspect Mode", false));
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Paint Mode (Damage)", false));
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Paint Mode (Difficulty)", false));
+        data.InfoTextList.Add(new System.Tuple<string, bool>("Paint Mode (Value)", false));
 
         //Controls
         //data.ControlsTextList.Add(Keyboard.Key.M, new System.Tuple<string, bool>("Press M to switch modes", false));
@@ -61,7 +62,6 @@ partial class InputStage : Stage
         data.Input.TrackKey(Keyboard.Key.R);
         data.Input.TrackKey(Keyboard.Key.T);
         data.Input.TrackKey(Keyboard.Key.Space);
-        data.Input.TrackKey(Keyboard.Key.I);
 
         RadioButton.FadeColors(); // fade colors since all panels are deactivated until map is loaded
 

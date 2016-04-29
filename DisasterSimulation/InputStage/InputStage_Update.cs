@@ -45,6 +45,7 @@ partial class InputStage : Stage
                                         current.SetActive(true);
                                     }
                                     RadioButton.ReturnColorsToNormal();
+                                    RadioButton.GetRadioButtonByFunction(RadioButton.ButtonFunctions.Inspect).SelectRadioButton();
                                 }
                             }
                             break;
@@ -58,8 +59,6 @@ partial class InputStage : Stage
                                 {
                                     if (SpawnWarning)
                                     {
-                                        //SpawnWarning = false;
-                                        //data.InfoTextList.Add(new Tuple<string, bool>("At least one spawn must be set.", true));
                                         ErrorText.CurrentErrorText.ShowErrorText("At least one spawn must be set", 1f); // show spawn point error
                                     }
                                 }
@@ -82,10 +81,18 @@ partial class InputStage : Stage
             RadioButton ClickedButton = RadioButton.GetRadioButtonClicked();
             if(ClickedButton != null)
             {
+                Panel.GetPanelByMode(Panel.PanelModes.InspectMode).SetActive(false);
                 processInspectState = false;
                 ClickedButton.SelectRadioButton();
                 switch(ClickedButton.ButtonFunction)
                 {
+                    case RadioButton.ButtonFunctions.Inspect:
+                        {
+                            Panel.GetPanelByMode(Panel.PanelModes.InspectMode).SetActive(true);
+                            processInspectState = true;
+                            EnterInspectState();
+                            break;
+                        }
                     case RadioButton.ButtonFunctions.PaintDamage:
                         {
                             EnterDamageState();
@@ -107,65 +114,6 @@ partial class InputStage : Stage
             }
         }
 
-        if(data.Input.CheckKeyPressed(Keyboard.Key.I))
-        {
-            if(!MapIsLoaded) // show load map error - do not allow active panel swap
-            {
-                //ErrorText.CurrentErrorText.ShowErrorText("Please load a map", 1f);
-            }
-            else // enable inspect mode
-            {
-                if(RadioButton.ActivatedRadioButton != null)
-                {
-                    RadioButton.ActivatedRadioButton.DeselectRadioButton();
-                }
-                processInspectState = true;
-                EnterInspectState();
-                //if (PanelToActivate.PanelMode == Panel.PanelModes.InspectMode) // allow inspect mode input
-                //{
-                //    data.Input.TrackKey(Keyboard.Key.S);
-                //    data.Input.TrackKey(Keyboard.Key.C);
-                //    data.Input.TrackKey(Keyboard.Key.R);
-                //    data.Input.TrackKey(Keyboard.Key.T);
-                //    data.Input.TrackKey(Keyboard.Key.Space);
-                //    RadioButton.FadeColors(); // fade buttons since paint mode will be deactivated
-                //    EnterInspectState();
-                //}
-                //else //disable key tracking for inspect mode
-                //{
-                //    data.Input.UntrackKey(Keyboard.Key.S);
-                //    data.Input.UntrackKey(Keyboard.Key.C);
-                //    data.Input.UntrackKey(Keyboard.Key.R);
-                //    data.Input.UntrackKey(Keyboard.Key.T);
-                //    data.Input.UntrackKey(Keyboard.Key.Space);
-
-                //    RadioButton.ReturnColorsToNormal(); // set radio buttons to normal colors since paint mode will be reactivated
-
-                //    switch (RadioButton.ActivatedRadioButton.ButtonFunction)
-                //    {
-                //        case RadioButton.ButtonFunctions.PaintDamage:
-                //            {
-                //                EnterDamageState();
-                //                break;
-                //            }
-
-                //        case RadioButton.ButtonFunctions.PaintDifficulty:
-                //            {
-                //                EnterDifficultyState();
-                //                break;
-                //            }
-
-                //        case RadioButton.ButtonFunctions.PaintValue:
-                //            {
-                //                EnterValueState();
-                //                break;
-                //            }
-                //    }
-                //}
-            }
-        }
-
-        //if(Panel.ActivePanel != null && Panel.ActivePanel.PanelMode == Panel.PanelModes.InspectMode)
         if(processInspectState)
         {
             ProcessInspectState();

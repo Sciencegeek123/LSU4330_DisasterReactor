@@ -11,7 +11,7 @@ partial class GraphicsHolder
     public RenderWindow ProgramWindow;
 
     Button LoadMapButton, RunSimButton;
-    RadioButton PaintDifficultyButton, PaintDamageButton, PaintValueButton;
+    RadioButton PaintDifficultyButton, PaintDamageButton, PaintValueButton, InspectModeButton;
     ToggleButton ToggleAgentsButton, ToggleSpawnsButton, ToggleEnvironmentButton, ToggleTrailsButton;
     Panel InspectModePanel, PaintModePanel;
 
@@ -52,9 +52,10 @@ partial class GraphicsHolder
 
         //InfoHeaderText = new Text("Info: ", RegularFont);
         //PAINT MODE HEADER TEXT
-        InfoHeaderText = new Text("Paint Mode", RegularFont);
+        InfoHeaderText = new Text("Mode", RegularFont);
         InfoHeaderText.Color = Color.Black;
         InfoHeaderText.CharacterSize = data.Settings.InformationFontSize + 10;
+        InfoHeaderText.Origin = new Vector2f(InfoHeaderText.GetLocalBounds().Width / 2f, InfoHeaderText.GetLocalBounds().Height / 2f);
 
         //ControlsHeaderText = new Text("Controls: ", RegularFont);
         //ControlsHeaderText.Color = Color.Black;
@@ -65,19 +66,18 @@ partial class GraphicsHolder
         TextTemplate.CharacterSize = data.Settings.InformationFontSize;
 
         //Creating Panels
-        InspectModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.38f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.05f), Panel.PanelModes.InspectMode);
-        //InspectModePanel.SetActive(true);
-        PaintModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.80f, data.Settings.InformationResolution.Y * 0.25f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.50f), Panel.PanelModes.PaintMode);
+        InspectModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.85f, data.Settings.InformationResolution.Y * 0.38f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.37f), Panel.PanelModes.InspectMode);
+        PaintModePanel = new Panel(new Vector2f(data.Settings.InformationResolution.X * 0.85f, data.Settings.InformationResolution.Y * 0.30f), new Vector2f(data.Settings.InformationResolution.X / 2f, data.Settings.InformationResolution.Y * 0.05f), Panel.PanelModes.PaintMode);
 
         //Creating Buttons
         LoadMapButton = new Button("loadmapimage.png", new Vector2f(data.Graphics.ProgramInfoTexture.Size.X / 5f, data.Graphics.ProgramInfoTexture.Size.Y*0.95f), Button.ButtonFunctions.LoadMap);
         RunSimButton = new Button("runsimimage.png", new Vector2f(4*data.Graphics.ProgramInfoTexture.Size.X / 5f, data.Graphics.ProgramInfoTexture.Size.Y*0.95f), Button.ButtonFunctions.RunSim);
         
         //Creating Radio Buttons
-        PaintDamageButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 620), RadioButton.ButtonFunctions.PaintDamage);
-        //PaintDamageButton.SelectRadioButton();
-        PaintDifficultyButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 668), RadioButton.ButtonFunctions.PaintDifficulty);
-        PaintValueButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 125, 718), RadioButton.ButtonFunctions.PaintValue);
+        InspectModeButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 150, 160), RadioButton.ButtonFunctions.Inspect);
+        PaintDamageButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 150, 210), RadioButton.ButtonFunctions.PaintDamage);
+        PaintDifficultyButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 150, 260), RadioButton.ButtonFunctions.PaintDifficulty);
+        PaintValueButton = new RadioButton(new Vector2f(PaintModePanel.PanelShape.GetGlobalBounds().Width / 2f - 150, 310), RadioButton.ButtonFunctions.PaintValue);
 
 
         //Creating Toggle Buttons
@@ -94,7 +94,6 @@ partial class GraphicsHolder
     public void ClearWindow()
     {
         ProgramDisplayTexture.Clear(Color.Black);
-        //ProgramInfoTexture.Clear(Color.White);
         ProgramInfoTexture.Clear(new Color(235, 235, 235));
         ProgramWindow.Clear(Color.Magenta);
     }

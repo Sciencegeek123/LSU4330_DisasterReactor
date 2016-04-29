@@ -1,8 +1,24 @@
-﻿using SFML.System;
+﻿/****************************************************************************************/
+/*
+/* FILE NAME: ToggleButton.cs
+/*
+/* DESCRIPTION: Creates objects that register clicks within bounds in order to enable certain functions
+/*
+/* REFERENCE: 
+/*
+/*      DATE                 BY                 DESCRIPTION
+/* ========               =======               =============
+/* 4/25/2016            Khaleel Harris          Created the class
+/* 
+/*
+/*
+/*
+/****************************************************************************************/
+
+using SFML.System;
 using SFML.Graphics;
 using SFML.Window;
 using System.Collections.Generic;
-
 
 class ToggleButton
 {
@@ -32,12 +48,22 @@ class ToggleButton
         ToggleButtonList.Add(this);
     }
 
+/**
+* @param shouldEnable: whether or not the toggle button should be enabled or disabled
+* @return None
+* @details Enables or disabled the toggle button, changing its appearance
+*/
     public void ChangeToggleStatus(bool shouldEnable)
     {
         IsToggled = shouldEnable;
         InnerShape.FillColor = shouldEnable ? InnerShape_FillColorActivated : OuterShape_FillColor;
     }
 
+/**
+* @param None
+* @return ToggleButton object in ToggleButtonList, if one was clicked. Null otherwise.
+* @details Returns the toggle button that was clicked based on mouse coordinates. If no button was clicked, returns null.
+*/
     public static ToggleButton GetToggleButtonClicked()
     {
         foreach (ToggleButton current in ToggleButtonList)

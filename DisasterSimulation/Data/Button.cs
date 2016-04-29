@@ -1,4 +1,21 @@
-﻿using SFML.System;
+﻿/****************************************************************************************/
+/*
+/* FILE NAME: Button.cs
+/*
+/* DESCRIPTION: Creates objects that register clicks within bounds in order to perform certain actions
+/*
+/* REFERENCE: 
+/*
+/*      DATE                 BY                 DESCRIPTION
+/* ========               =======               =============
+/* 3/26/2016            Khaleel Harris          Created the class
+/* 4/25/2016            Khaleel Harris          Function to handle print created
+/*
+/*
+/*
+/****************************************************************************************/
+
+using SFML.System;
 using SFML.Graphics;
 using SFML.Window;
 using System.Collections.Generic;
@@ -27,6 +44,11 @@ class Button
         ButtonList.Add(this);
     }
 
+/**
+* @param None
+* @return Button object in ButtonList, if one was clicked. Null otherwise.
+* @details Returns the button that was clicked based on mouse coordinates. If no button was clicked, returns null.
+*/
     public static Button GetButtonClicked()
     {
         foreach (Button current in ButtonList)
@@ -36,7 +58,6 @@ class Button
             && Mouse.GetPosition(RenderWindow).Y >= current.ButtonSprite.Position.Y - current.ButtonSprite.Texture.Size.Y / 2f
             && Mouse.GetPosition(RenderWindow).Y <= current.ButtonSprite.Position.Y + current.ButtonSprite.Texture.Size.Y / 2f)
             {
-                //System.Console.WriteLine(current.Function + " button clicked");
                 return current;
             }
         }
