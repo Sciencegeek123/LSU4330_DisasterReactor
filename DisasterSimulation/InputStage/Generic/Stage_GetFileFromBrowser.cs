@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/// <summary>
+/// Get a file from the file browser using the Microsoft API.
+/// </summary>
 partial class Stage
 {
     

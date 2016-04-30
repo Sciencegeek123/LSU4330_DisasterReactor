@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
-
+/// <summary>
+/// Loads OSM files into the application.
+/// </summary>
 class InfastructureHolder
 {
     /*
@@ -25,11 +27,16 @@ class InfastructureHolder
     private uint Node;
     private Vector2f Position;
 
+    bool loaded = false;
+
     private Vector2f OriginBounds, Size;
 
     private Dictionary<uint, Vector2f> PointDictionary = new Dictionary<uint, Vector2f>();
     private List<Tuple<uint, uint>> LinkList = new List<Tuple<uint, uint>>();
-
+    /// <summary>
+    /// Reads an OSM file and stores it into a data structure.
+    /// </summary>
+    /// <param name="str">The filepath of the OSM file.</param>
     public void parseFile(string str)
     {
         XmlReader reader = XmlReader.Create(str);
@@ -86,11 +93,14 @@ class InfastructureHolder
             }
         }
         Console.Out.WriteLine("Map loaded.");
+        loaded = true;
     }
 
-
-
-
+    /// <summary>
+    /// Adds a node from the OSM file being read to a dictionary.
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <param name="Position"></param>
     public void addPointToDictionary(uint ID, Vector2f Position)
     {
         Position.X = (Position.X - OriginBounds.X) / Size.X;
@@ -101,17 +111,32 @@ class InfastructureHolder
 
     }
 
+    /// <summary>
+    /// Adds an edge from the OSM file benig read to a list.
+    /// </summary>
+    /// <param name="node1"></param>
+    /// <param name="node2"></param>
     public void addLinkToDictionary(uint node1, uint node2)
     {
         LinkList.Add(new Tuple<uint, uint>(node1, node2));
       //  Console.WriteLine("Link: " + node1 + " - " + node2);
     }
 
+    /// <summary>
+    /// Calculates the distance between two points.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
     public float Dist(Vector2f a, Vector2f b)
     {
         return (float)Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
     }
     
+    /// <summary>
+    /// Produces a value from the loaded data.
+    /// </summary>
+    /// <returns></returns>
    public Texture exportTextureResults()
    {
         RenderTexture Map = new RenderTexture(1024, 1024);
@@ -165,9 +190,14 @@ class InfastructureHolder
 
    }
    */
+
+    /// <summary>
+    /// Returns true if the file has been loaded correctly.
+    /// </summary>
+    /// <returns></returns>
     public bool isValid()
     {
-        return true;
+        return loaded;
 
     }
 
