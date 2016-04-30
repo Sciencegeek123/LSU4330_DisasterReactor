@@ -2,6 +2,10 @@
 using SFML.System;
 using SFML.Window;
 
+/// <summary>
+/// This file contains the information for painting damage onto the simulation.
+/// It is largely obsolete.
+/// </summary>
 partial class InputStage : Stage
 {
     void EnterDamageState()

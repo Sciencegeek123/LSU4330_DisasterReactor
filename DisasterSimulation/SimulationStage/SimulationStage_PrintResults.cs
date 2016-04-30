@@ -2,9 +2,19 @@
 using SFML.System;
 using System;
 using System.Collections.Generic;
-
+/// <summary>
+/// This file contains the code necessary for printing simulation output.
+/// </summary>
 partial class SimulationStage
 {
+    /// <summary>
+    /// This function creates a single image based upon what the caller specifies is needed.
+    /// </summary>
+    /// <param name="img">The image to modify, passed by reference.</param>
+    /// <param name="env">Render environment?</param>
+    /// <param name="trails">Render trails?</param>
+    /// <param name="spawn">Render spawns?</param>
+    /// <param name="agents">Render agents?</param>
     void RenderImage(ref Image img, bool env, bool trails, bool spawn, bool agents)
     {
         RenderTexture tex = new RenderTexture(1024, 1024);
@@ -59,6 +69,12 @@ partial class SimulationStage
         img = tex.Texture.CopyToImage();
     }
 
+    /// <summary>
+    /// This will generate a color given an integer and a max value. 0 LE value LE max
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="max"></param>
+    /// <returns></returns>
     Color generateColor(int value, int max)
     {
         double val = Math.Log10(value) / Math.Log10(max);
@@ -98,6 +114,11 @@ partial class SimulationStage
         }
     }
 
+    /// <summary>
+    /// This renders a heatmap given an input array of integers and an image to render to.
+    /// </summary>
+    /// <param name="img"></param>
+    /// <param name="data"></param>
     void RenderHeatmap(ref Image img, int[,] data)
     {
         int maxVal = 0;
@@ -119,63 +140,73 @@ partial class SimulationStage
 
     }
 
+    /// <summary>
+    /// This generates a number of images and saves them along with a PDF to a directory specified by the user.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     bool PrintResults(string filePath)
     {
+        if (!filePath.EndsWith("/"))
+            filePath += "/";
+
+        Console.Out.WriteLine("Saving output to: " + filePath);
+
         Image displayToSave = new Image(1024, 1024);
         List<string> Filepaths = new List<string>();
         List<string> Descriptions = new List<string>();
 
         //Just Trails
         RenderImage(ref displayToSave, true, false, true, false);
-        displayToSave.SaveToFile("SimulationDisplayOutput-0.png");
-        Filepaths.Add("SimulationDisplayOutput-0.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-0.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-0.png");
         Descriptions.Add("Initial Conditions. Environment and Spawn");
 
         //All Values
         RenderImage(ref displayToSave, true, true, true, true);
-        displayToSave.SaveToFile("SimulationDisplayOutput-1.png");
-        Filepaths.Add("SimulationDisplayOutput-1.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-1.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-1.png");
         Descriptions.Add("Showing Environment, Trails, Spawns, and Agents");
 
         //No Agents
         RenderImage(ref displayToSave, true, true, true, false);
-        displayToSave.SaveToFile("SimulationDisplayOutput-2.png");
-        Filepaths.Add("SimulationDisplayOutput-2.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-2.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-2.png");
         Descriptions.Add("Showing Environment, Trails, and Spawns");
 
         //No Agents or spawns
         RenderImage(ref displayToSave, true, true, false, false);
-        displayToSave.SaveToFile("SimulationDisplayOutput-3.png");
-        Filepaths.Add("SimulationDisplayOutput-3.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-3.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-3.png");
         Descriptions.Add("Showing Environment and Trails");
 
         //Just Trails
         RenderImage(ref displayToSave, false, true, false, false);
-        displayToSave.SaveToFile("SimulationDisplayOutput-4.png");
-        Filepaths.Add("SimulationDisplayOutput-4.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-4.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-4.png");
         Descriptions.Add("Showing Trails");
 
         //Position Heatmap w/ Spawns
         RenderHeatmap(ref displayToSave, data.PositionHeatmap);
-        displayToSave.SaveToFile("SimulationDisplayOutput-5.png");
-        Filepaths.Add("SimulationDisplayOutput-5.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-5.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-5.png");
         Descriptions.Add("Showing Position Heatmap");
 
         //Repair Heatmap w/ Spawns
         RenderHeatmap(ref displayToSave, data.RepairHeatmap);
-        displayToSave.SaveToFile("SimulationDisplayOutput-6.png");
-        Filepaths.Add("SimulationDisplayOutput-6.png");
+        displayToSave.SaveToFile(filePath + "SimulationDisplayOutput-6.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-6.png");
         Descriptions.Add("Showing Repair Heatmap");
 
         //Aid Heatmap w/ Spawns
         RenderHeatmap(ref displayToSave, data.AidHeatmap);
-        displayToSave.SaveToFile("SimulationDisplayOutput-7.png");
-        Filepaths.Add("SimulationDisplayOutput-7.png");
+        displayToSave.SaveToFile(filePath+"SimulationDisplayOutput-7.png");
+        Filepaths.Add(filePath + "SimulationDisplayOutput-7.png");
         Descriptions.Add("Showing Aid Heatmap");
 
         print printer = new print();
 
-        if (!printer.printfunction(Descriptions, Filepaths))
+        if (!printer.printfunction(Descriptions, Filepaths, filePath))
         {
             ErrorText.CurrentErrorText.ShowErrorText("Error creating pdf", 10f); // delta time triples during sim stage compared to input stage so need to multiply the value you want by 3
             return false;

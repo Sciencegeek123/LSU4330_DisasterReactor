@@ -2,6 +2,10 @@
 using SFML.System;
 using SFML.Window;
 
+/// <summary>
+/// This file contains the information for preparing the simulation for the geography state.
+/// It is completely obsolete.
+/// </summary>
 partial class InputStage : Stage
 {
     void EnterGeographicState()

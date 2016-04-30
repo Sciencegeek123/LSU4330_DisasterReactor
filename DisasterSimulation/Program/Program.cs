@@ -5,6 +5,9 @@ using System;
 using System.Windows;
 using System.Windows.Forms;
 
+/// <summary>
+/// The main class of the function containing the primary application loop and pipeline.
+/// </summary>
 class Program
 {
     [STAThread]

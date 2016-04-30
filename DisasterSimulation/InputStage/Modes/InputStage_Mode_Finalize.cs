@@ -3,6 +3,10 @@ using SFML.System;
 using SFML.Window;
 using System;
 
+/// <summary>
+/// This file contains the information for preparing the simulation for the simulation state.
+/// It is largely obsolete.
+/// </summary>
 partial class InputStage : Stage
 {
 

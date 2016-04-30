@@ -4,6 +4,10 @@ using SFML.Window;
 
 partial class InputStage : Stage
 {
+    /// <summary>
+    /// This prepares the Input stage for use.
+    /// </summary>
+    /// <param name="d"></param>
     public override void Initialize(Data d)
     {
         //Variable Initialization

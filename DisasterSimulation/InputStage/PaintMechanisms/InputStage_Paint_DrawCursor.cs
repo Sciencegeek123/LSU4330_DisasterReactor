@@ -3,8 +3,14 @@ using SFML.System;
 using SFML.Window;
 using System;
 
+/// <summary>
+/// This file contains the functions for drawing the cursor onto the simulation pane.
+/// </summary>
 partial class InputStage : Stage
 {
+    /// <summary>
+    /// This paints the cursor on the image.
+    /// </summary>
     private void DrawCursor()
     {
         CircleShape CursorImage = new CircleShape();
@@ -22,6 +28,9 @@ partial class InputStage : Stage
 
     float lastPress = -1;
 
+    /// <summary>
+    /// This performs cursor interactions like painting.
+    /// </summary>
     private void InteractCursor()
     {
         DrawCursor();
@@ -52,6 +61,10 @@ partial class InputStage : Stage
         }
     }
 
+    /// <summary>
+    /// This gets the average color for the area around the cursor. It's used for the inspection.
+    /// </summary>
+    /// <returns>The average color</returns>
     private Color getAverageColor()
     {
         //Vector2f Position = ((Vector2f)Mouse.GetPosition() - (Vector2f)data.Graphics.ProgramWindow.Position) * 4.0f;
@@ -92,6 +105,9 @@ partial class InputStage : Stage
         new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Subtract,
             BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add));
 
+    /// <summary>
+    /// This paints the cursor onto the environment when the user modifies something.
+    /// </summary>
     private void PaintCursor()
     {
         CircleShape CursorImage = new CircleShape();

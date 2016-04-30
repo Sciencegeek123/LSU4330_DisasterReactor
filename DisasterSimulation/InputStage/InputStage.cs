@@ -2,7 +2,9 @@
 using SFML.System;
 using SFML.Window;
 using System.Collections.Generic;
-
+/// <summary>
+/// Input stage is the program state that allows the user to prepare the simulation by inputing data.
+/// </summary>
 partial class InputStage : Stage
 {
     //Put all variables here. Each function should be in a different file.

@@ -123,13 +123,10 @@
     <Compile Include="InputStage\Modes\InputStage_Mode_Infastructure.cs" />
     <Compile Include="InputStage\Modes\InputStage_Mode_Geographic.cs" />
     <Compile Include="InputStage\PaintMechanisms\InputStage_Paint_DrawCursor.cs" />
-    <Compile Include="OutputStage\OutputStage_Update.cs" />
-    <Compile Include="OutputStage\OutputStage_Initialize.cs" />
     <Compile Include="OutputStage\OutputStage.cs" />
-    <Compile Include="OutputStage\print.cs" />
+    <Compile Include="SimulationStage\print.cs" />
     <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimulationStage\SimulationStage_SaveResults.cs" />
     <Compile Include="SimulationStage\SimulationStage_PrintResults.cs" />
     <Compile Include="SimulationStage\SimulationStage_Update.cs" />
     <Compile Include="SimulationStage\SimulationStage_Initialize.cs" />

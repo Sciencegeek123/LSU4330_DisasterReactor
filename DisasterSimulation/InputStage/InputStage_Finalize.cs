@@ -4,6 +4,11 @@ using SFML.Window;
 
 partial class InputStage : Stage
 {
+    /// <summary>
+    /// This function prepares the program for the simulation stage.
+    /// It removes all of the GUI elements.
+    /// </summary>
+    /// <param name="d"></param>
     public override void Finalize(Data d)
     {
         data.ModesTextList.Clear();

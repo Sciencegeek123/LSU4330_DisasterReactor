@@ -7,6 +7,10 @@ using System.Collections.Generic;
 
 partial class InputStage : Stage
 {
+    /// <summary>
+    /// This is the primary function for the input stage.
+    /// It executes once per iteration and checks for events such as key or mouse clicks, and draws the cursor as appropriate.
+    /// </summary>
     public override void Update()
     {
         // Hide Mouse Pointer while over simulation area

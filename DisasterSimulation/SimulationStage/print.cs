@@ -9,16 +9,18 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using SFML.System;
 
-
+/// <summary>
+/// This class creates a PDF image that is saved at a particular location, along with some additional files.
+/// </summary>
 class print
 {
-        public bool printfunction(List<string> ImageTitles, List<string> ImagePaths)
+        public bool printfunction(List<string> ImageTitles, List<string> ImagePaths, string location)
     {
         Document doc = new Document(iTextSharp.text.PageSize.LETTER, 10, 10, 42, 35);
         PdfWriter wri;
         try
         {
-            wri = PdfWriter.GetInstance(doc, new FileStream("output.pdf", FileMode.Create));
+            wri = PdfWriter.GetInstance(doc, new FileStream(location + "output.pdf", FileMode.Create));
         }
         catch (Exception)
         {
