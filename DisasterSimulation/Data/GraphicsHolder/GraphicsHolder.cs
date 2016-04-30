@@ -4,6 +4,9 @@ using SFML.Window;
 using System.IO;
 using System;
 
+/// <summary>
+/// The graphics holder class contains all of the data structures and functions needed to render the application.
+/// </summary>
 partial class GraphicsHolder
 {
     const float GraphicsInterval = 0.03333f;
@@ -17,6 +20,10 @@ partial class GraphicsHolder
 
     Data data;
 
+    /// <summary>
+    /// The initialize function will setup all of the elements of the project. Namely SFML components.
+    /// </summary>
+    /// <param name="d">A reference to the primary data structure in the application.</param>
     public void Initialize(Data d)
     {
         data = d;
@@ -85,6 +92,9 @@ partial class GraphicsHolder
         ToggleTrailsButton.ChangeToggleStatus(true);
     }
 
+    /// <summary>
+    /// Clears the window and render textures for the Application.
+    /// </summary>
     public void ClearWindow()
     {
         ProgramDisplayTexture.Clear(Color.Black);
@@ -95,6 +105,9 @@ partial class GraphicsHolder
     Sprite DisplaySprite = new Sprite();
     Sprite InformationSprite = new Sprite();
 
+    /// <summary>
+    /// Renders the primary window after the render textures have been populated.
+    /// </summary>
     public void RenderWindow()
     {
 

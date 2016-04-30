@@ -11,6 +11,9 @@ partial class GraphicsHolder
 
     public static bool SimStageLoaded;
 
+    /// <summary>
+    /// This panel renders the information pane on the left of the screen.
+    /// </summary>
     public void RenderInfo()
     {
         foreach (Panel current in Panel.PanelList) // Drawing Info Overlay Panels

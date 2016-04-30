@@ -3,6 +3,13 @@ using SFML.System;
 using SFML.Window;
 using System;
 
+/// <summary>
+/// Contains the code used to manage time within the application.
+/// 
+/// This class is mostly obsolete, as the application uses a fixed delta time for the simulation.
+/// 
+/// However, it exists for legacy compatibility reasons, and for GUI 2.0.
+/// </summary>
 class TimeHolder
 {
     DateTime StartTime, CurrentTime;

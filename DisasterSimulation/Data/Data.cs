@@ -4,6 +4,9 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// The primary data structure for the application. Contains all of the references and infromation that gets passed from stage to stage.
+/// </summary>
 class Data
 {
     public SettingHolder Settings;
@@ -31,11 +34,23 @@ class Data
 
     private float LastRenderTime = -1;
     
+    /// <summary>
+    /// Returns a pixel from the Trails image.
+    /// </summary>
+    /// <param name="X">The X location.</param>
+    /// <param name="Y">The Y location.</param>
+    /// <returns>The color at the given location.</returns>
     public Color getPixel(int X, int Y)
     {
         return new Color(Trails[(Y * 1024 + X) * 4 + 0], Trails[(Y * 1024 + X) * 4 + 1], Trails[(Y * 1024 + X) * 4 + 2], Trails[(Y * 1024 + X) * 4 + 3]);
     }
 
+    /// <summary>
+    /// Sets a pixel in the Trails image.
+    /// </summary>
+    /// <param name="X">The X location.</param>
+    /// <param name="Y">The Y location.</param>
+    /// <param name="C">The color to set.</param>
     public void setPixel(int X, int Y, Color C)
     {
         int pos = (Y * 1024 + X) * 4;
@@ -48,6 +63,9 @@ class Data
         Trails[pos + 2] = C.B;
     }
 
+    /// <summary>
+    /// Initializes the primary structure and sub-components.
+    /// </summary>
     public void Initialize()
     {
         Time = new TimeHolder();
@@ -60,6 +78,9 @@ class Data
         Graphics.Initialize(this);
     }
 
+    /// <summary>
+    /// Prepares the data structure for the next iteration.
+    /// </summary>
     public void PreUpdate()
     {
         Graphics.ProgramWindow.DispatchEvents();
@@ -68,6 +89,9 @@ class Data
         Input.Update();
     }
 
+    /// <summary>
+    /// Completes all necessary actions before the next iteration.
+    /// </summary>
     public void PostUpdate()
     {
         Graphics.RenderInfo();

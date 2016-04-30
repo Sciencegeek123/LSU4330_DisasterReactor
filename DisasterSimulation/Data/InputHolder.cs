@@ -4,6 +4,9 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
+/// <summary>
+/// A base class for monitoring keys.
+/// </summary>
 class MonitorKey
 {
     public bool Pressed = false;
@@ -12,6 +15,9 @@ class MonitorKey
     public float Read = -1;
 }
 
+/// <summary>
+/// A class to monitor the input of the user.
+/// </summary>
 class InputHolder
 {
     Data data;
@@ -20,12 +26,20 @@ class InputHolder
 
     private Dictionary<Keyboard.Key, MonitorKey> RegisteredKeys;
 
+    /// <summary>
+    /// Prepares the data structures.
+    /// </summary>
+    /// <param name="d">A reference to the primary data structure for the application.</param>
     public void Initialize(Data d)
     {
         data = d;
         RegisteredKeys = new Dictionary<Keyboard.Key, MonitorKey>();
     }
 
+    /// <summary>
+    /// Tells the input class to begin tracking a key.
+    /// </summary>
+    /// <param name="k">The key to track.</param>
     public void TrackKey(Keyboard.Key k)
     {
         if(!RegisteredKeys.ContainsKey(k))
@@ -35,16 +49,28 @@ class InputHolder
         //RegisteredKeys.Add(k, new MonitorKey());
     }
 
+    /// <summary>
+    /// Tells the input class to stop tracking a key.
+    /// </summary>
+    /// <param name="k">The key to stop tracking.</param>
     public void UntrackKey(Keyboard.Key k)
     {
         RegisteredKeys.Remove(k);
     }
 
+    /// <summary>
+    /// Tells the input class to stop tracking all keys.
+    /// </summary>
     public void ClearTrackedKeys()
     {
         RegisteredKeys.Clear();
     }
 
+    /// <summary>
+    /// Checks if a key is currently being held down.
+    /// </summary>
+    /// <param name="k">The key to check.</param>
+    /// <returns>True if the key is being held down.</returns>
     public bool CheckKeyHeld(Keyboard.Key k)
     {
         if (!RegisteredKeys.ContainsKey(k))
@@ -53,6 +79,11 @@ class InputHolder
         return RegisteredKeys[k].Held;
     }
 
+    /// <summary>
+    /// Checks if the key has been pressed and released.
+    /// </summary>
+    /// <param name="k">The key to check.</param>
+    /// <returns>Returns true if the key has been pressed.</returns>
     public bool CheckKeyPressed(Keyboard.Key k)
     {
         if (!RegisteredKeys.ContainsKey(k))
@@ -68,6 +99,9 @@ class InputHolder
         }
     }
 
+    /// <summary>
+    /// Checks all tracked keys for updates.
+    /// </summary>
     public void Update()
     {
         if(!data.Graphics.ProgramWindow.HasFocus())

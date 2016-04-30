@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
+/// <summary>
+/// Most of the major settings for the application.
+/// </summary>
 class SettingHolder
 {
     //Settings go here.

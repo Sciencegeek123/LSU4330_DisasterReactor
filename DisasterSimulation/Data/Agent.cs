@@ -8,6 +8,10 @@ using SFML.System;
 using SFML.Window;
 using System.IO;
 
+
+/// <summary>
+/// This is the intial AI class. It is designed to be expanded, or even compeletely replaced.
+/// </summary>
 class Agent
 {
 
@@ -28,7 +32,11 @@ class Agent
     public Color info = new Color(0, 0, 0);
 
     private Data data;
-
+    /// <summary>
+    /// A simple function that clamps a float to a byte. This is an explicit function, rather than an efficient one, as it is so important.
+    /// </summary>
+    /// <param name="f">The float to clamp.</param>
+    /// <returns></returns>
     byte BClamp(float f)
     {
         if (f > 255)
@@ -39,8 +47,13 @@ class Agent
             return (byte)f;
     }
 
-    private Color TC, EC;
+    private Color TC, EC; //Trails color, Environment color for the current position.
 
+    /// <summary>
+    /// Calculates the value function if the Agent performs this move.
+    /// </summary>
+    /// <param name="offset">THe move the Agent is considering.</param>
+    /// <returns>A value for this move.</returns>
     public float CalculateOffset(Vector2i offset)
     {
         Vector2i np = Position + offset;
@@ -52,17 +65,28 @@ class Agent
 
         return (data.rand.Next() % 512) * (((EC.R - TC.B) + (EC.G - TC.G) + (512 - TC.R - EC.B)) / 1024f);
     }
-
+    /// <summary>
+    /// Calculates a potential value if the Agent performs a repair at this location.
+    /// </summary>
+    /// <returns>An arbitrary value related to the repair operation.</returns>
     public float CalculateRepair()
     {
         return (data.rand.Next() % 512) * (EC.R - TC.B + 1) / (EC.B + 255);
     }
 
+    /// <summary>
+    /// Calculates a potential value if the agent performs an aid at this location.
+    /// </summary>
+    /// <returns>An arbitrary value related to the aid operation.</returns>
     public float CalculateAid()
     {
         return (data.rand.Next() % 512) * (EC.G - TC.G + 1) / (EC.B + 255);
     }
 
+    /// <summary>
+    /// Performs the modifications needed by a repair.
+    /// Modifies the trails data, agent energy, and repair heatmap.
+    /// </summary>
     public void PerformRepair()
     {
         //EC R & TC B
@@ -86,6 +110,10 @@ class Agent
         data.RepairHeatmap[Position.X, Position.Y]++;
     }
 
+    /// <summary>
+    /// Performs the modifications needed by an Aid action.
+    /// Modifies the trails data, agent energy, and increments the aid heatmap.
+    /// </summary>
     public void PerformAid()
     {
         //EC G & TC G
@@ -108,6 +136,11 @@ class Agent
         data.AidHeatmap[Position.X, Position.Y]++;
     }
 
+    /// <summary>
+    /// Performs the actions needed for a move operation.
+    /// Updates the Agent position, TC, and EC values.
+    /// </summary>
+    /// <param name="offset"></param>
     public void PerformMove(Vector2i offset)
     {
         Position += offset;
@@ -122,6 +155,11 @@ class Agent
         info.B = BClamp(TC.R + 8);
     }
 
+    /// <summary>
+    /// Initializes the agent structure with a data reference and starting location.
+    /// </summary>
+    /// <param name="d">A reference to the application data structure.</param>
+    /// <param name="p">A starting position for the object.</param>
     public void init(Data d, Vector2f p)
     {
         Position = new Vector2i((int)p.X,(int)p.Y);
@@ -129,11 +167,20 @@ class Agent
 
     }
 
-    public void paintPosition()
+    /// <summary>
+    /// Paints the AI onto the agent map.
+    /// 
+    /// This function has been depricated as it doesn't capture on-going processes well.
+    /// The overwrite erases useful information, and can result in logic errors where an AI will dance back and forth. (Specifically to Polka music.)
+    /// </summary>
+    [Obsolete] public void paintPosition()
     {
         data.setPixel((int)Position.X, (int)Position.Y, info);
     }
 
+    /// <summary>
+    /// Checks each action the AI may perform, and then performs the one with the highest value potential.
+    /// </summary>
     public void Update()
     {
         info.R = BClamp(info.R + 64); //Energy
